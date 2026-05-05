@@ -617,6 +617,40 @@
     .camadas { grid-template-columns: 1fr; }
     .nav-title { display: none; }
   }
+
+  /* ==================== NOVOS SLIDES — TEORIA + FRAMEWORK ==================== */
+  .step-row { display:flex; align-items:center; gap:1rem; padding:0.5rem 0; border-bottom:1px solid var(--glass-border); }
+  .step-row:last-child { border-bottom:none; }
+  .step-num { width:28px; height:28px; border-radius:50%; background:var(--neon); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px; flex-shrink:0; }
+  .step-bad .step-num { background:#ef4444; }
+  .card-bad { border-color:rgba(239,68,68,0.3); }
+  .card-good { border-color:rgba(74,222,128,0.3); }
+  .card-highlight { border-color:var(--neon); background:var(--neon-dim); }
+  .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+  .mini-card { background:var(--glass); border:1px solid var(--glass-border); border-radius:10px; padding:0.75rem 1rem; display:flex; align-items:center; gap:0.5rem; font-weight:500; }
+  .cmd-row { display:flex; align-items:center; gap:1rem; padding:0.75rem 1rem; background:var(--glass); border:1px solid var(--glass-border); border-radius:10px; }
+  .cmd-name { font-family:var(--font-mono); color:var(--neon); font-weight:600; min-width:160px; font-size:0.95rem; }
+  .cmd-desc { flex:1; color:var(--text); font-size:0.95rem; }
+  .cmd-freq { font-size:0.78rem; color:var(--muted); background:var(--bg-card); border:1px solid var(--glass-border); border-radius:6px; padding:2px 8px; white-space:nowrap; }
+  .terminal { background:#0d1117; border:1px solid var(--glass-border); border-radius:12px; overflow:hidden; font-family:var(--font-mono); font-size:0.88rem; }
+  .terminal-bar { background:#1a1a2e; padding:10px 14px; display:flex; align-items:center; gap:6px; }
+  .t-dot { width:12px; height:12px; border-radius:50%; }
+  .t-dot.red { background:#ff5f57; }
+  .t-dot.yellow { background:#ffbd2e; }
+  .t-dot.green { background:#28c840; }
+  .t-label { margin-left:auto; color:var(--muted); font-size:0.78rem; }
+  .terminal-body { padding:1.25rem 1.5rem; display:flex; flex-direction:column; gap:2px; }
+  .t-line { color:#c9d1d9; white-space:pre; line-height:1.7; }
+  .t-gap { height:8px; }
+  .t-prompt { color:var(--success); margin-right:8px; }
+  .t-q { color:var(--warning); margin-right:8px; }
+  .t-ans { color:var(--text); }
+  .t-pink { color:var(--neon); }
+  .t-cyan { color:#58a6ff; }
+  .t-success { color:var(--success); }
+  .t-header { color:var(--muted); }
+  .t-muted { color:var(--muted); }
+  .cmd-single { background:var(--bg); border:1px solid var(--glass-border); border-radius:8px; padding:0.5rem 0.75rem; font-family:var(--font-mono); font-size:0.85rem; display:inline-block; }
 </style>
 </head>
 <body>
@@ -649,7 +683,7 @@
     <h1 class="title">Construindo seu <span class="gradient">Segundo Cérebro</span><br />com Claude Code + Obsidian</h1>
     <p class="lead">Um vault portátil em Markdown que cresce sozinho. Um agente que faz a manutenção. Tudo em PT-BR. Padrão Karpathy + PARA.</p>
     <div class="hero-meta">
-      <div class="hero-meta-item"><span class="dot"></span>29 slides · ~25 min</div>
+      <div class="hero-meta-item"><span class="dot"></span>36 slides · ~30 min</div>
       <div class="hero-meta-item"><span class="dot"></span>Hands-on · zero teoria gratuita</div>
       <div class="hero-meta-item"><span class="dot"></span>Aplicável hoje</div>
     </div>
@@ -780,8 +814,103 @@
   </div>
 </section>
 
-<!-- ============== SLIDE 6: APPEND-AND-REVIEW ============== -->
+<!-- ============== SLIDE 6: QUEM É KARPATHY ============== -->
 <section class="slide" data-slide="6">
+  <div class="slide-inner">
+    <div class="label">teoria</div>
+    <h2 class="section-title">Quem é <span class="gradient">Andrej Karpathy</span></h2>
+    <div class="grid-2" style="margin-top:2rem; gap:2rem;">
+      <div class="card">
+        <div class="card-label">trajetória</div>
+        <ul class="list mt-16">
+          <li>PhD Stanford — IA e visão computacional</li>
+          <li>Co-fundador da OpenAI (2015)</li>
+          <li>Head de IA na Tesla (Autopilot)</li>
+          <li>Volta à OpenAI como pesquisador sênior</li>
+          <li>2024: funda Eureka Labs (educação + IA)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">por que ele importa aqui</div>
+        <ul class="list mt-16">
+          <li>Criou o termo <strong>"vibe coding"</strong></li>
+          <li>Construiu seu próprio segundo cérebro e documentou o método publicamente</li>
+          <li>Pensa em <em>sistemas</em>, não em ferramentas</li>
+          <li>O método dele é usado por engenheiros de IA do mundo inteiro</li>
+        </ul>
+      </div>
+    </div>
+    <blockquote class="callout callout-quote mt-32">
+      "The brain is not for storing information — it is for having ideas."
+      <cite>— inspiração central do método</cite>
+    </blockquote>
+  </div>
+</section>
+
+<!-- ============== SLIDE 7: POR QUE ELE CRIOU ============== -->
+<section class="slide" data-slide="7">
+  <div class="slide-inner">
+    <div class="label">teoria</div>
+    <h2 class="section-title">O problema que o <span class="gradient">Karpathy resolveu</span></h2>
+    <div class="card mt-32" style="max-width:720px; margin-left:auto; margin-right:auto;">
+      <div class="card-label">o ciclo quebrado</div>
+      <div style="display:flex; flex-direction:column; gap:1rem; margin-top:1.5rem;">
+        <div class="step-row"><span class="step-num">1</span><span>Você lê um artigo excelente</span></div>
+        <div class="step-row"><span class="step-num">2</span><span>Você entende tudo na hora</span></div>
+        <div class="step-row"><span class="step-num">3</span><span>Você não anota nada (ou anota de forma desorganizada)</span></div>
+        <div class="step-row step-bad"><span class="step-num">4</span><span>Em 2 semanas, você esqueceu 90% do conteúdo</span></div>
+        <div class="step-row step-bad"><span class="step-num">5</span><span>Você relê o mesmo artigo 6 meses depois</span></div>
+      </div>
+    </div>
+    <div class="grid-2 mt-32" style="gap:1.5rem;">
+      <div class="card card-bad">
+        <div class="card-label">antes do método</div>
+        <p class="mt-8">Notas em 5 apps diferentes. Sem conexão. Esquecidas em semanas. O conhecimento não se acumula.</p>
+      </div>
+      <div class="card card-good">
+        <div class="card-label">com o método Karpathy</div>
+        <p class="mt-8">Uma nota viva que cresce. O LLM mantém o wiki. Você acumula contexto real ao longo de anos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== SLIDE 8: LLM WIKI VS RAG ============== -->
+<section class="slide" data-slide="8">
+  <div class="slide-inner">
+    <div class="label">teoria</div>
+    <h2 class="section-title">LLM Wiki <span class="gradient">vs</span> RAG</h2>
+    <p class="subtitle mt-16">Por que Karpathy escolheu wiki estruturada em vez de busca vetorial</p>
+    <div class="grid-2 mt-32" style="gap:2rem;">
+      <div class="card">
+        <div class="card-label">RAG (busca vetorial)</div>
+        <ul class="list mt-16">
+          <li>Chunks isolados sem contexto</li>
+          <li>Boa para busca pontual ("me dá esse trecho")</li>
+          <li>Ruim para raciocínio ("como X se conecta com Y?")</li>
+          <li>Depende de embeddings e infraestrutura</li>
+          <li>Conhecimento fragmentado</li>
+        </ul>
+      </div>
+      <div class="card card-highlight">
+        <div class="card-label">LLM Wiki (método Karpathy)</div>
+        <ul class="list mt-16">
+          <li>Páginas com contexto completo e conexões</li>
+          <li>Ótimo para raciocínio e síntese</li>
+          <li>O LLM entende relações entre conceitos</li>
+          <li>Só precisa de arquivos .md</li>
+          <li>Conhecimento acumulado e conectado</li>
+        </ul>
+      </div>
+    </div>
+    <blockquote class="callout callout-info mt-32">
+      RAG busca documentos. Wiki entende contexto. Para um segundo cérebro pessoal, contexto vence.
+    </blockquote>
+  </div>
+</section>
+
+<!-- ============== SLIDE 9: APPEND-AND-REVIEW ============== -->
+<section class="slide" data-slide="9">
   <div class="slide-inner">
     <div class="eyebrow">Padrão 1 · Karpathy</div>
     <h2 class="section-title">Append-and-Review</h2>
@@ -819,8 +948,8 @@
   </div>
 </section>
 
-<!-- ============== SLIDE 7: LLM WIKI ============== -->
-<section class="slide" data-slide="7">
+<!-- ============== SLIDE 10: LLM WIKI ============== -->
+<section class="slide" data-slide="10">
   <div class="slide-inner">
     <div class="eyebrow">Padrão 2 · Karpathy</div>
     <h2 class="section-title">LLM Wiki — 3 camadas</h2>
@@ -850,8 +979,8 @@
   </div>
 </section>
 
-<!-- ============== SLIDE 8: PT-BR ============== -->
-<section class="slide" data-slide="8">
+<!-- ============== SLIDE 11: PT-BR ============== -->
+<section class="slide" data-slide="11">
   <div class="slide-inner">
     <div class="eyebrow">Regra absoluta</div>
     <h2 class="section-title">Por que <span class="gradient">tudo em PT-BR</span></h2>
@@ -880,8 +1009,8 @@
   </div>
 </section>
 
-<!-- ============== SLIDE 9: PRÉ-REQUISITOS ============== -->
-<section class="slide" data-slide="9">
+<!-- ============== SLIDE 12: PRÉ-REQUISITOS ============== -->
+<section class="slide" data-slide="12">
   <div class="slide-inner">
     <div class="eyebrow">Setup · Hands-on começa aqui</div>
     <h2 class="section-title">Pré-requisitos</h2>
@@ -902,8 +1031,8 @@
   </div>
 </section>
 
-<!-- ============== SLIDE 10: INSTALAR OBSIDIAN ============== -->
-<section class="slide" data-slide="10">
+<!-- ============== SLIDE 13: INSTALAR OBSIDIAN ============== -->
+<section class="slide" data-slide="13">
   <div class="slide-inner">
     <div class="eyebrow">Passo 1</div>
     <h2 class="section-title">Instalar Obsidian</h2>
@@ -937,8 +1066,8 @@
   </div>
 </section>
 
-<!-- ============== SLIDE 11: INSTALAR CLAUDE CODE ============== -->
-<section class="slide" data-slide="11">
+<!-- ============== SLIDE 14: INSTALAR CLAUDE CODE ============== -->
+<section class="slide" data-slide="14">
   <div class="slide-inner">
     <div class="eyebrow">Passo 2</div>
     <h2 class="section-title">Instalar Claude Code</h2>
@@ -972,8 +1101,8 @@
   </div>
 </section>
 
-<!-- ============== SLIDE 12: PASTA DO VAULT ============== -->
-<section class="slide" data-slide="12">
+<!-- ============== SLIDE 15: PASTA DO VAULT ============== -->
+<section class="slide" data-slide="15">
   <div class="slide-inner">
     <div class="eyebrow">Passo 3</div>
     <h2 class="section-title">Criar a pasta do vault</h2>
@@ -999,8 +1128,8 @@
   </div>
 </section>
 
-<!-- ============== SLIDE 13: ESTRUTURA DE PASTAS ============== -->
-<section class="slide" data-slide="13">
+<!-- ============== SLIDE 16: ESTRUTURA DE PASTAS ============== -->
+<section class="slide" data-slide="16">
   <div class="slide-inner">
     <div class="eyebrow">Passo 4</div>
     <h2 class="section-title">Estrutura de pastas</h2>
@@ -1034,8 +1163,8 @@
   </div>
 </section>
 
-<!-- ============== SLIDE 14: CLAUDE.md ============== -->
-<section class="slide" data-slide="14">
+<!-- ============== SLIDE 17: CLAUDE.md ============== -->
+<section class="slide" data-slide="17">
   <div class="slide-inner">
     <div class="eyebrow">Passo 5 · A peça mais importante</div>
     <h2 class="section-title">Criar <span class="gradient">CLAUDE.md</span> (o schema)</h2>
@@ -1070,8 +1199,8 @@
   </div>
 </section>
 
-<!-- ============== SLIDE 15: COMANDO ÚNICO PRO CLAUDE ============== -->
-<section class="slide" data-slide="15">
+<!-- ============== SLIDE 18: COMANDO ÚNICO PRO CLAUDE ============== -->
+<section class="slide" data-slide="18">
   <div class="slide-inner">
     <div class="eyebrow">Passo 6 · O truque</div>
     <h2 class="section-title">Deixar o Claude criar tudo</h2>
@@ -1112,8 +1241,8 @@ Cria:
   </div>
 </section>
 
-<!-- ============== SLIDE 16: ABRIR OBSIDIAN + PLUGINS ============== -->
-<section class="slide" data-slide="16">
+<!-- ============== SLIDE 19: ABRIR OBSIDIAN + PLUGINS ============== -->
+<section class="slide" data-slide="19">
   <div class="slide-inner">
     <div class="eyebrow">Passo 7</div>
     <h2 class="section-title">Abrir no Obsidian + 4 plugins</h2>
@@ -1159,8 +1288,8 @@ Cria:
   </div>
 </section>
 
-<!-- ============== SLIDE 17: SCRIPT CAP ============== -->
-<section class="slide" data-slide="17">
+<!-- ============== SLIDE 20: SCRIPT CAP ============== -->
+<section class="slide" data-slide="20">
   <div class="slide-inner">
     <div class="eyebrow">Anel 1 · Terminal</div>
     <h2 class="section-title">Captura do <span class="gradient">terminal</span></h2>
@@ -1195,8 +1324,8 @@ Cria:
   </div>
 </section>
 
-<!-- ============== SLIDE 18: /CAPTURAR ============== -->
-<section class="slide" data-slide="18">
+<!-- ============== SLIDE 21: /CAPTURAR ============== -->
+<section class="slide" data-slide="21">
   <div class="slide-inner">
     <div class="eyebrow">Anel 2 · Claude Code</div>
     <h2 class="section-title">Slash command <span class="gradient">/capturar</span></h2>
@@ -1230,8 +1359,8 @@ e confirma em PT-BR que foi capturado.</pre></div>
   </div>
 </section>
 
-<!-- ============== SLIDE 19: /CEREBRO ============== -->
-<section class="slide" data-slide="19">
+<!-- ============== SLIDE 22: /CEREBRO ============== -->
+<section class="slide" data-slide="22">
   <div class="slide-inner">
     <div class="eyebrow">Anel 2 · Claude Code (continuação)</div>
     <h2 class="section-title">Slash <span class="gradient">/cerebro</span> e <span class="gradient">/cerebro-ingest</span></h2>
@@ -1270,8 +1399,8 @@ e confirma em PT-BR que foi capturado.</pre></div>
   </div>
 </section>
 
-<!-- ============== SLIDE 20: WORKFLOW CAPTURA ============== -->
-<section class="slide" data-slide="20">
+<!-- ============== SLIDE 23: WORKFLOW CAPTURA ============== -->
+<section class="slide" data-slide="23">
   <div class="slide-inner">
     <div class="eyebrow">Workflow 1 · Diário</div>
     <h2 class="section-title">Captura zero-fricção</h2>
@@ -1314,8 +1443,8 @@ e confirma em PT-BR que foi capturado.</pre></div>
   </div>
 </section>
 
-<!-- ============== SLIDE 21: DAILY NOTE ============== -->
-<section class="slide" data-slide="21">
+<!-- ============== SLIDE 24: DAILY NOTE ============== -->
+<section class="slide" data-slide="24">
   <div class="slide-inner">
     <div class="eyebrow">Workflow 2 · Manhã/Noite</div>
     <h2 class="section-title">Daily note</h2>
@@ -1349,8 +1478,8 @@ e confirma em PT-BR que foi capturado.</pre></div>
   </div>
 </section>
 
-<!-- ============== SLIDE 22: INGEST ============== -->
-<section class="slide" data-slide="22">
+<!-- ============== SLIDE 25: INGEST ============== -->
+<section class="slide" data-slide="25">
   <div class="slide-inner">
     <div class="eyebrow">Workflow 3 · Consumir conteúdo</div>
     <h2 class="section-title">Ingest de uma fonte</h2>
@@ -1387,8 +1516,8 @@ e confirma em PT-BR que foi capturado.</pre></div>
   </div>
 </section>
 
-<!-- ============== SLIDE 23: PERGUNTA ============== -->
-<section class="slide" data-slide="23">
+<!-- ============== SLIDE 26: PERGUNTA ============== -->
+<section class="slide" data-slide="26">
   <div class="slide-inner">
     <div class="eyebrow">Workflow 4 · Recall</div>
     <h2 class="section-title">Perguntar ao wiki</h2>
@@ -1421,8 +1550,8 @@ cada um é melhor?</pre></div>
   </div>
 </section>
 
-<!-- ============== SLIDE 24: LINT ============== -->
-<section class="slide" data-slide="24">
+<!-- ============== SLIDE 27: LINT ============== -->
+<section class="slide" data-slide="27">
   <div class="slide-inner">
     <div class="eyebrow">Workflow 5 · Manutenção</div>
     <h2 class="section-title">Lint do wiki</h2>
@@ -1457,8 +1586,8 @@ cada um é melhor?</pre></div>
   </div>
 </section>
 
-<!-- ============== SLIDE 25: 5 ANÉIS ============== -->
-<section class="slide" data-slide="25">
+<!-- ============== SLIDE 28: 5 ANÉIS ============== -->
+<section class="slide" data-slide="28">
   <div class="slide-inner">
     <div class="eyebrow">Como usar SEMPRE</div>
     <h2 class="section-title">Os <span class="gradient">5 anéis</span> de uso</h2>
@@ -1511,8 +1640,8 @@ cada um é melhor?</pre></div>
   </div>
 </section>
 
-<!-- ============== SLIDE 26: ROTINA 60s ============== -->
-<section class="slide" data-slide="26">
+<!-- ============== SLIDE 29: ROTINA 60s ============== -->
+<section class="slide" data-slide="29">
   <div class="slide-inner">
     <div class="eyebrow">Hábito que gruda</div>
     <h2 class="section-title">Rotina de <span class="gradient">60 segundos</span></h2>
@@ -1548,8 +1677,8 @@ cada um é melhor?</pre></div>
   </div>
 </section>
 
-<!-- ============== SLIDE 27: HABIT STACKING ============== -->
-<section class="slide" data-slide="27">
+<!-- ============== SLIDE 30: HABIT STACKING ============== -->
+<section class="slide" data-slide="30">
   <div class="slide-inner">
     <div class="eyebrow">Habit stacking</div>
     <h2 class="section-title">Amarrar a rotinas que já existem</h2>
@@ -1574,8 +1703,8 @@ cada um é melhor?</pre></div>
   </div>
 </section>
 
-<!-- ============== SLIDE 28: CHECKLIST ============== -->
-<section class="slide" data-slide="28">
+<!-- ============== SLIDE 31: CHECKLIST ============== -->
+<section class="slide" data-slide="31">
   <div class="slide-inner">
     <div class="eyebrow">Checkpoint final</div>
     <h2 class="section-title">Você tem tudo se...</h2>
@@ -1621,8 +1750,8 @@ cada um é melhor?</pre></div>
   </div>
 </section>
 
-<!-- ============== SLIDE 29: ENCERRAMENTO ============== -->
-<section class="slide" data-slide="29">
+<!-- ============== SLIDE 32: ENCERRAMENTO ============== -->
+<section class="slide" data-slide="32">
   <div class="slide-inner">
     <div class="eyebrow">Próximos passos</div>
     <h2 class="section-title">O segundo cérebro <span class="gradient">só funciona se você usar</span></h2>
