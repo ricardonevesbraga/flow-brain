@@ -1,0 +1,17 @@
+{
+  "alwaysUpdateLinks": true,
+  "useMarkdownLinks": false,
+  "newLinkFormat": "shortest",
+  "attachmentFolderPath": "anexos",
+  "newFileLocation": "folder",
+  "newFileFolderPath": "00-inbox",
+  "promptDelete": true,
+  "showLineNumber": true,
+  "spellcheckLanguages": [
+    "pt-BR"
+  ],
+  "useTab": false,
+  "tabSize": 2,
+  "showInlineTitle": true,
+  "trashOption": "system"
+}

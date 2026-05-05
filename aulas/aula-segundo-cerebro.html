@@ -1,0 +1,1794 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Construindo seu Segundo Cérebro · Claude Code + Obsidian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  /* ==================== TOKENS ==================== */
+  :root {
+    --bg: #0a0a0a;
+    --bg-soft: #111114;
+    --bg-card: #16161b;
+    --neon: #e8006a;
+    --neon-soft: rgba(232, 0, 106, 0.18);
+    --neon-dim: rgba(232, 0, 106, 0.08);
+    --glass: rgba(255, 255, 255, 0.04);
+    --glass-strong: rgba(255, 255, 255, 0.06);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --text: #f5f5f7;
+    --muted: #9b9ba4;
+    --success: #4ade80;
+    --warning: #fbbf24;
+    --font-head: "Barlow", system-ui, -apple-system, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+
+  body.theme-light {
+    --bg: #fafafa;
+    --bg-soft: #ffffff;
+    --bg-card: #ffffff;
+    --glass: rgba(0, 0, 0, 0.03);
+    --glass-strong: rgba(0, 0, 0, 0.05);
+    --glass-border: rgba(0, 0, 0, 0.08);
+    --text: #0a0a0a;
+    --muted: #6b6b75;
+  }
+
+  /* ==================== RESET ==================== */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; overflow: hidden; }
+  body {
+    font-family: var(--font-head);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 17px;
+    line-height: 1.55;
+    overflow: hidden;
+    transition: background 0.4s ease, color 0.4s ease;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-head); font-weight: 600; line-height: 1.15; }
+  code, .mono { font-family: var(--font-mono); }
+  a { color: var(--neon); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ==================== CURSOR AURA ==================== */
+  .cursor-aura {
+    position: fixed;
+    width: 380px;
+    height: 380px;
+    background: radial-gradient(circle at center, rgba(232, 0, 106, 0.18) 0%, rgba(232, 0, 106, 0) 60%);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    transition: opacity 0.3s ease;
+    mix-blend-mode: screen;
+  }
+  body.theme-light .cursor-aura { mix-blend-mode: multiply; opacity: 0.6; }
+
+  /* ==================== NAVBAR ==================== */
+  .navbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px;
+    background: rgba(10, 10, 10, 0.7);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--glass-border);
+    z-index: 100;
+    transition: background 0.4s ease;
+  }
+  body.theme-light .navbar { background: rgba(250, 250, 250, 0.85); }
+  .nav-left { display: flex; align-items: center; gap: 16px; }
+  .nav-logo {
+    font-weight: 700; font-size: 14px; letter-spacing: 1px;
+    color: var(--neon); text-transform: uppercase;
+  }
+  .nav-title {
+    font-size: 13px; color: var(--muted);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-title .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--muted); }
+  .nav-right { display: flex; align-items: center; gap: 8px; }
+  .nav-btn {
+    width: 38px; height: 38px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--glass-border);
+    background: var(--glass);
+    color: var(--text);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    font-family: var(--font-mono);
+  }
+  .nav-btn:hover { border-color: var(--neon); color: var(--neon); transform: translateY(-1px); }
+  .nav-btn:active { transform: translateY(0); }
+  .nav-counter {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--muted);
+    padding: 0 12px;
+    min-width: 70px;
+    text-align: center;
+  }
+  .nav-counter .current { color: var(--text); font-weight: 600; }
+
+  /* ==================== PROGRESS BAR ==================== */
+  .progress-bar {
+    position: fixed; top: 56px; left: 0; right: 0;
+    height: 2px;
+    background: var(--glass);
+    z-index: 99;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--neon), #ff3b8a);
+    width: 0%;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 12px var(--neon);
+  }
+
+  /* ==================== DECK & SLIDES ==================== */
+  .deck {
+    position: fixed;
+    top: 58px; left: 0; right: 0; bottom: 0;
+    overflow: hidden;
+  }
+  .slide {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    padding: 56px 7vw 80px;
+    overflow-y: auto;
+    opacity: 0;
+    transform: translateX(60px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    pointer-events: none;
+  }
+  .slide.in-view {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+  .slide.out-left {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  .slide-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ==================== TYPOGRAPHY ==================== */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--neon);
+    margin-bottom: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 24px; height: 1px;
+    background: var(--neon);
+  }
+  h1.title {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 22px;
+  }
+  h2.section-title {
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 600;
+    line-height: 1.1;
+    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+  }
+  h3.subtitle {
+    font-size: clamp(20px, 2.2vw, 26px);
+    font-weight: 500;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+  .lead {
+    font-size: clamp(17px, 1.6vw, 20px);
+    color: var(--muted);
+    max-width: 720px;
+    line-height: 1.6;
+  }
+  .gradient {
+    background: linear-gradient(135deg, var(--neon) 0%, #ff5fa3 50%, #b500ff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* ==================== HERO ==================== */
+  .hero-meta {
+    display: flex; gap: 24px;
+    margin-top: 36px;
+    flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 14px; color: var(--muted);
+    font-family: var(--font-mono);
+  }
+  .hero-meta-item .dot { width: 6px; height: 6px; background: var(--neon); border-radius: 50%; }
+  .hero-cta {
+    margin-top: 48px;
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 14px 28px;
+    background: var(--neon);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: var(--font-head);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 8px 32px -8px var(--neon);
+  }
+  .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 40px -8px var(--neon); }
+
+  /* ==================== STEP ==================== */
+  .step {
+    display: flex;
+    gap: 18px;
+    padding: 22px 24px;
+    border: 1px solid rgba(232, 0, 106, 0.35);
+    border-radius: 10px;
+    background: var(--glass);
+    margin-bottom: 14px;
+    transition: all 0.3s ease;
+  }
+  .step:hover {
+    border-color: var(--neon);
+    background: var(--glass-strong);
+    transform: translateX(4px);
+  }
+  .step .n {
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    min-width: 44px; width: 44px; height: 44px;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    color: var(--neon);
+    background: radial-gradient(circle, var(--neon-soft) 0%, transparent 70%);
+    border: 1px solid var(--neon-soft);
+    border-radius: 50%;
+    font-size: 16px;
+  }
+  .step .body { flex: 1; min-width: 0; }
+  .step h4 {
+    font-size: 17px;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+  .step p {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .step .cmd { margin-top: 10px; }
+
+  /* ==================== CMD (CODE BLOCK) ==================== */
+  .cmd {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--glass-border);
+    color: var(--text);
+    padding: 12px 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+    white-space: pre;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+  }
+  body.theme-light .cmd { background: rgba(0, 0, 0, 0.06); }
+  .cmd:hover { border-color: var(--neon-soft); }
+  .cmd::after {
+    content: "copiar";
+    position: absolute;
+    top: 8px; right: 12px;
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .cmd:hover::after { opacity: 1; }
+  .cmd.copied::after {
+    content: "copiado!";
+    color: var(--success);
+    opacity: 1;
+  }
+  .cmd.cmd-hl {
+    border-color: rgba(232, 0, 106, 0.4);
+    background: linear-gradient(180deg, rgba(232, 0, 106, 0.08) 0%, rgba(0, 0, 0, 0.4) 100%);
+  }
+  .cmd-prefix { color: var(--neon); font-weight: 600; margin-right: 10px; }
+  .cmd-multi {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--glass-border);
+    color: var(--text);
+    padding: 16px 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    line-height: 1.6;
+    cursor: pointer;
+    position: relative;
+    margin: 12px 0;
+  }
+  body.theme-light .cmd-multi { background: rgba(0, 0, 0, 0.06); }
+  .cmd-multi pre { font-family: inherit; white-space: pre; }
+  .cmd-multi:hover { border-color: var(--neon-soft); }
+  .cmd-multi::after {
+    content: "copiar";
+    position: absolute; top: 10px; right: 14px;
+    font-size: 10px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 1px;
+    opacity: 0; transition: opacity 0.2s ease;
+  }
+  .cmd-multi:hover::after { opacity: 1; }
+  .cmd-multi.copied::after { content: "copiado!"; color: var(--success); opacity: 1; }
+  .cmd-comment { color: var(--muted); font-style: italic; }
+  .cmd-string { color: #fbbf24; }
+  .cmd-keyword { color: #60a5fa; }
+
+  /* ==================== CHIP ==================== */
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px;
+    background: var(--neon-soft);
+    color: var(--neon);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 4px;
+    border: 1px solid var(--neon-soft);
+  }
+  .chip.ghost {
+    background: transparent;
+    color: var(--muted);
+    border-color: var(--glass-border);
+  }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+
+  /* ==================== GLASS CARD ==================== */
+  .glass {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 24px;
+    transition: all 0.3s ease;
+  }
+  .glass.accent { border-color: var(--neon-soft); }
+  .glass:hover { background: var(--glass-strong); transform: translateY(-2px); }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin-top: 24px;
+  }
+  .glass h4 {
+    font-size: 16px; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .glass h4 .badge {
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--neon-soft);
+    color: var(--neon);
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .glass p { font-size: 14px; color: var(--muted); }
+
+  /* ==================== PASSO BOX (DETAILS) ==================== */
+  .passo-box {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+  }
+  .passo-box[open] { border-color: var(--neon-soft); }
+  .passo-box summary {
+    padding: 16px 20px;
+    cursor: pointer;
+    list-style: none;
+    display: flex; align-items: center; gap: 14px;
+    font-weight: 500;
+  }
+  .passo-box summary::-webkit-details-marker { display: none; }
+  .passo-box summary::after {
+    content: "+";
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 18px;
+    color: var(--neon);
+    transition: transform 0.2s ease;
+  }
+  .passo-box[open] summary::after { content: "−"; }
+  .passo-box .pnum {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--neon);
+    background: var(--neon-soft);
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+  .passo-box-body {
+    padding: 0 20px 20px 20px;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .passo-box-body p { margin-bottom: 8px; }
+  .passo-box-body strong { color: var(--text); }
+
+  /* ==================== CALLOUT ==================== */
+  .callout {
+    border-left: 3px solid var(--neon);
+    background: var(--neon-dim);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 18px 0;
+    font-size: 14px;
+  }
+  .callout.warn { border-color: var(--warning); background: rgba(251, 191, 36, 0.08); }
+  .callout.success { border-color: var(--success); background: rgba(74, 222, 128, 0.08); }
+  .callout strong { color: var(--text); display: block; margin-bottom: 4px; }
+
+  /* ==================== CHECKLIST ==================== */
+  .checklist { margin-top: 24px; }
+  .check-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+  }
+  .check-item:hover { border-color: var(--neon-soft); }
+  .check-item.done {
+    background: rgba(74, 222, 128, 0.05);
+    border-color: rgba(74, 222, 128, 0.3);
+  }
+  .check-box {
+    width: 22px; height: 22px;
+    border: 2px solid var(--glass-border);
+    border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+  }
+  .check-item.done .check-box {
+    background: var(--success);
+    border-color: var(--success);
+  }
+  .check-item.done .check-box::after {
+    content: "✓";
+    color: white;
+    font-weight: 700;
+  }
+  .check-item .check-text { font-size: 14px; flex: 1; }
+  .check-item.done .check-text {
+    color: var(--muted);
+    text-decoration: line-through;
+  }
+
+  /* ==================== DIAGRAM (KARPATHY) ==================== */
+  .karpathy-flow {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 24px 0;
+  }
+  .karpathy-step {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    padding: 18px;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+  }
+  .karpathy-step .arrow {
+    position: absolute;
+    right: -16px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--neon);
+    font-size: 20px;
+    z-index: 2;
+  }
+  .karpathy-step:last-child .arrow { display: none; }
+  .karpathy-step .icon { font-size: 28px; margin-bottom: 8px; }
+  .karpathy-step h5 { font-size: 14px; margin-bottom: 6px; color: var(--neon); }
+  .karpathy-step p { font-size: 12px; color: var(--muted); }
+
+  /* ==================== 3 CAMADAS ==================== */
+  .camadas {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin: 24px 0;
+  }
+  .camada {
+    padding: 22px;
+    border-radius: 12px;
+    border: 1px solid;
+    text-align: center;
+  }
+  .camada h5 {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+  }
+  .camada .name { font-size: 22px; font-weight: 600; margin-bottom: 8px; }
+  .camada p { font-size: 13px; color: var(--muted); }
+  .camada-raw { background: rgba(96, 165, 250, 0.06); border-color: rgba(96, 165, 250, 0.3); }
+  .camada-raw h5 { color: #60a5fa; }
+  .camada-wiki { background: var(--neon-dim); border-color: var(--neon-soft); }
+  .camada-wiki h5 { color: var(--neon); }
+  .camada-schema { background: rgba(74, 222, 128, 0.06); border-color: rgba(74, 222, 128, 0.3); }
+  .camada-schema h5 { color: var(--success); }
+
+  /* ==================== TABLE ==================== */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 18px 0;
+    font-size: 14px;
+  }
+  th, td {
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--glass-border);
+  }
+  th { color: var(--neon); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+  td { color: var(--muted); }
+  td code { color: var(--text); background: var(--glass); padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+
+  /* ==================== TOAST ==================== */
+  .toast {
+    position: fixed;
+    bottom: 24px; left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--bg-card);
+    color: var(--text);
+    border: 1px solid var(--neon);
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 13px;
+    z-index: 200;
+    transition: transform 0.3s ease;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ==================== HELPERS ==================== */
+  .muted { color: var(--muted); }
+  .neon { color: var(--neon); }
+  .small { font-size: 13px; }
+  .mt-12 { margin-top: 12px; }
+  .mt-24 { margin-top: 24px; }
+  .mt-32 { margin-top: 32px; }
+  .center { text-align: center; }
+
+  /* ==================== RESPONSIVE ==================== */
+  @media (max-width: 768px) {
+    .slide { padding: 40px 5vw 60px; }
+    .karpathy-flow { grid-template-columns: 1fr 1fr; }
+    .karpathy-step .arrow { display: none; }
+    .camadas { grid-template-columns: 1fr; }
+    .nav-title { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="cursor-aura"></div>
+
+<header class="navbar">
+  <div class="nav-left">
+    <div class="nav-logo">RIC.NEVES</div>
+    <div class="nav-title">
+      <span class="dot"></span>
+      <span>Construindo seu Segundo Cérebro</span>
+    </div>
+  </div>
+  <div class="nav-right">
+    <div class="nav-counter"><span class="current">01</span> / <span class="total">29</span></div>
+    <button class="nav-btn prev" title="Anterior (←)">←</button>
+    <button class="nav-btn next" title="Próximo (→)">→</button>
+    <button class="nav-btn theme" title="Alternar tema">☀</button>
+  </div>
+</header>
+
+<div class="progress-bar"><div class="progress-fill"></div></div>
+
+<div class="deck">
+
+<!-- ============== SLIDE 1: HERO ============== -->
+<section class="slide in-view" data-slide="1">
+  <div class="slide-inner" style="display:flex; flex-direction:column; justify-content:center; min-height:80vh;">
+    <div class="eyebrow">AULA · 30 abr 2026 · Ric Neves</div>
+    <h1 class="title">Construindo seu <span class="gradient">Segundo Cérebro</span><br />com Claude Code + Obsidian</h1>
+    <p class="lead">Um vault portátil em Markdown que cresce sozinho. Um agente que faz a manutenção. Tudo em PT-BR. Padrão Karpathy + PARA.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><span class="dot"></span>29 slides · ~25 min</div>
+      <div class="hero-meta-item"><span class="dot"></span>Hands-on · zero teoria gratuita</div>
+      <div class="hero-meta-item"><span class="dot"></span>Aplicável hoje</div>
+    </div>
+    <button class="hero-cta" onclick="goToSlide(2)">começar →</button>
+  </div>
+</section>
+
+<!-- ============== SLIDE 2: PROMESSA ============== -->
+<section class="slide" data-slide="2">
+  <div class="slide-inner">
+    <div class="eyebrow">A promessa</div>
+    <h2 class="section-title">O que você sai sabendo</h2>
+    <div class="grid-3">
+      <div class="glass accent">
+        <h4><span class="badge">01</span> Setup completo</h4>
+        <p>Vault Obsidian rodando, conectado ao Claude Code, com schema, templates e workflows prontos.</p>
+      </div>
+      <div class="glass accent">
+        <h4><span class="badge">02</span> Captura zero-fricção</h4>
+        <p>Comando único pra anotar de qualquer lugar — terminal, Claude Code, ou Obsidian. Sem decidir pasta.</p>
+      </div>
+      <div class="glass accent">
+        <h4><span class="badge">03</span> Wiki vivo</h4>
+        <p>Um agente que ingere fontes, conecta conceitos, mantém o índice, e responde perguntas pelo seu conteúdo.</p>
+      </div>
+    </div>
+    <div class="callout mt-32">
+      <strong>Premissa</strong>
+      Você não vai sair com "outro app pra preencher". Vai sair com um <em>fluxo</em> que funciona quando você não pensa nele.
+    </div>
+  </div>
+</section>
+
+<!-- ============== SLIDE 3: O PROBLEMA ============== -->
+<section class="slide" data-slide="3">
+  <div class="slide-inner">
+    <div class="eyebrow">O problema</div>
+    <h2 class="section-title">Por que <span class="gradient">"segundo cérebro"</span> sempre quebra</h2>
+    <div class="grid-2">
+      <div class="glass">
+        <h4><span class="badge">✕</span> Atrito de captura</h4>
+        <p>"Em qual pasta isso vai?" — você desiste antes de anotar. Cognitive bloat mata a entrada.</p>
+      </div>
+      <div class="glass">
+        <h4><span class="badge">✕</span> Organização frágil</h4>
+        <p>Você reorganiza pastas a cada 3 meses. O sistema vira o trabalho, não a ferramenta.</p>
+      </div>
+      <div class="glass">
+        <h4><span class="badge">✕</span> RAG caro &amp; opaco</h4>
+        <p>Joga PDF, espera que LLM ache. Reprocessa tudo a cada pergunta. Sem rede de conexões.</p>
+      </div>
+      <div class="glass">
+        <h4><span class="badge">✕</span> Manutenção é trabalho</h4>
+        <p>O bibliotecário (você) cansa. O conhecimento vira pilha morta de markdown.</p>
+      </div>
+    </div>
+    <p class="lead mt-32">A solução não é "mais um app". É <strong class="neon">combinar 4 padrões maduros</strong> e deixar o agente cuidar da bookkeeping.</p>
+  </div>
+</section>
+
+<!-- ============== SLIDE 4: A SOLUÇÃO ============== -->
+<section class="slide" data-slide="4">
+  <div class="slide-inner">
+    <div class="eyebrow">A solução combinada</div>
+    <h2 class="section-title">4 padrões, 1 vault</h2>
+    <p class="lead">Cada padrão resolve um problema diferente. Juntos eles cobrem captura, organização, conhecimento e manutenção.</p>
+    <div class="grid-2 mt-24">
+      <div class="glass accent">
+        <h4><span class="badge">A</span> Append-and-Review</h4>
+        <p><span class="chip ghost">KARPATHY</span></p>
+        <p style="margin-top:10px;">Captura zero-fricção. Uma nota só. Tudo no topo. O irrelevante afunda sozinho.</p>
+      </div>
+      <div class="glass accent">
+        <h4><span class="badge">B</span> LLM Wiki Pattern</h4>
+        <p><span class="chip ghost">KARPATHY</span></p>
+        <p style="margin-top:10px;">3 camadas: fontes brutas, wiki gerado, schema. Agente mantém. RAG sai de cena.</p>
+      </div>
+      <div class="glass accent">
+        <h4><span class="badge">C</span> PARA</h4>
+        <p><span class="chip ghost">TIAGO FORTE</span></p>
+        <p style="margin-top:10px;">Projects, Areas, Resources, Archive. Para coisas com prazo e responsabilidades contínuas.</p>
+      </div>
+      <div class="glass accent">
+        <h4><span class="badge">D</span> Zettelkasten + LYT</h4>
+        <p><span class="chip ghost">LUHMANN · NICK MILO</span></p>
+        <p style="margin-top:10px;">Notas atômicas. Wikilinks desde o dia 1. MOCs (Maps of Content) que <em>emergem</em>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== SLIDE 5: OS 4 FRAMEWORKS DETALHE ============== -->
+<section class="slide" data-slide="5">
+  <div class="slide-inner">
+    <div class="eyebrow">Como eles se encaixam</div>
+    <h2 class="section-title">Cada um no seu lugar</h2>
+    <table>
+      <thead>
+        <tr><th>Padrão</th><th>Resolve</th><th>Onde mora no vault</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Append-and-Review</strong></td>
+          <td>Atrito de capturar ideias soltas</td>
+          <td><code>00-inbox/captura.md</code></td>
+        </tr>
+        <tr>
+          <td><strong>LLM Wiki</strong></td>
+          <td>Manter conhecimento estruturado e conectado</td>
+          <td><code>raw/</code> + <code>wiki/</code> + <code>CLAUDE.md</code></td>
+        </tr>
+        <tr>
+          <td><strong>PARA</strong></td>
+          <td>Coisas acionáveis e responsabilidades</td>
+          <td><code>02-projetos/</code>, <code>03-areas/</code>, <code>04-recursos/</code>, <code>05-arquivo/</code></td>
+        </tr>
+        <tr>
+          <td><strong>Zettelkasten + LYT</strong></td>
+          <td>Pensamento em rede + navegação curada</td>
+          <td><code>wiki/conceitos/</code> + <code>wiki/sintese/moc-*.md</code></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout mt-32">
+      <strong>Insight</strong>
+      Quase todo "second brain" fracassa por escolher só UM desses padrões. O segredo é misturar.
+    </div>
+  </div>
+</section>
+
+<!-- ============== SLIDE 6: APPEND-AND-REVIEW ============== -->
+<section class="slide" data-slide="6">
+  <div class="slide-inner">
+    <div class="eyebrow">Padrão 1 · Karpathy</div>
+    <h2 class="section-title">Append-and-Review</h2>
+    <p class="lead">"Mantenha uma nota só. Adicione no topo. O resto afunda. Resgate o que ainda importa."</p>
+    <div class="karpathy-flow">
+      <div class="karpathy-step">
+        <div class="icon">⬆</div>
+        <h5>APPEND</h5>
+        <p>Tudo novo entra no topo. Sem categoria, sem decisão.</p>
+        <div class="arrow">→</div>
+      </div>
+      <div class="karpathy-step">
+        <div class="icon">👀</div>
+        <h5>REVIEW</h5>
+        <p>De vez em quando, role pra baixo e leia.</p>
+        <div class="arrow">→</div>
+      </div>
+      <div class="karpathy-step">
+        <div class="icon">🔁</div>
+        <h5>RESCUE</h5>
+        <p>O que ainda importa, copia pro topo de novo.</p>
+        <div class="arrow">→</div>
+      </div>
+      <div class="karpathy-step">
+        <div class="icon">⬇</div>
+        <h5>SINK</h5>
+        <p>O irrelevante afunda. Nunca delete.</p>
+      </div>
+    </div>
+    <div class="callout mt-32">
+      <strong>Por que funciona</strong>
+      O tempo é o melhor curador. O que sobrevive a 3 resgates está provado. O que não, não merecia mesmo.
+    </div>
+    <p class="muted small mt-12">📖 Fonte: <a href="https://karpathy.bearblog.dev/the-append-and-review-note/" target="_blank">karpathy.bearblog.dev/the-append-and-review-note</a></p>
+  </div>
+</section>
+
+<!-- ============== SLIDE 7: LLM WIKI ============== -->
+<section class="slide" data-slide="7">
+  <div class="slide-inner">
+    <div class="eyebrow">Padrão 2 · Karpathy</div>
+    <h2 class="section-title">LLM Wiki — 3 camadas</h2>
+    <p class="lead">Em vez do agente <strong>reler</strong> PDFs toda vez (RAG), ele <strong>escreve e mantém</strong> um wiki incremental.</p>
+    <div class="camadas">
+      <div class="camada camada-raw">
+        <h5>Camada 1 — Read-only</h5>
+        <div class="name">raw/</div>
+        <p>Artigos, papers, transcripts. Imutável. O agente lê, nunca modifica. <em>Fonte da verdade.</em></p>
+      </div>
+      <div class="camada camada-wiki">
+        <h5>Camada 2 — Agente escreve</h5>
+        <div class="name">wiki/</div>
+        <p>Conceitos, entidades, fontes, MOCs. Markdown atômico com wikilinks. <em>Cresce com você.</em></p>
+      </div>
+      <div class="camada camada-schema">
+        <h5>Camada 3 — Você define</h5>
+        <div class="name">CLAUDE.md</div>
+        <p>Convenções, workflows, regras de idioma. Sem isto, o agente vira chatbot genérico.</p>
+      </div>
+    </div>
+    <div class="callout success mt-24">
+      <strong>Marco do Karpathy</strong>
+      A wiki dele tem <strong class="neon">100 artigos / 400.000 palavras</strong> escritos pelo agente. Responde perguntas com profundidade que RAG não alcança.
+    </div>
+    <p class="muted small mt-12">📖 Fonte: <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank">karpathy LLM Wiki gist</a></p>
+  </div>
+</section>
+
+<!-- ============== SLIDE 8: PT-BR ============== -->
+<section class="slide" data-slide="8">
+  <div class="slide-inner">
+    <div class="eyebrow">Regra absoluta</div>
+    <h2 class="section-title">Por que <span class="gradient">tudo em PT-BR</span></h2>
+    <div class="grid-2">
+      <div class="glass">
+        <h4><span class="badge">1</span> Cognitive load</h4>
+        <p>Você pensa em PT-BR. Se a nota está em inglês, todo retrieve passa por uma tradução mental. Fricção desnecessária.</p>
+      </div>
+      <div class="glass">
+        <h4><span class="badge">2</span> O agente segue o padrão</h4>
+        <p>Se você define no <code>CLAUDE.md</code>, todo conteúdo gerado (sumários, sínteses, logs) sai em PT-BR sem você precisar lembrar.</p>
+      </div>
+      <div class="glass">
+        <h4><span class="badge">3</span> Nomes de pasta legíveis</h4>
+        <p><code>03-areas/saude/</code> &gt; <code>03-areas/health/</code>. Você lê o file explorer 50x por dia.</p>
+      </div>
+      <div class="glass">
+        <h4><span class="badge">4</span> Termos técnicos OK</h4>
+        <p><em>Wikilink, frontmatter, MOC, PARA, Zettelkasten</em> ficam em inglês — são "marcas". Mas conteúdo é PT-BR.</p>
+      </div>
+    </div>
+    <div class="callout warn mt-24">
+      <strong>Caça ao desvio</strong>
+      Se gerar uma frase em inglês, pare e reescreva. O workflow <code>/lint</code> (slide 24) detecta violações de idioma.
+    </div>
+  </div>
+</section>
+
+<!-- ============== SLIDE 9: PRÉ-REQUISITOS ============== -->
+<section class="slide" data-slide="9">
+  <div class="slide-inner">
+    <div class="eyebrow">Setup · Hands-on começa aqui</div>
+    <h2 class="section-title">Pré-requisitos</h2>
+    <div class="chip-row" style="margin:24px 0;">
+      <span class="chip">macOS, Linux ou Windows</span>
+      <span class="chip">Terminal</span>
+      <span class="chip">Node.js 18+</span>
+      <span class="chip">~200MB de disco</span>
+      <span class="chip">15 minutos</span>
+    </div>
+    <h3 class="subtitle mt-32">Se ainda não tem Node:</h3>
+    <div class="cmd cmd-hl"><span class="cmd-prefix">$</span>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash</div>
+    <p class="muted small mt-12">↑ instala o nvm (gerenciador de versões). Depois: <code>nvm install --lts</code></p>
+    <div class="callout mt-24">
+      <strong>Filosofia da aula</strong>
+      Cada slide a partir daqui tem um comando pra copiar. Clique em qualquer bloco de código pra copiar pra área de transferência. <em>Faça enquanto lê.</em>
+    </div>
+  </div>
+</section>
+
+<!-- ============== SLIDE 10: INSTALAR OBSIDIAN ============== -->
+<section class="slide" data-slide="10">
+  <div class="slide-inner">
+    <div class="eyebrow">Passo 1</div>
+    <h2 class="section-title">Instalar Obsidian</h2>
+    <div class="step">
+      <div class="n">1</div>
+      <div class="body">
+        <h4>Baixar do site oficial</h4>
+        <p>Versão Mac universal (Intel + Apple Silicon).</p>
+        <div class="cmd cmd-hl"><span class="cmd-prefix">↗</span>https://obsidian.md/download</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">2</div>
+      <div class="body">
+        <h4>Ou via Homebrew (Mac)</h4>
+        <p>Mais rápido se já tem brew.</p>
+        <div class="cmd cmd-hl"><span class="cmd-prefix">$</span>brew install --cask obsidian</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">3</div>
+      <div class="body">
+        <h4>Abrir uma vez e fechar</h4>
+        <p>Só pra confirmar que instalou. Não precisa criar vault ainda — vamos criar pelo terminal.</p>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>Por que Obsidian (e não Notion / Apple Notes / outro)</strong>
+      Markdown puro em arquivos no seu disco. Sem vendor lock-in. Roda offline. Perfeito pro Claude Code ler/escrever direto.
+    </div>
+  </div>
+</section>
+
+<!-- ============== SLIDE 11: INSTALAR CLAUDE CODE ============== -->
+<section class="slide" data-slide="11">
+  <div class="slide-inner">
+    <div class="eyebrow">Passo 2</div>
+    <h2 class="section-title">Instalar Claude Code</h2>
+    <div class="step">
+      <div class="n">1</div>
+      <div class="body">
+        <h4>Instalar via npm (global)</h4>
+        <p>O agente que vai manter seu wiki.</p>
+        <div class="cmd cmd-hl"><span class="cmd-prefix">$</span>npm install -g @anthropic-ai/claude-code</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">2</div>
+      <div class="body">
+        <h4>Confirmar instalação</h4>
+        <div class="cmd cmd-hl"><span class="cmd-prefix">$</span>claude --version</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">3</div>
+      <div class="body">
+        <h4>Login (primeira vez)</h4>
+        <p>Ele abre browser. Login com conta Anthropic.</p>
+        <div class="cmd cmd-hl"><span class="cmd-prefix">$</span>claude</div>
+      </div>
+    </div>
+    <div class="callout success">
+      <strong>Por que Claude Code (e não API direto / outro CLI)</strong>
+      Lê <code>CLAUDE.md</code> automaticamente em qualquer pasta. Aceita <em>slash commands</em> globais. Tem hooks, sessões, permissões. É o agente certo pra um vault que vive no disco.
+    </div>
+  </div>
+</section>
+
+<!-- ============== SLIDE 12: PASTA DO VAULT ============== -->
+<section class="slide" data-slide="12">
+  <div class="slide-inner">
+    <div class="eyebrow">Passo 3</div>
+    <h2 class="section-title">Criar a pasta do vault</h2>
+    <div class="step">
+      <div class="n">1</div>
+      <div class="body">
+        <h4>Escolher um nome curto e pessoal</h4>
+        <p>Sugestão: <code>seu-nome-cerebro</code> (ex.: <code>ric-cerebro</code>).</p>
+        <div class="cmd cmd-hl"><span class="cmd-prefix">$</span>mkdir -p ~/Documents/Projetos/meu-cerebro</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">2</div>
+      <div class="body">
+        <h4>Entrar na pasta</h4>
+        <div class="cmd cmd-hl"><span class="cmd-prefix">$</span>cd ~/Documents/Projetos/meu-cerebro</div>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>Convenção de nome</strong>
+      Use <code>kebab-case</code>, sem acentos, sem espaços. Vai facilitar tudo que vem depois (paths em scripts, comandos, links).
+    </div>
+  </div>
+</section>
+
+<!-- ============== SLIDE 13: ESTRUTURA DE PASTAS ============== -->
+<section class="slide" data-slide="13">
+  <div class="slide-inner">
+    <div class="eyebrow">Passo 4</div>
+    <h2 class="section-title">Estrutura de pastas</h2>
+    <p class="muted">Numeração com prefixo (<code>00-</code>, <code>01-</code>) força ordem visual no Obsidian.</p>
+    <div class="cmd-multi" data-copy><pre>mkdir -p \
+  00-inbox \
+  01-diario \
+  02-projetos \
+  03-areas/{engenharia-ia,flowgrammers,aprendizado,saude,financas,familia} \
+  04-recursos \
+  05-arquivo \
+  raw/{artigos,papers,transcripts,assets} \
+  wiki/{entidades,conceitos,fontes,sintese} \
+  templates \
+  anexos \
+  bin</pre></div>
+    <div class="grid-3 mt-24">
+      <div class="glass">
+        <h4><span class="badge">PARA</span> Acionável</h4>
+        <p><code>02-projetos/</code> com prazo<br /><code>03-areas/</code> contínuo<br /><code>04-recursos/</code> referência<br /><code>05-arquivo/</code> inativo</p>
+      </div>
+      <div class="glass">
+        <h4><span class="badge">LLM</span> Conhecimento</h4>
+        <p><code>raw/</code> fontes (read-only)<br /><code>wiki/</code> agente escreve</p>
+      </div>
+      <div class="glass">
+        <h4><span class="badge">DIA</span> Operação</h4>
+        <p><code>00-inbox/</code> captura<br /><code>01-diario/</code> daily notes<br /><code>templates/</code> scaffolds</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== SLIDE 14: CLAUDE.md ============== -->
+<section class="slide" data-slide="14">
+  <div class="slide-inner">
+    <div class="eyebrow">Passo 5 · A peça mais importante</div>
+    <h2 class="section-title">Criar <span class="gradient">CLAUDE.md</span> (o schema)</h2>
+    <p class="lead">Esse arquivo é o <strong>contrato de operação</strong>. Toda vez que você abrir o Claude Code nessa pasta, ele lê isso primeiro e sabe exatamente como agir.</p>
+    <h3 class="subtitle mt-32">O que o schema define:</h3>
+    <ul style="list-style:none; padding:0;">
+      <li class="check-item" style="cursor:default;">
+        <span class="check-box" style="background:var(--neon-soft); border-color:var(--neon);"><span style="color:var(--neon);">§0</span></span>
+        <span class="check-text">Idioma obrigatório (PT-BR)</span>
+      </li>
+      <li class="check-item" style="cursor:default;">
+        <span class="check-box" style="background:var(--neon-soft); border-color:var(--neon);"><span style="color:var(--neon);">§1</span></span>
+        <span class="check-text">As 3 camadas do LLM Wiki + a camada PARA</span>
+      </li>
+      <li class="check-item" style="cursor:default;">
+        <span class="check-box" style="background:var(--neon-soft); border-color:var(--neon);"><span style="color:var(--neon);">§2</span></span>
+        <span class="check-text">Convenções de nomeação (kebab-case, slugs sem acento)</span>
+      </li>
+      <li class="check-item" style="cursor:default;">
+        <span class="check-box" style="background:var(--neon-soft); border-color:var(--neon);"><span style="color:var(--neon);">§3</span></span>
+        <span class="check-text">Frontmatter padrão (titulo, data, tags, status)</span>
+      </li>
+      <li class="check-item" style="cursor:default;">
+        <span class="check-box" style="background:var(--neon-soft); border-color:var(--neon);"><span style="color:var(--neon);">§5</span></span>
+        <span class="check-text">Workflows: <code>/ingest</code>, <code>/pergunta</code>, <code>/lint</code>, <code>/review-inbox</code></span>
+      </li>
+    </ul>
+    <div class="callout mt-24">
+      <strong>Atalho</strong>
+      No próximo slide, em vez de digitar tudo manualmente, vamos pedir pro Claude Code criar o <code>CLAUDE.md</code> + templates + arquivos seed em um único comando.
+    </div>
+  </div>
+</section>
+
+<!-- ============== SLIDE 15: COMANDO ÚNICO PRO CLAUDE ============== -->
+<section class="slide" data-slide="15">
+  <div class="slide-inner">
+    <div class="eyebrow">Passo 6 · O truque</div>
+    <h2 class="section-title">Deixar o Claude criar tudo</h2>
+    <p class="lead">Com a pasta criada e o Claude instalado, o resto é uma conversa.</p>
+    <div class="step">
+      <div class="n">1</div>
+      <div class="body">
+        <h4>Abrir Claude Code na pasta</h4>
+        <div class="cmd cmd-hl"><span class="cmd-prefix">$</span>cd ~/Documents/Projetos/meu-cerebro &amp;&amp; claude</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">2</div>
+      <div class="body">
+        <h4>Pedir o setup completo</h4>
+        <p>Cole esse prompt na sessão do Claude:</p>
+        <div class="cmd-multi" data-copy><pre>Cria meu segundo cérebro nesta pasta seguindo o padrão LLM Wiki +
+append-and-review do Karpathy + PARA. Tudo em PT-BR. Sem sync agora.
+
+Cria:
+1. CLAUDE.md com schema completo (3 camadas, workflows ingest/pergunta/lint/review-inbox, regras de PT-BR, frontmatter padrão)
+2. README.md em PT-BR explicando como usar
+3. 8 templates em templates/ (diario, projeto, area, recurso, fonte, conceito, entidade, moc)
+4. 00-inbox/captura.md com seção Backlog e tags funcionais
+5. wiki/index.md com queries Dataview e wiki/log.md com entrada de criação
+6. 4 MOCs seed em wiki/sintese/ (engenharia-ia, flowgrammers, aprendizado, vida-pessoal)
+7. 2 conceitos seed: append-and-review e llm-wiki-pattern
+8. .obsidian/ pré-configurado (daily-notes, plugins, hotkeys, locale PT-BR)</pre></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">3</div>
+      <div class="body">
+        <h4>Aceitar permissões e relaxar</h4>
+        <p>O Claude pede permissão pra criar arquivos. Diga "yes/sim". Em ~2 minutos, vault completo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== SLIDE 16: ABRIR OBSIDIAN + PLUGINS ============== -->
+<section class="slide" data-slide="16">
+  <div class="slide-inner">
+    <div class="eyebrow">Passo 7</div>
+    <h2 class="section-title">Abrir no Obsidian + 4 plugins</h2>
+    <div class="step">
+      <div class="n">1</div>
+      <div class="body">
+        <h4>Abrir o vault</h4>
+        <p>Obsidian → "Open folder as vault" → escolher <code>~/Documents/Projetos/meu-cerebro</code>.<br />Confiar no vault quando perguntar.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">2</div>
+      <div class="body">
+        <h4>Habilitar community plugins</h4>
+        <p>Settings → Community plugins → "Turn on community plugins" → "Trust author".</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">3</div>
+      <div class="body">
+        <h4>Instalar 4 plugins</h4>
+        <p>Browse → buscar cada nome → Install → Enable.</p>
+        <div class="chip-row">
+          <span class="chip">Templater</span>
+          <span class="chip">Dataview</span>
+          <span class="chip">QuickAdd</span>
+          <span class="chip">Calendar</span>
+        </div>
+      </div>
+    </div>
+    <details class="passo-box mt-24">
+      <summary>
+        <span class="pnum">?</span>
+        <span class="pname">Pra que serve cada um</span>
+      </summary>
+      <div class="passo-box-body">
+        <p><strong>Templater:</strong> variáveis dinâmicas em templates (data atual, prompts interativos).</p>
+        <p><strong>Dataview:</strong> tabelas vivas no <code>wiki/index.md</code> e MOCs (lista automática de páginas por filtro).</p>
+        <p><strong>QuickAdd:</strong> atalho único pra empurrar texto pro topo de <code>captura.md</code> sem abrir o arquivo.</p>
+        <p><strong>Calendar:</strong> sidebar com calendário visual pra navegar daily notes.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ============== SLIDE 17: SCRIPT CAP ============== -->
+<section class="slide" data-slide="17">
+  <div class="slide-inner">
+    <div class="eyebrow">Anel 1 · Terminal</div>
+    <h2 class="section-title">Captura do <span class="gradient">terminal</span></h2>
+    <p class="lead">Um script <code>cap</code> que você invoca de qualquer lugar. Empurra texto pro topo de <code>captura.md</code> em ~1 segundo.</p>
+    <div class="step">
+      <div class="n">1</div>
+      <div class="body">
+        <h4>O Claude já criou o script em <code>bin/cap</code>. Confirme:</h4>
+        <div class="cmd cmd-hl"><span class="cmd-prefix">$</span>ls -la ~/Documents/Projetos/meu-cerebro/bin/cap</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">2</div>
+      <div class="body">
+        <h4>Linkar pro PATH global (uma vez só)</h4>
+        <div class="cmd cmd-hl"><span class="cmd-prefix">$</span>ln -s ~/Documents/Projetos/meu-cerebro/bin/cap /usr/local/bin/cap</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">3</div>
+      <div class="body">
+        <h4>Usar</h4>
+        <div class="cmd"><span class="cmd-prefix">$</span>cap "ideia: usar Bases pro dashboard de OKRs"</div>
+        <div class="cmd"><span class="cmd-prefix">$</span>echo "link: https://exemplo.com" | cap</div>
+        <div class="cmd"><span class="cmd-prefix">$</span>cap   <span class="cmd-comment"># abre o arquivo no $EDITOR</span></div>
+      </div>
+    </div>
+    <div class="callout success">
+      <strong>O script faz timestamp automático</strong>
+      Toda entrada vira <code>- [2026-04-30 14:32] sua ideia</code> no topo do Backlog.
+    </div>
+  </div>
+</section>
+
+<!-- ============== SLIDE 18: /CAPTURAR ============== -->
+<section class="slide" data-slide="18">
+  <div class="slide-inner">
+    <div class="eyebrow">Anel 2 · Claude Code</div>
+    <h2 class="section-title">Slash command <span class="gradient">/capturar</span></h2>
+    <p class="lead">Funciona de <strong>qualquer projeto</strong> Claude Code, não só do segundo cérebro. Ideal quando você está codando outro projeto e quer salvar uma ideia sem trocar de janela.</p>
+    <h3 class="subtitle mt-32">Criar o slash command global:</h3>
+    <div class="step">
+      <div class="n">1</div>
+      <div class="body">
+        <h4>Pasta dos slash commands globais</h4>
+        <div class="cmd cmd-hl"><span class="cmd-prefix">$</span>mkdir -p ~/.claude/commands</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">2</div>
+      <div class="body">
+        <h4>Pedir pro Claude criar o comando</h4>
+        <p>Em qualquer sessão Claude:</p>
+        <div class="cmd-multi" data-copy><pre>Cria um slash command global em ~/.claude/commands/capturar.md
+que recebe argumento e executa:
+  bash ~/Documents/Projetos/meu-cerebro/bin/cap "$ARGUMENTS"
+e confirma em PT-BR que foi capturado.</pre></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">3</div>
+      <div class="body">
+        <h4>Usar de qualquer projeto</h4>
+        <div class="cmd"><span class="cmd-prefix">/</span>capturar tarefa: revisar pricing do Flowgrammers até sexta</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== SLIDE 19: /CEREBRO ============== -->
+<section class="slide" data-slide="19">
+  <div class="slide-inner">
+    <div class="eyebrow">Anel 2 · Claude Code (continuação)</div>
+    <h2 class="section-title">Slash <span class="gradient">/cerebro</span> e <span class="gradient">/cerebro-ingest</span></h2>
+    <p class="lead">Os comandos que abrem uma sessão focada no segundo cérebro com schema carregado.</p>
+    <table>
+      <thead>
+        <tr><th>Comando</th><th>O que faz</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>/cerebro</code></td>
+          <td>Lê <code>CLAUDE.md</code> + <code>index.md</code> + <code>log.md</code> e oferece os 4 workflows. Sem argumento → pergunta o que você quer.</td>
+        </tr>
+        <tr>
+          <td><code>/cerebro &lt;pergunta&gt;</code></td>
+          <td>Roda o workflow "pergunta": busca no wiki, sintetiza, cita com <code>[[wikilinks]]</code>.</td>
+        </tr>
+        <tr>
+          <td><code>/cerebro-ingest &lt;path&gt;</code></td>
+          <td>Processa fonte em <code>raw/</code>: cria <code>wiki/fontes/X.md</code>, atualiza index e log, conecta a entidades/conceitos.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="step mt-24">
+      <div class="n">1</div>
+      <div class="body">
+        <h4>Pedir pro Claude criar os 2 comandos:</h4>
+        <div class="cmd-multi" data-copy><pre>Cria mais 2 slash commands globais em ~/.claude/commands/:
+- cerebro.md: lê CLAUDE.md + index.md + log.md do meu vault e
+  responde a pergunta em $ARGUMENTS via wiki, citando [[wikilinks]]
+- cerebro-ingest.md: roda o workflow §5.1 do CLAUDE.md sobre o
+  arquivo raw/$ARGUMENTS, criando wiki/fontes/, atualizando index
+  e registrando em log.md</pre></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== SLIDE 20: WORKFLOW CAPTURA ============== -->
+<section class="slide" data-slide="20">
+  <div class="slide-inner">
+    <div class="eyebrow">Workflow 1 · Diário</div>
+    <h2 class="section-title">Captura zero-fricção</h2>
+    <div class="karpathy-flow">
+      <div class="karpathy-step">
+        <div class="icon">💡</div>
+        <h5>IDEIA</h5>
+        <p>Algo passa pela sua cabeça enquanto você trabalha.</p>
+        <div class="arrow">→</div>
+      </div>
+      <div class="karpathy-step">
+        <div class="icon">⌨️</div>
+        <h5>cap "..."</h5>
+        <p>Terminal aberto? Roda <code>cap</code>. Claude aberto? <code>/capturar</code>.</p>
+        <div class="arrow">→</div>
+      </div>
+      <div class="karpathy-step">
+        <div class="icon">📥</div>
+        <h5>TOPO</h5>
+        <p>Vai pro topo de <code>captura.md</code> com timestamp.</p>
+        <div class="arrow">→</div>
+      </div>
+      <div class="karpathy-step">
+        <div class="icon">↩️</div>
+        <h5>VOLTA</h5>
+        <p>Você volta pro que estava fazendo. ~2 segundos perdidos.</p>
+      </div>
+    </div>
+    <h3 class="subtitle mt-32">Tags funcionais (convenção, não obrigatório):</h3>
+    <div class="chip-row">
+      <span class="chip">tarefa:</span>
+      <span class="chip">ideia:</span>
+      <span class="chip">ler:</span>
+      <span class="chip">assistir:</span>
+      <span class="chip">ouvir:</span>
+      <span class="chip">link:</span>
+      <span class="chip">pergunta:</span>
+    </div>
+    <p class="muted small">Use <code>Cmd+F</code> (no Obsidian) ou <code>grep</code> (no terminal) pra filtrar por tag depois.</p>
+  </div>
+</section>
+
+<!-- ============== SLIDE 21: DAILY NOTE ============== -->
+<section class="slide" data-slide="21">
+  <div class="slide-inner">
+    <div class="eyebrow">Workflow 2 · Manhã/Noite</div>
+    <h2 class="section-title">Daily note</h2>
+    <p class="lead">Uma nota por dia em <code>01-diario/YYYY-MM-DD.md</code>. Template já preenche frontmatter e seções.</p>
+    <div class="step">
+      <div class="n">1</div>
+      <div class="body">
+        <h4>Atalho no Obsidian</h4>
+        <div class="cmd"><span class="cmd-prefix">⌘</span>Cmd + Shift + D</div>
+        <p>Cria/abre a nota de hoje usando <code>templates/diario.md</code>.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">2</div>
+      <div class="body">
+        <h4>Estrutura padrão</h4>
+        <ul style="margin-left:20px; color:var(--muted); font-size:14px;">
+          <li><strong>Foco do dia</strong> — em 1 frase, escrita de manhã.</li>
+          <li><strong>Capturas rápidas</strong> — bullets soltos.</li>
+          <li><strong>O que aconteceu</strong> — log do dia (à noite).</li>
+          <li><strong>O que aprendi</strong> — extração de aprendizado.</li>
+          <li><strong>Pendências</strong> — checkboxes que rolam pro próximo dia.</li>
+          <li><strong>Notas tocadas hoje</strong> — query Dataview automática.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>Hábito de 60 segundos</strong>
+      Manhã: foco do dia. Noite: 3 bullets de "o que aprendi". Faça por 7 dias e o hábito gruda.
+    </div>
+  </div>
+</section>
+
+<!-- ============== SLIDE 22: INGEST ============== -->
+<section class="slide" data-slide="22">
+  <div class="slide-inner">
+    <div class="eyebrow">Workflow 3 · Consumir conteúdo</div>
+    <h2 class="section-title">Ingest de uma fonte</h2>
+    <p class="lead">Você leu um artigo, viu um vídeo, terminou um podcast. Em vez de "salvar pra depois", processe em 30 segundos.</p>
+    <div class="step">
+      <div class="n">1</div>
+      <div class="body">
+        <h4>Salvar a fonte em <code>raw/</code></h4>
+        <p>Como markdown, txt, ou PDF. Use uma das 4 subpastas:</p>
+        <div class="cmd"><span class="cmd-prefix">$</span>cp ~/Downloads/karpathy-llm-wiki.md ~/Documents/Projetos/meu-cerebro/raw/artigos/</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">2</div>
+      <div class="body">
+        <h4>Pedir o ingest</h4>
+        <p>De qualquer projeto Claude Code:</p>
+        <div class="cmd"><span class="cmd-prefix">/</span>cerebro-ingest artigos/karpathy-llm-wiki.md</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">3</div>
+      <div class="body">
+        <h4>O agente faz tudo:</h4>
+        <ul style="margin-left:20px; color:var(--muted); font-size:14px; line-height:1.8;">
+          <li>📄 Cria <code>wiki/fontes/karpathy-llm-wiki.md</code> com TL;DR + resumo + citações.</li>
+          <li>🔗 Conecta a 5–15 entidades/conceitos existentes via wikilinks.</li>
+          <li>💡 Cria páginas novas pra entidades/conceitos inéditos.</li>
+          <li>📚 Atualiza <code>wiki/index.md</code>.</li>
+          <li>📜 Registra em <code>wiki/log.md</code> com timestamp.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== SLIDE 23: PERGUNTA ============== -->
+<section class="slide" data-slide="23">
+  <div class="slide-inner">
+    <div class="eyebrow">Workflow 4 · Recall</div>
+    <h2 class="section-title">Perguntar ao wiki</h2>
+    <p class="lead">Depois que você acumulou 20–50 fontes processadas, o wiki começa a responder com profundidade.</p>
+    <div class="step">
+      <div class="n">1</div>
+      <div class="body">
+        <h4>De qualquer projeto Claude Code:</h4>
+        <div class="cmd-multi" data-copy><pre>/cerebro como o Karpathy diferencia LLM Wiki de RAG, e quando
+cada um é melhor?</pre></div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">2</div>
+      <div class="body">
+        <h4>O agente:</h4>
+        <ul style="margin-left:20px; color:var(--muted); font-size:14px; line-height:1.8;">
+          <li>📑 Lê <code>wiki/index.md</code> pra ver o mapa.</li>
+          <li>🎯 Identifica 3–8 páginas relevantes.</li>
+          <li>📖 Lê cada uma na íntegra.</li>
+          <li>✏️ Sintetiza resposta em PT-BR com <code>[[wikilinks]]</code>.</li>
+          <li>💾 Pergunta se você quer arquivar a síntese em <code>wiki/sintese/</code>.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout success">
+      <strong>Diferença pro RAG</strong>
+      O agente lê markdown navegável (não chunks reranked). Latência menor. Citações são wikilinks reais. E a resposta vira <em>nova página do wiki</em> se você quiser — o conhecimento acumula.
+    </div>
+  </div>
+</section>
+
+<!-- ============== SLIDE 24: LINT ============== -->
+<section class="slide" data-slide="24">
+  <div class="slide-inner">
+    <div class="eyebrow">Workflow 5 · Manutenção</div>
+    <h2 class="section-title">Lint do wiki</h2>
+    <p class="lead">Health check mensal. O agente varre o vault e reporta problemas.</p>
+    <div class="step">
+      <div class="n">1</div>
+      <div class="body">
+        <h4>Pedir o lint</h4>
+        <div class="cmd"><span class="cmd-prefix">/</span>cerebro lint do wiki</div>
+      </div>
+    </div>
+    <h3 class="subtitle mt-24">O que ele checa:</h3>
+    <div class="grid-2">
+      <div class="glass">
+        <h4><span class="badge">🔗</span> Links quebrados</h4>
+        <p>Wikilinks apontando pra arquivos que não existem.</p>
+      </div>
+      <div class="glass">
+        <h4><span class="badge">🏝️</span> Páginas órfãs</h4>
+        <p>Conceitos sem nenhum inbound link (sem inserção no grafo).</p>
+      </div>
+      <div class="glass">
+        <h4><span class="badge">⚙️</span> Frontmatter inválido</h4>
+        <p>Falta <code>titulo</code>, <code>data-criacao</code>, ou <code>tags</code>.</p>
+      </div>
+      <div class="glass">
+        <h4><span class="badge">🇬🇧</span> Inglês detectado</h4>
+        <p>Qualquer parágrafo &gt; 2 frases em inglês — violação da regra §0.</p>
+      </div>
+    </div>
+    <p class="muted small mt-12">Resultado vai pro chat e fica registrado em <code>wiki/log.md</code>.</p>
+  </div>
+</section>
+
+<!-- ============== SLIDE 25: 5 ANÉIS ============== -->
+<section class="slide" data-slide="25">
+  <div class="slide-inner">
+    <div class="eyebrow">Como usar SEMPRE</div>
+    <h2 class="section-title">Os <span class="gradient">5 anéis</span> de uso</h2>
+    <p class="lead">Do mais automático ao mais deliberado. Você não precisa lembrar do segundo cérebro — você fala com ele de onde já estiver.</p>
+    <details class="passo-box mt-24" open>
+      <summary>
+        <span class="pnum">01</span>
+        <span class="pname">Anel 1 · Terminal — <code>cap "..."</code></span>
+      </summary>
+      <div class="passo-box-body">
+        <p>Você está no terminal codando. Bate uma ideia. Roda <code>cap "ideia: ..."</code>. Volta pro que estava fazendo. <strong>2 segundos.</strong></p>
+      </div>
+    </details>
+    <details class="passo-box">
+      <summary>
+        <span class="pnum">02</span>
+        <span class="pname">Anel 2 · Claude Code — <code>/capturar</code> e <code>/cerebro</code></span>
+      </summary>
+      <div class="passo-box-body">
+        <p>Você está numa sessão Claude trabalhando em outro projeto. Slash global resolve sem trocar de janela.</p>
+      </div>
+    </details>
+    <details class="passo-box">
+      <summary>
+        <span class="pnum">03</span>
+        <span class="pname">Anel 3 · Hábito de 60s manhã/noite</span>
+      </summary>
+      <div class="passo-box-body">
+        <p><strong>Manhã:</strong> daily note → foco do dia. <strong>Noite:</strong> rolar a captura, resgatar o que ainda importa pro topo, anotar 3 aprendizados.</p>
+      </div>
+    </details>
+    <details class="passo-box">
+      <summary>
+        <span class="pnum">04</span>
+        <span class="pname">Anel 4 · Consumir conteúdo → ingest</span>
+      </summary>
+      <div class="passo-box-body">
+        <p>Leu artigo / viu vídeo importante? Salva em <code>raw/</code> e roda <code>/cerebro-ingest</code>. O agente faz a síntese e conexão. <strong>Você não fica com PDF morto na pasta.</strong></p>
+      </div>
+    </details>
+    <details class="passo-box">
+      <summary>
+        <span class="pnum">05</span>
+        <span class="pname">Anel 5 · Decisão difícil → pergunta ao wiki</span>
+      </summary>
+      <div class="passo-box-body">
+        <p>Bate uma dúvida estratégica? <code>/cerebro me responde X</code>. O agente puxa do que VOCÊ já curou. Resposta sua, não do treino genérico do modelo.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ============== SLIDE 26: ROTINA 60s ============== -->
+<section class="slide" data-slide="26">
+  <div class="slide-inner">
+    <div class="eyebrow">Hábito que gruda</div>
+    <h2 class="section-title">Rotina de <span class="gradient">60 segundos</span></h2>
+    <div class="grid-2">
+      <div class="glass accent">
+        <h4><span class="badge">🌅</span> Manhã (30s)</h4>
+        <p style="color:var(--text); margin-top:10px;"><code>Cmd+Shift+D</code> no Obsidian.<br />Escrever <strong>1 linha</strong> de foco do dia.<br />Fechar.</p>
+      </div>
+      <div class="glass accent">
+        <h4><span class="badge">🌙</span> Noite (30s)</h4>
+        <p style="color:var(--text); margin-top:10px;">Abrir <code>captura.md</code>.<br />Rolar pra baixo. Resgatar 1–3 itens pro topo.<br />3 bullets de "o que aprendi" no daily.</p>
+      </div>
+    </div>
+    <div class="callout success mt-32">
+      <strong>Por que 60 segundos é a métrica certa</strong>
+      Hábitos que custam &gt; 2 minutos morrem. Hábitos de &lt; 60s sobrevivem 6 meses. Faça pequeno, faça sempre.
+    </div>
+    <h3 class="subtitle mt-32">Marcadores físicos pra ancorar:</h3>
+    <ul style="list-style:none; padding:0;">
+      <li class="check-item" style="cursor:default;">
+        <span class="check-box" style="background:var(--neon-soft); border-color:var(--neon);"><span style="color:var(--neon);">☕</span></span>
+        <span class="check-text">Daily note <strong>antes</strong> do primeiro café.</span>
+      </li>
+      <li class="check-item" style="cursor:default;">
+        <span class="check-box" style="background:var(--neon-soft); border-color:var(--neon);"><span style="color:var(--neon);">🍷</span></span>
+        <span class="check-text">Review da captura <strong>depois</strong> do jantar.</span>
+      </li>
+      <li class="check-item" style="cursor:default;">
+        <span class="check-box" style="background:var(--neon-soft); border-color:var(--neon);"><span style="color:var(--neon);">📅</span></span>
+        <span class="check-text">Lint do wiki no <strong>1º dia</strong> de cada mês.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============== SLIDE 27: HABIT STACKING ============== -->
+<section class="slide" data-slide="27">
+  <div class="slide-inner">
+    <div class="eyebrow">Habit stacking</div>
+    <h2 class="section-title">Amarrar a rotinas que já existem</h2>
+    <p class="lead">Você não precisa criar novos rituais. Anexe captura aos rituais que já tem.</p>
+    <table>
+      <thead>
+        <tr><th>Quando você...</th><th>...automaticamente</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Abre o terminal</td><td>Roda <code>cap</code> se tem algo no topo da cabeça</td></tr>
+        <tr><td>Termina uma sessão Claude</td><td>Pergunta: "alguma decisão importante? <code>/capturar</code>"</td></tr>
+        <tr><td>Lê um artigo no browser</td><td>Salva texto em <code>raw/artigos/</code> e <code>/cerebro-ingest</code></td></tr>
+        <tr><td>Termina uma reunião</td><td><code>cap "decisão da call X: ..."</code></td></tr>
+        <tr><td>Vê um tweet/post bom</td><td><code>cap "ler: link..."</code></td></tr>
+        <tr><td>Fecha o laptop à noite</td><td>30s de daily note</td></tr>
+      </tbody>
+    </table>
+    <div class="callout warn mt-24">
+      <strong>Antipadrão</strong>
+      "Vou abrir o Obsidian e organizar tudo no domingo." Não funciona. O sistema precisa rodar <em>enquanto</em> o trabalho acontece.
+    </div>
+  </div>
+</section>
+
+<!-- ============== SLIDE 28: CHECKLIST ============== -->
+<section class="slide" data-slide="28">
+  <div class="slide-inner">
+    <div class="eyebrow">Checkpoint final</div>
+    <h2 class="section-title">Você tem tudo se...</h2>
+    <p class="muted">Marque o que você já fez. O progresso fica salvo no browser — pode fechar e voltar depois.</p>
+    <div class="checklist">
+      <div class="check-item" data-check="1">
+        <span class="check-box"></span>
+        <span class="check-text">Obsidian instalado e abrindo o vault <code>~/Documents/Projetos/meu-cerebro</code></span>
+      </div>
+      <div class="check-item" data-check="2">
+        <span class="check-box"></span>
+        <span class="check-text">Claude Code instalado, autenticado, abrindo na pasta do vault</span>
+      </div>
+      <div class="check-item" data-check="3">
+        <span class="check-box"></span>
+        <span class="check-text">Estrutura de pastas criada (<code>00-inbox</code>, <code>raw</code>, <code>wiki</code>, etc.)</span>
+      </div>
+      <div class="check-item" data-check="4">
+        <span class="check-box"></span>
+        <span class="check-text"><code>CLAUDE.md</code>, <code>README.md</code>, templates e arquivos seed criados pelo agente</span>
+      </div>
+      <div class="check-item" data-check="5">
+        <span class="check-box"></span>
+        <span class="check-text">4 plugins community instalados: Templater, Dataview, QuickAdd, Calendar</span>
+      </div>
+      <div class="check-item" data-check="6">
+        <span class="check-box"></span>
+        <span class="check-text">Script <code>cap</code> linkado em <code>/usr/local/bin/cap</code> — testado com <code>cap "teste"</code></span>
+      </div>
+      <div class="check-item" data-check="7">
+        <span class="check-box"></span>
+        <span class="check-text">Slash commands globais criados: <code>/capturar</code>, <code>/cerebro</code>, <code>/cerebro-ingest</code></span>
+      </div>
+      <div class="check-item" data-check="8">
+        <span class="check-box"></span>
+        <span class="check-text">Daily note de hoje criada via <code>Cmd+Shift+D</code></span>
+      </div>
+      <div class="check-item" data-check="9">
+        <span class="check-box"></span>
+        <span class="check-text">Primeira fonte ingerida via <code>/cerebro-ingest</code> (qualquer arquivo de teste em <code>raw/</code>)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== SLIDE 29: ENCERRAMENTO ============== -->
+<section class="slide" data-slide="29">
+  <div class="slide-inner">
+    <div class="eyebrow">Próximos passos</div>
+    <h2 class="section-title">O segundo cérebro <span class="gradient">só funciona se você usar</span></h2>
+    <div class="grid-2">
+      <div class="glass accent">
+        <h4><span class="badge">7d</span> Primeira semana</h4>
+        <p>Captura todo dia. Sem censura. Sem organizar. Só <code>cap</code> ou <code>/capturar</code>. Daily note manhã/noite.</p>
+      </div>
+      <div class="glass accent">
+        <h4><span class="badge">30d</span> Primeiro mês</h4>
+        <p>5–10 fontes processadas via ingest. 1 lint do wiki. Primeira pergunta que o wiki responde melhor que Google.</p>
+      </div>
+      <div class="glass accent">
+        <h4><span class="badge">90d</span> Trimestre</h4>
+        <p>Você começa a "puxar" do wiki em vez de "buscar". MOCs ganham densidade. Decisões importantes têm rastro.</p>
+      </div>
+      <div class="glass accent">
+        <h4><span class="badge">1y</span> Marco Karpathy</h4>
+        <p>~100 fontes / 400k palavras. O agente responde com profundidade que RAG não alcança.</p>
+      </div>
+    </div>
+    <h3 class="subtitle mt-32">Fontes desta aula:</h3>
+    <ul style="list-style:none; padding:0; margin-top:12px;">
+      <li class="muted small">📖 <a href="https://karpathy.bearblog.dev/the-append-and-review-note/" target="_blank">Karpathy — The append-and-review note</a></li>
+      <li class="muted small">📖 <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank">Karpathy — LLM Wiki gist</a></li>
+      <li class="muted small">📖 Tiago Forte — <em>Building a Second Brain</em> (PARA)</li>
+      <li class="muted small">📖 Niklas Luhmann — Zettelkasten</li>
+      <li class="muted small">📖 Nick Milo — <em>Linking Your Thinking</em> (MOCs)</li>
+    </ul>
+    <div class="hero-meta mt-32">
+      <div class="hero-meta-item"><span class="dot"></span>Ric Neves</div>
+      <div class="hero-meta-item"><span class="dot"></span>Flowgrammers</div>
+      <div class="hero-meta-item"><span class="dot"></span>30 abr 2026</div>
+    </div>
+    <button class="hero-cta" onclick="goToSlide(1)">voltar ao início ↺</button>
+  </div>
+</section>
+
+</div>
+
+<div class="toast" id="toast">copiado!</div>
+
+<script>
+  // ==================== STATE ====================
+  const slides = document.querySelectorAll('.slide');
+  const totalSlides = slides.length;
+  let currentSlide = 1;
+
+  document.querySelector('.nav-counter .total').textContent = String(totalSlides).padStart(2, '0');
+
+  // ==================== NAVIGATION ====================
+  function goToSlide(n) {
+    if (n < 1 || n > totalSlides) return;
+    const prev = currentSlide;
+    currentSlide = n;
+
+    slides.forEach(s => {
+      const idx = parseInt(s.dataset.slide);
+      s.classList.remove('in-view', 'out-left');
+      if (idx === currentSlide) s.classList.add('in-view');
+      else if (idx < currentSlide) s.classList.add('out-left');
+    });
+
+    document.querySelector('.nav-counter .current').textContent = String(currentSlide).padStart(2, '0');
+    const progress = ((currentSlide - 1) / (totalSlides - 1)) * 100;
+    document.querySelector('.progress-fill').style.width = progress + '%';
+
+    // scroll slide content to top
+    const active = document.querySelector('.slide.in-view');
+    if (active) active.scrollTop = 0;
+  }
+
+  document.querySelector('.nav-btn.prev').addEventListener('click', () => goToSlide(currentSlide - 1));
+  document.querySelector('.nav-btn.next').addEventListener('click', () => goToSlide(currentSlide + 1));
+
+  // keyboard
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.key === 'ArrowRight' || e.key.toLowerCase() === 'd' || e.key.toLowerCase() === 'l' || e.key === ' ') {
+      e.preventDefault();
+      goToSlide(currentSlide + 1);
+    } else if (e.key === 'ArrowLeft' || e.key.toLowerCase() === 'a' || e.key.toLowerCase() === 'h') {
+      e.preventDefault();
+      goToSlide(currentSlide - 1);
+    } else if (e.key === 'Home') {
+      goToSlide(1);
+    } else if (e.key === 'End') {
+      goToSlide(totalSlides);
+    }
+  });
+
+  // touch swipe
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+  document.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    if (Math.abs(dx) < 60) return;
+    if (dx < 0) goToSlide(currentSlide + 1);
+    else goToSlide(currentSlide - 1);
+  });
+
+  // ==================== CURSOR AURA ====================
+  const aura = document.querySelector('.cursor-aura');
+  document.addEventListener('mousemove', (e) => {
+    aura.style.left = e.clientX + 'px';
+    aura.style.top = e.clientY + 'px';
+  });
+  document.addEventListener('mouseleave', () => { aura.style.opacity = '0'; });
+  document.addEventListener('mouseenter', () => { aura.style.opacity = '1'; });
+
+  // ==================== THEME TOGGLE ====================
+  const themeBtn = document.querySelector('.nav-btn.theme');
+  const savedTheme = localStorage.getItem('aula-cerebro-theme');
+  if (savedTheme === 'light') {
+    document.body.classList.add('theme-light');
+    themeBtn.textContent = '☾';
+  }
+  themeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('theme-light');
+    const isLight = document.body.classList.contains('theme-light');
+    themeBtn.textContent = isLight ? '☾' : '☀';
+    localStorage.setItem('aula-cerebro-theme', isLight ? 'light' : 'dark');
+  });
+
+  // ==================== COPY TO CLIPBOARD ====================
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(() => t.classList.remove('show'), 1600);
+  }
+
+  function attachCopy(el) {
+    el.addEventListener('click', async () => {
+      const text = el.querySelector('pre')
+        ? el.querySelector('pre').textContent
+        : el.textContent.replace(/^\$\s*/, '').replace(/copiar$/, '').trim();
+      try {
+        await navigator.clipboard.writeText(text);
+        el.classList.add('copied');
+        showToast('comando copiado');
+        setTimeout(() => el.classList.remove('copied'), 1400);
+      } catch (err) {
+        showToast('erro ao copiar');
+      }
+    });
+  }
+  document.querySelectorAll('.cmd, .cmd-multi').forEach(attachCopy);
+
+  // ==================== CHECKLIST PERSISTENCE ====================
+  const checkItems = document.querySelectorAll('.check-item[data-check]');
+  const savedChecks = JSON.parse(localStorage.getItem('aula-cerebro-checks') || '{}');
+
+  checkItems.forEach((item) => {
+    const id = item.dataset.check;
+    if (savedChecks[id]) item.classList.add('done');
+    item.addEventListener('click', () => {
+      item.classList.toggle('done');
+      savedChecks[id] = item.classList.contains('done');
+      localStorage.setItem('aula-cerebro-checks', JSON.stringify(savedChecks));
+    });
+  });
+
+  // ==================== INIT ====================
+  goToSlide(1);
+</script>
+</body>
+</html>
