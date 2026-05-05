@@ -1750,8 +1750,139 @@ cada um é melhor?</pre></div>
   </div>
 </section>
 
-<!-- ============== SLIDE 32: ENCERRAMENTO ============== -->
+<!-- ============== SLIDE 32: FRAMEWORK ============== -->
 <section class="slide" data-slide="32">
+  <div class="slide-inner" style="display:flex; flex-direction:column; justify-content:center; min-height:70vh;">
+    <div class="label">framework</div>
+    <h2 class="section-title">Seu segundo cérebro em <span class="gradient">1 comando</span></h2>
+    <p class="subtitle mt-16">Agora tudo isso virou um framework público. Qualquer pessoa instala em 60 segundos.</p>
+    <div class="card mt-32" style="max-width:640px; margin:2rem auto;">
+      <div class="card-label">instalação</div>
+      <div class="cmd-multi mt-16">
+        <pre>npx segundo-cerebro</pre>
+        <span class="copy-hint">copiar</span>
+      </div>
+    </div>
+    <div class="grid-3 mt-32" style="gap:1rem; max-width:720px; margin:0 auto;">
+      <div class="mini-card"><span class="dot"></span>Mac</div>
+      <div class="mini-card"><span class="dot"></span>Linux</div>
+      <div class="mini-card"><span class="dot"></span>Windows</div>
+    </div>
+    <p class="muted mt-24 text-center">Único pré-requisito: Node.js 18+</p>
+  </div>
+</section>
+
+<!-- ============== SLIDE 33: DEMO CLI ============== -->
+<section class="slide" data-slide="33">
+  <div class="slide-inner">
+    <div class="label">framework</div>
+    <h2 class="section-title">O que acontece quando você roda</h2>
+    <div class="terminal mt-32" style="max-width:680px; margin:0 auto;">
+      <div class="terminal-bar"><span class="t-dot red"></span><span class="t-dot yellow"></span><span class="t-dot green"></span><span class="t-label">terminal</span></div>
+      <div class="terminal-body">
+        <div class="t-line"><span class="t-prompt">$</span> npx segundo-cerebro</div>
+        <div class="t-gap"></div>
+        <div class="t-line t-header">  ┌─────────────────────────────────────┐</div>
+        <div class="t-line t-header">  │   <span class="t-pink">Segundo Cérebro</span> — Setup v1.0   │</div>
+        <div class="t-line t-header">  └─────────────────────────────────────┘</div>
+        <div class="t-gap"></div>
+        <div class="t-line"><span class="t-q">?</span> Qual é o seu nome? <span class="t-ans">› Ana</span></div>
+        <div class="t-line"><span class="t-q">?</span> Idioma do vault? <span class="t-ans">› PT-BR</span></div>
+        <div class="t-line"><span class="t-q">?</span> Diretório do vault? <span class="t-ans">› ./meu-cerebro</span></div>
+        <div class="t-line"><span class="t-q">?</span> Áreas de vida? <span class="t-ans">› trabalho, aprendizado, saúde</span></div>
+        <div class="t-gap"></div>
+        <div class="t-line t-success">✔ Vault criado com sucesso!</div>
+        <div class="t-gap"></div>
+        <div class="t-line">  Vault:  <span class="t-cyan">./meu-cerebro</span></div>
+        <div class="t-line">  Skills: <span class="t-cyan">~/.claude/commands</span></div>
+        <div class="t-gap"></div>
+        <div class="t-line">  Comandos disponíveis:</div>
+        <div class="t-line">    <span class="t-pink">/</span>wiki-capture</div>
+        <div class="t-line">    <span class="t-pink">/</span>wiki-ingest</div>
+        <div class="t-line">    <span class="t-pink">/</span>wiki-lint</div>
+        <div class="t-line">    <span class="t-pink">/</span>wiki-query</div>
+        <div class="t-line">    <span class="t-pink">/</span>wiki-review</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== SLIDE 34: OS 5 COMANDOS ============== -->
+<section class="slide" data-slide="34">
+  <div class="slide-inner">
+    <div class="label">framework</div>
+    <h2 class="section-title">Os <span class="gradient">5 comandos</span> do dia a dia</h2>
+    <div style="display:flex; flex-direction:column; gap:1rem; margin-top:2rem; max-width:760px;">
+      <div class="cmd-row">
+        <span class="cmd-name">/wiki-capture</span>
+        <span class="cmd-desc">Captura rápida no inbox — sem sair do terminal</span>
+        <span class="cmd-freq">diário</span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd-name">/wiki-ingest</span>
+        <span class="cmd-desc">Processa artigo/paper/transcript em raw/ → gera páginas no wiki</span>
+        <span class="cmd-freq">por fonte</span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd-name">/wiki-query</span>
+        <span class="cmd-desc">Faz uma pergunta ao wiki — Claude sintetiza com wikilinks</span>
+        <span class="cmd-freq">quando precisar</span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd-name">/wiki-review</span>
+        <span class="cmd-desc">Triagem do inbox com Claude — cada item vira uma decisão</span>
+        <span class="cmd-freq">semanal</span>
+      </div>
+      <div class="cmd-row">
+        <span class="cmd-name">/wiki-lint</span>
+        <span class="cmd-desc">Checa saúde do wiki — links quebrados, órfãs, stale, idioma</span>
+        <span class="cmd-freq">mensal</span>
+      </div>
+    </div>
+    <blockquote class="callout callout-info mt-32">
+      Os skills ficam em <code>~/.claude/commands/</code> e funcionam em qualquer projeto.
+    </blockquote>
+  </div>
+</section>
+
+<!-- ============== SLIDE 35: CLAUDE.MD COMO CONTRATO ============== -->
+<section class="slide" data-slide="35">
+  <div class="slide-inner">
+    <div class="label">framework</div>
+    <h2 class="section-title">O <span class="gradient">CLAUDE.md</span> como contrato</h2>
+    <p class="subtitle mt-16">O arquivo que ensina o Claude a operar o seu vault — gerado automaticamente pelo setup.</p>
+    <div class="grid-2 mt-32" style="gap:2rem;">
+      <div class="card">
+        <div class="card-label">o que ele define</div>
+        <ul class="list mt-16">
+          <li><strong>§0 Idioma</strong> — PT-BR ou EN (regra absoluta)</li>
+          <li><strong>§1 Arquitetura</strong> — raw/ (você) vs wiki/ (Claude)</li>
+          <li><strong>§2 Nomeação</strong> — slugs, daily notes, MOCs</li>
+          <li><strong>§3 Frontmatter</strong> — campos obrigatórios por tipo</li>
+          <li><strong>§4 Wikilinks</strong> — quando e como linkar</li>
+          <li><strong>§5 Workflows</strong> — os 5 comandos em detalhe</li>
+          <li><strong>§7 Proibições</strong> — o que Claude nunca faz</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">por que isso importa</div>
+        <ul class="list mt-16">
+          <li>Claude Code lê o CLAUDE.md ao entrar no diretório</li>
+          <li>Você não precisa re-explicar as regras a cada sessão</li>
+          <li>O contrato persiste — você evolui o vault, o contrato acompanha</li>
+          <li>Funciona como <em>memory</em> estruturada do agente</li>
+        </ul>
+        <div class="cmd-single mt-24">
+          <code>cat CLAUDE.md | wc -l</code>
+          <span class="t-muted"> → ~200 linhas de contrato</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== SLIDE 36: ENCERRAMENTO ============== -->
+<section class="slide" data-slide="36">
   <div class="slide-inner">
     <div class="eyebrow">Próximos passos</div>
     <h2 class="section-title">O segundo cérebro <span class="gradient">só funciona se você usar</span></h2>
