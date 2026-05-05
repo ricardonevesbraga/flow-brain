@@ -3,34 +3,25 @@
 const fs = require('fs-extra');
 const path = require('path');
 
-function today() {
-  const d = new Date();
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return `${y}-${m}-${day}`;
-}
+function replacePlaceholders(template, config) {
+  let result = template;
 
-function slugify(str) {
-  return str
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .replace(/[^a-z0-9\s-]/g, '')
-    .trim()
-    .replace(/\s+/g, '-');
-}
+  result = result.replace(/\{\{NOME\}\}/g, config.name);
+  result = result.replace(/\{\{NAME\}\}/g, config.name);
+  result = result.replace(/\{\{DATA\}\}/g, config.date);
+  result = result.replace(/\{\{LANG\}\}/g, config.language);
 
-function replacePlaceholders(content, config) {
-  const areasYaml = config.areas.map((a) => `  - ${a}`).join('\n');
-  const areasInline = config.areas.join(', ');
-  return content
-    .replace(/\{\{NOME\}\}/g, config.name)
-    .replace(/\{\{NAME\}\}/g, config.name)
-    .replace(/\{\{AREAS_YAML\}\}/g, areasYaml)
-    .replace(/\{\{AREAS_INLINE\}\}/g, areasInline)
-    .replace(/\{\{DATA\}\}/g, config.date)
-    .replace(/\{\{LANG\}\}/g, config.language);
+  if (template.includes('{{AREAS_INLINE}}')) {
+    const areasInline = config.areas.join(', ');
+    result = result.replace(/\{\{AREAS_INLINE\}\}/g, areasInline);
+  }
+
+  if (template.includes('{{AREAS_YAML}}')) {
+    const areasYaml = config.areas.map(area => `  - ${area}`).join('\n');
+    result = result.replace(/\{\{AREAS_YAML\}\}/g, areasYaml);
+  }
+
+  return result;
 }
 
 async function replacePlaceholdersInDir(dir, config) {
@@ -73,20 +64,6 @@ async function copyVault(vaultSrc, dest, config) {
   );
 
   await replacePlaceholdersInDir(dest, config);
-}
-
-async function createAreas(dest, areas, config) {
-  const isptbr = config.language === 'PT-BR';
-  for (const area of areas) {
-    const slug = slugify(area);
-    await fs.ensureDir(path.join(dest, '03-areas', slug));
-
-    const mocPath = path.join(dest, 'wiki', 'sintese', `moc-${slug}.md`);
-    const mocContent = isptbr
-      ? buildMocPtbr(area, slug, config.date)
-      : buildMocEn(area, slug, config.date);
-    await fs.writeFile(mocPath, mocContent, 'utf8');
-  }
 }
 
 function buildMocPtbr(area, slug, date) {
@@ -159,10 +136,43 @@ WHERE contains(tags, "domain/${slug}")
 `;
 }
 
+async function createAreas(dest, areas, config) {
+  const isptbr = config.language === 'PT-BR';
+  for (const area of areas) {
+    const slug = slugify(area);
+    await fs.ensureDir(path.join(dest, '03-areas', slug));
+
+    const mocPath = path.join(dest, 'wiki', 'sintese', `moc-${slug}.md`);
+    const mocContent = isptbr
+      ? buildMocPtbr(area, slug, config.date)
+      : buildMocEn(area, slug, config.date);
+    await fs.writeFile(mocPath, mocContent, 'utf8');
+  }
+}
+
 async function makeExecutable(filePath) {
   if (process.platform !== 'win32' && await fs.pathExists(filePath)) {
     await fs.chmod(filePath, '755');
   }
+}
+
+function today() {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function slugify(str) {
+  return str
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^\w\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
 }
 
 module.exports = { copyVault, createAreas, makeExecutable, replacePlaceholders, today, slugify };
