@@ -1,0 +1,26 @@
+{
+  "name": "segundo-cerebro",
+  "version": "1.0.0",
+  "description": "Your second brain with Obsidian + Claude Code — setup in 60 seconds",
+  "bin": {
+    "segundo-cerebro": "./cli/index.js"
+  },
+  "scripts": {
+    "test": "jest",
+    "start": "node cli/index.js"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "enquirer": "^2.4.1",
+    "fs-extra": "^11.2.0",
+    "ora": "^5.4.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": ["obsidian", "second-brain", "claude", "zettelkasten", "para"],
+  "license": "MIT"
+}
