@@ -1,0 +1,9 @@
+node_modules/
+raw/
+02-projetos/
+03-areas/
+04-recursos/
+05-arquivo/
+anexos/
+.DS_Store
+*.log
