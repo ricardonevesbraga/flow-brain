@@ -1,5 +1,5 @@
 ---
-description: "Abre ou cria o diário de hoje em 01-diario/YYYY-MM-DD.md com template pronto."
+description: "Abre ou cria o diário de hoje em diario/YYYY-MM-DD.md com template pronto."
 ---
 
 # fb-diario
@@ -15,7 +15,7 @@ Abre ou cria a nota de diário do dia atual.
 ## O que faz
 
 1. Calcula a data de hoje no formato `YYYY-MM-DD`
-2. Verifica se `01-diario/YYYY-MM-DD.md` já existe
+2. Verifica se `diario/YYYY-MM-DD.md` já existe
 3. Se **existe**: exibe o conteúdo e pergunta se quer adicionar algo
 4. Se **não existe**: cria o arquivo com o template abaixo e confirma criação
 

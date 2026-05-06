@@ -16,7 +16,7 @@ async function replacePlaceholdersInDir(dir, config) {
     const itemPath = path.join(dir, item.name);
     if (item.isDirectory()) {
       await replacePlaceholdersInDir(itemPath, config);
-    } else if (item.name.endsWith('.md') || item.name === 'cap' || item.name === 'cap.ps1') {
+    } else if (item.name.endsWith('.md')) {
       const content = await fs.readFile(itemPath, 'utf8');
       const replaced = replacePlaceholders(content, config);
       if (replaced !== content) await fs.writeFile(itemPath, replaced, 'utf8');

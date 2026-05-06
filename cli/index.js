@@ -5,7 +5,7 @@ const path = require('path');
 const chalk = require('chalk');
 const ora = require('ora');
 const { askQuestions } = require('./questions');
-const { copyVault, createAreas, makeExecutable, today } = require('./generators');
+const { copyVault, today } = require('./generators');
 const { installSkills } = require('./skills');
 
 const VAULT_TEMPLATE = path.join(__dirname, '..', 'vault');
@@ -31,12 +31,6 @@ async function main() {
   try {
     spinner.text = chalk.dim('Copiando template...');
     await copyVault(VAULT_TEMPLATE, answers.dest, config);
-
-    spinner.text = chalk.dim('Criando áreas de vida...');
-    await createAreas(answers.dest, answers.areas, config);
-
-    const capPath = path.join(answers.dest, 'bin', 'cap');
-    await makeExecutable(capPath);
 
     spinner.text = chalk.dim('Instalando skills do Claude Code...');
     const { dest: skillsDest, installed } = await installSkills(SKILLS_DIR);

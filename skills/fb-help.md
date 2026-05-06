@@ -34,7 +34,6 @@ Além disso:
 
 | Comando | O que faz |
 |---|---|
-| `/wiki-capture <texto>` | Captura ideia no topo de captura.md |
 | `/wiki-ingest raw/arquivo.md` | Processa fonte raw → gera resumo e conceitos no wiki |
 | `/wiki-query <pergunta>` | Responde usando o conhecimento do wiki |
 | `/wiki-review` | Revisa captura.md e sugere destino para cada item |
@@ -52,7 +51,6 @@ Além disso:
 
 ### Fluxo recomendado
 
-1. Capture qualquer coisa com `/wiki-capture`
-2. Adicione fontes em `raw/` e processe com `/wiki-ingest`
-3. Consulte o conhecimento com `/wiki-query`
-4. Mensalmente: `/wiki-lint` para checar a saúde
+1. Adicione fontes em `raw/` e processe com `/wiki-ingest`
+2. Consulte o conhecimento com `/wiki-query`
+3. Mensalmente: `/wiki-lint` para checar a saúde

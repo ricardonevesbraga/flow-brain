@@ -20,7 +20,7 @@ ou simplesmente: `me responde X usando o wiki`
 2. Identifica 3–8 páginas relevantes para a pergunta
 3. Lê essas páginas integralmente
 4. Sintetiza resposta citando fontes via `[[wikilink]]`
-5. Oferece arquivar a síntese em `wiki/sintese/<slug>.md` se valiosa
+5. Oferece arquivar a síntese em `wiki/conceitos/<slug>.md` se valiosa
 6. Append em `wiki/log.md`
 
 ## Exemplo
@@ -28,3 +28,9 @@ ou simplesmente: `me responde X usando o wiki`
 ```
 /wiki-query qual a diferença entre RAG e LLM Wiki?
 ```
+
+## Regras
+
+- Só usa conteúdo existente no wiki — não inventa
+- Cita a página fonte de cada afirmação
+- Responde em PT-BR (ou EN, conforme CLAUDE.md)
