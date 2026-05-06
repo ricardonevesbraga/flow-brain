@@ -1,3 +1,7 @@
+---
+description: "Captura rápida zero-fricção no inbox do vault. Use: /wiki-capture <texto ou ideia>"
+---
+
 # wiki-capture
 
 Captura rápida zero-fricção no vault.

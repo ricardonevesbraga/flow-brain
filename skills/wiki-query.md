@@ -1,3 +1,7 @@
+---
+description: "Responde perguntas consultando o conhecimento acumulado no wiki. Use: /wiki-query <pergunta>"
+---
+
 # wiki-query
 
 Responde perguntas usando o conhecimento do wiki.

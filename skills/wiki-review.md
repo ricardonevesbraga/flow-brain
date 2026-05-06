@@ -1,3 +1,7 @@
+---
+description: "Revisa o inbox (captura.md) e sugere destino para cada item capturado."
+---
+
 # wiki-review
 
 Revisa o inbox e sugere destino para cada item capturado.

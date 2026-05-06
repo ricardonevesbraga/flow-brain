@@ -1,3 +1,7 @@
+---
+description: "Verifica a saúde do wiki: links quebrados, páginas órfãs, frontmatter inválido e páginas desatualizadas."
+---
+
 # wiki-lint
 
 Verifica a saúde do wiki e reporta problemas.

@@ -1,3 +1,7 @@
+---
+description: "Processa um arquivo de raw/ e gera resumo, entidades e conceitos no wiki. Use: /wiki-ingest raw/arquivo.md"
+---
+
 # wiki-ingest
 
 Processa um arquivo de `raw/` e gera páginas no wiki.
