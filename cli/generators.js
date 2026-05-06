@@ -3,6 +3,9 @@
 const fs = require('fs-extra');
 const path = require('path');
 
+// Pastas do vault/template que NÃO vão para o vault do usuário
+const SKIP_DIRS = new Set(['.claude', '.obsidian', 'CLAUDE.pt-br.md', 'CLAUDE.en.md']);
+
 function replacePlaceholders(template, config) {
   return template
     .replace(/\{\{NOME\}\}/g, config.name)
@@ -31,14 +34,23 @@ async function copyVault(vaultSrc, dest, config) {
     ? path.join(vaultSrc, 'CLAUDE.pt-br.md')
     : path.join(vaultSrc, 'CLAUDE.en.md');
 
+  // Copia apenas os itens permitidos (sem .claude, .obsidian, CLAUDE.*.md)
   const items = await fs.readdir(vaultSrc, { withFileTypes: true });
   for (const item of items) {
-    if (item.name === 'CLAUDE.pt-br.md' || item.name === 'CLAUDE.en.md') continue;
+    if (SKIP_DIRS.has(item.name)) continue;
     await fs.copy(path.join(vaultSrc, item.name), path.join(dest, item.name), { overwrite: false });
   }
 
+  // Gera CLAUDE.md personalizado a partir do template correto
   const claudeContent = await fs.readFile(claudeSrc, 'utf8');
   await fs.writeFile(path.join(dest, 'CLAUDE.md'), replacePlaceholders(claudeContent, config), 'utf8');
+
+  // Copia apenas o graph.json do Obsidian (cores do grafo)
+  const graphSrc = path.join(vaultSrc, '.obsidian', 'graph.json');
+  if (await fs.pathExists(graphSrc)) {
+    await fs.ensureDir(path.join(dest, '.obsidian'));
+    await fs.copy(graphSrc, path.join(dest, '.obsidian', 'graph.json'), { overwrite: false });
+  }
 
   await replacePlaceholdersInDir(dest, config);
 }
