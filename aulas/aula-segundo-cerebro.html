@@ -45,7 +45,7 @@
     font-family: var(--font-head);
     background: var(--bg);
     color: var(--text);
-    font-size: 17px;
+    font-size: 28px;
     line-height: 1.55;
     overflow: hidden;
     transition: background 0.4s ease, color 0.4s ease;
@@ -85,11 +85,11 @@
   body.theme-light .navbar { background: rgba(250, 250, 250, 0.85); }
   .nav-left { display: flex; align-items: center; gap: 16px; }
   .nav-logo {
-    font-weight: 700; font-size: 14px; letter-spacing: 1px;
+    font-weight: 700; font-size: 28px; letter-spacing: 1px;
     color: var(--neon); text-transform: uppercase;
   }
   .nav-title {
-    font-size: 13px; color: var(--muted);
+    font-size: 17px; color: var(--muted);
     display: flex; align-items: center; gap: 8px;
   }
   .nav-title .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--muted); }
@@ -102,7 +102,7 @@
     color: var(--text);
     border-radius: 8px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 28px;
     transition: all 0.2s ease;
     font-family: var(--font-mono);
   }
@@ -110,7 +110,7 @@
   .nav-btn:active { transform: translateY(0); }
   .nav-counter {
     font-family: var(--font-mono);
-    font-size: 13px;
+    font-size: 17px;
     color: var(--muted);
     padding: 0 12px;
     min-width: 70px;
@@ -167,7 +167,7 @@
   /* ==================== TYPOGRAPHY ==================== */
   .eyebrow {
     font-family: var(--font-mono);
-    font-size: 12px;
+    font-size: 16px;
     text-transform: uppercase;
     letter-spacing: 2px;
     color: var(--neon);
@@ -182,27 +182,27 @@
     background: var(--neon);
   }
   h1.title {
-    font-size: clamp(36px, 5vw, 64px);
+    font-size: clamp(44px, 6vw, 72px);
     font-weight: 700;
     line-height: 1.05;
     letter-spacing: -0.02em;
     margin-bottom: 22px;
   }
   h2.section-title {
-    font-size: clamp(28px, 3.5vw, 44px);
+    font-size: clamp(36px, 4.5vw, 54px);
     font-weight: 600;
     line-height: 1.1;
     margin-bottom: 28px;
     letter-spacing: -0.01em;
   }
   h3.subtitle {
-    font-size: clamp(20px, 2.2vw, 26px);
+    font-size: clamp(24px, 2.8vw, 32px);
     font-weight: 500;
     color: var(--muted);
     margin-bottom: 32px;
   }
   .lead {
-    font-size: clamp(17px, 1.6vw, 20px);
+    font-size: clamp(20px, 2vw, 25px);
     color: var(--muted);
     max-width: 720px;
     line-height: 1.6;
@@ -222,7 +222,7 @@
   }
   .hero-meta-item {
     display: flex; align-items: center; gap: 10px;
-    font-size: 14px; color: var(--muted);
+    font-size: 28px; color: var(--muted);
     font-family: var(--font-mono);
   }
   .hero-meta-item .dot { width: 6px; height: 6px; background: var(--neon); border-radius: 50%; }
@@ -235,7 +235,7 @@
     border: none;
     border-radius: 8px;
     font-family: var(--font-head);
-    font-size: 15px;
+    font-size: 19px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.25s ease;
@@ -269,16 +269,16 @@
     background: radial-gradient(circle, var(--neon-soft) 0%, transparent 70%);
     border: 1px solid var(--neon-soft);
     border-radius: 50%;
-    font-size: 16px;
+    font-size: 24px;
   }
   .step .body { flex: 1; min-width: 0; }
   .step h4 {
-    font-size: 17px;
+    font-size: 28px;
     margin-bottom: 6px;
     color: var(--text);
   }
   .step p {
-    font-size: 14px;
+    font-size: 28px;
     color: var(--muted);
     margin-bottom: 10px;
   }
@@ -287,7 +287,7 @@
   /* ==================== CMD (CODE BLOCK) ==================== */
   .cmd {
     font-family: var(--font-mono);
-    font-size: 13px;
+    font-size: 17px;
     background: rgba(0, 0, 0, 0.4);
     border: 1px solid var(--glass-border);
     color: var(--text);
@@ -305,7 +305,7 @@
     content: "copiar";
     position: absolute;
     top: 8px; right: 12px;
-    font-size: 10px;
+    font-size: 14px;
     color: var(--muted);
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -325,7 +325,7 @@
   .cmd-prefix { color: var(--neon); font-weight: 600; margin-right: 10px; }
   .cmd-multi {
     font-family: var(--font-mono);
-    font-size: 12.5px;
+    font-size: 16px;
     background: rgba(0, 0, 0, 0.4);
     border: 1px solid var(--glass-border);
     color: var(--text);
@@ -343,7 +343,7 @@
   .cmd-multi::after {
     content: "copiar";
     position: absolute; top: 10px; right: 14px;
-    font-size: 10px; color: var(--muted);
+    font-size: 14px; color: var(--muted);
     text-transform: uppercase; letter-spacing: 1px;
     opacity: 0; transition: opacity 0.2s ease;
   }
@@ -360,7 +360,7 @@
     background: var(--neon-soft);
     color: var(--neon);
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 15px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -397,7 +397,7 @@
     margin-top: 24px;
   }
   .glass h4 {
-    font-size: 16px; margin-bottom: 10px;
+    font-size: 24px; margin-bottom: 10px;
     display: flex; align-items: center; gap: 10px;
   }
   .glass h4 .badge {
@@ -407,10 +407,10 @@
     color: var(--neon);
     border-radius: 6px;
     font-family: var(--font-mono);
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 700;
   }
-  .glass p { font-size: 14px; color: var(--muted); }
+  .glass p { font-size: 28px; color: var(--muted); }
 
   /* ==================== PASSO BOX (DETAILS) ==================== */
   .passo-box {
@@ -434,14 +434,14 @@
     content: "+";
     margin-left: auto;
     font-family: var(--font-mono);
-    font-size: 18px;
+    font-size: 28px;
     color: var(--neon);
     transition: transform 0.2s ease;
   }
   .passo-box[open] summary::after { content: "−"; }
   .passo-box .pnum {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 15px;
     color: var(--neon);
     background: var(--neon-soft);
     padding: 4px 8px;
@@ -449,7 +449,7 @@
   }
   .passo-box-body {
     padding: 0 20px 20px 20px;
-    font-size: 14px;
+    font-size: 28px;
     color: var(--muted);
     line-height: 1.6;
   }
@@ -463,7 +463,7 @@
     padding: 16px 20px;
     border-radius: 0 8px 8px 0;
     margin: 18px 0;
-    font-size: 14px;
+    font-size: 28px;
   }
   .callout.warn { border-color: var(--warning); background: rgba(251, 191, 36, 0.08); }
   .callout.success { border-color: var(--success); background: rgba(74, 222, 128, 0.08); }
@@ -504,7 +504,7 @@
     color: white;
     font-weight: 700;
   }
-  .check-item .check-text { font-size: 14px; flex: 1; }
+  .check-item .check-text { font-size: 28px; flex: 1; }
   .check-item.done .check-text {
     color: var(--muted);
     text-decoration: line-through;
@@ -530,13 +530,13 @@
     right: -16px; top: 50%;
     transform: translateY(-50%);
     color: var(--neon);
-    font-size: 20px;
+    font-size: 24px;
     z-index: 2;
   }
   .karpathy-step:last-child .arrow { display: none; }
   .karpathy-step .icon { font-size: 28px; margin-bottom: 8px; }
-  .karpathy-step h5 { font-size: 14px; margin-bottom: 6px; color: var(--neon); }
-  .karpathy-step p { font-size: 12px; color: var(--muted); }
+  .karpathy-step h5 { font-size: 28px; margin-bottom: 6px; color: var(--neon); }
+  .karpathy-step p { font-size: 16px; color: var(--muted); }
 
   /* ==================== 3 CAMADAS ==================== */
   .camadas {
@@ -553,13 +553,13 @@
   }
   .camada h5 {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 15px;
     text-transform: uppercase;
     letter-spacing: 1.5px;
     margin-bottom: 12px;
   }
-  .camada .name { font-size: 22px; font-weight: 600; margin-bottom: 8px; }
-  .camada p { font-size: 13px; color: var(--muted); }
+  .camada .name { font-size: 28px; font-weight: 600; margin-bottom: 8px; }
+  .camada p { font-size: 17px; color: var(--muted); }
   .camada-raw { background: rgba(96, 165, 250, 0.06); border-color: rgba(96, 165, 250, 0.3); }
   .camada-raw h5 { color: #60a5fa; }
   .camada-wiki { background: var(--neon-dim); border-color: var(--neon-soft); }
@@ -572,16 +572,16 @@
     width: 100%;
     border-collapse: collapse;
     margin: 18px 0;
-    font-size: 14px;
+    font-size: 28px;
   }
   th, td {
     text-align: left;
     padding: 12px 16px;
     border-bottom: 1px solid var(--glass-border);
   }
-  th { color: var(--neon); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+  th { color: var(--neon); font-weight: 600; font-size: 16px; text-transform: uppercase; letter-spacing: 1px; }
   td { color: var(--muted); }
-  td code { color: var(--text); background: var(--glass); padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+  td code { color: var(--text); background: var(--glass); padding: 2px 6px; border-radius: 4px; font-size: 16px; }
 
   /* ==================== TOAST ==================== */
   .toast {
@@ -593,7 +593,7 @@
     border: 1px solid var(--neon);
     padding: 12px 24px;
     border-radius: 8px;
-    font-size: 13px;
+    font-size: 17px;
     z-index: 200;
     transition: transform 0.3s ease;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
@@ -603,7 +603,7 @@
   /* ==================== HELPERS ==================== */
   .muted { color: var(--muted); }
   .neon { color: var(--neon); }
-  .small { font-size: 13px; }
+  .small { font-size: 17px; }
   .mt-12 { margin-top: 12px; }
   .mt-24 { margin-top: 24px; }
   .mt-32 { margin-top: 32px; }
@@ -629,16 +629,16 @@
   .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
   .mini-card { background:var(--glass); border:1px solid var(--glass-border); border-radius:10px; padding:0.75rem 1rem; display:flex; align-items:center; gap:0.5rem; font-weight:500; }
   .cmd-row { display:flex; align-items:center; gap:1rem; padding:0.75rem 1rem; background:var(--glass); border:1px solid var(--glass-border); border-radius:10px; }
-  .cmd-name { font-family:var(--font-mono); color:var(--neon); font-weight:600; min-width:160px; font-size:0.95rem; }
-  .cmd-desc { flex:1; color:var(--text); font-size:0.95rem; }
-  .cmd-freq { font-size:0.78rem; color:var(--muted); background:var(--bg-card); border:1px solid var(--glass-border); border-radius:6px; padding:2px 8px; white-space:nowrap; }
-  .terminal { background:#0d1117; border:1px solid var(--glass-border); border-radius:12px; overflow:hidden; font-family:var(--font-mono); font-size:0.88rem; }
+  .cmd-name { font-family:var(--font-mono); color:var(--neon); font-weight:600; min-width:160px; font-size:1.1rem; }
+  .cmd-desc { flex:1; color:var(--text); font-size:1.1rem; }
+  .cmd-freq { font-size:0.92rem; color:var(--muted); background:var(--bg-card); border:1px solid var(--glass-border); border-radius:6px; padding:2px 8px; white-space:nowrap; }
+  .terminal { background:#0d1117; border:1px solid var(--glass-border); border-radius:12px; overflow:hidden; font-family:var(--font-mono); font-size:1.05rem; }
   .terminal-bar { background:#1a1a2e; padding:10px 14px; display:flex; align-items:center; gap:6px; }
   .t-dot { width:12px; height:12px; border-radius:50%; }
   .t-dot.red { background:#ff5f57; }
   .t-dot.yellow { background:#ffbd2e; }
   .t-dot.green { background:#28c840; }
-  .t-label { margin-left:auto; color:var(--muted); font-size:0.78rem; }
+  .t-label { margin-left:auto; color:var(--muted); font-size:0.92rem; }
   .terminal-body { padding:1.25rem 1.5rem; display:flex; flex-direction:column; gap:2px; }
   .t-line { color:#c9d1d9; white-space:pre; line-height:1.7; }
   .t-gap { height:8px; }
@@ -650,7 +650,7 @@
   .t-success { color:var(--success); }
   .t-header { color:var(--muted); }
   .t-muted { color:var(--muted); }
-  .cmd-single { background:var(--bg); border:1px solid var(--glass-border); border-radius:8px; padding:0.5rem 0.75rem; font-family:var(--font-mono); font-size:0.85rem; display:inline-block; }
+  .cmd-single { background:var(--bg); border:1px solid var(--glass-border); border-radius:8px; padding:0.5rem 0.75rem; font-family:var(--font-mono); font-size:1rem; display:inline-block; }
 </style>
 </head>
 <body>
@@ -1783,7 +1783,7 @@ cada um é melhor?</pre></div>
         <div class="t-line"><span class="t-prompt">$</span> npx flowbrain</div>
         <div class="t-gap"></div>
         <div class="t-line t-header">  ┌─────────────────────────────────────┐</div>
-        <div class="t-line t-header">  │   <span class="t-pink">Segundo Cérebro</span> — Setup v1.0   │</div>
+        <div class="t-line t-header">  │   <span class="t-pink">Flow Brain</span> — Setup v1.1   │</div>
         <div class="t-line t-header">  └─────────────────────────────────────┘</div>
         <div class="t-gap"></div>
         <div class="t-line"><span class="t-q">?</span> Qual é o seu nome? <span class="t-ans">› Ana</span></div>
@@ -1796,12 +1796,9 @@ cada um é melhor?</pre></div>
         <div class="t-line">  Vault:  <span class="t-cyan">./meu-cerebro</span></div>
         <div class="t-line">  Skills: <span class="t-cyan">~/.claude/commands</span></div>
         <div class="t-gap"></div>
-        <div class="t-line">  Comandos disponíveis:</div>
-        <div class="t-line">    <span class="t-pink">/</span>wiki-capture</div>
-        <div class="t-line">    <span class="t-pink">/</span>wiki-ingest</div>
-        <div class="t-line">    <span class="t-pink">/</span>wiki-lint</div>
-        <div class="t-line">    <span class="t-pink">/</span>wiki-query</div>
-        <div class="t-line">    <span class="t-pink">/</span>wiki-review</div>
+        <div class="t-line">  Comandos instalados:</div>
+        <div class="t-line">    <span class="t-muted"># wiki</span>   <span class="t-pink">/</span>wiki-capture  <span class="t-pink">/</span>wiki-ingest  <span class="t-pink">/</span>wiki-query  <span class="t-pink">/</span>wiki-lint  <span class="t-pink">/</span>wiki-review</div>
+        <div class="t-line">    <span class="t-muted"># vault</span>  <span class="t-pink">/</span>fb-diario  <span class="t-pink">/</span>fb-projeto  <span class="t-pink">/</span>fb-area  <span class="t-pink">/</span>fb-recurso  <span class="t-pink">/</span>fb-arquivar  <span class="t-pink">/</span>fb-raw  <span class="t-pink">/</span>fb-help</div>
       </div>
     </div>
   </div>
@@ -1811,37 +1808,31 @@ cada um é melhor?</pre></div>
 <section class="slide" data-slide="34">
   <div class="slide-inner">
     <div class="label">framework</div>
-    <h2 class="section-title">Os <span class="gradient">5 comandos</span> do dia a dia</h2>
-    <div style="display:flex; flex-direction:column; gap:1rem; margin-top:2rem; max-width:760px;">
-      <div class="cmd-row">
-        <span class="cmd-name">/wiki-capture</span>
-        <span class="cmd-desc">Captura rápida no inbox — sem sair do terminal</span>
-        <span class="cmd-freq">diário</span>
+    <h2 class="section-title">Os <span class="gradient">12 comandos</span> do dia a dia</h2>
+    <div class="grid-2 mt-24" style="gap:2rem; max-width:900px;">
+      <div>
+        <div class="card-label mb-12">wiki — conhecimento</div>
+        <div style="display:flex; flex-direction:column; gap:0.75rem;">
+          <div class="cmd-row"><span class="cmd-name">/wiki-capture</span><span class="cmd-desc">Captura no inbox</span><span class="cmd-freq">diário</span></div>
+          <div class="cmd-row"><span class="cmd-name">/wiki-ingest</span><span class="cmd-desc">Processa raw/ → wiki</span><span class="cmd-freq">por fonte</span></div>
+          <div class="cmd-row"><span class="cmd-name">/wiki-query</span><span class="cmd-desc">Pergunta ao wiki</span><span class="cmd-freq">sempre</span></div>
+          <div class="cmd-row"><span class="cmd-name">/wiki-review</span><span class="cmd-desc">Triagem do inbox</span><span class="cmd-freq">semanal</span></div>
+          <div class="cmd-row"><span class="cmd-name">/wiki-lint</span><span class="cmd-desc">Saúde do wiki</span><span class="cmd-freq">mensal</span></div>
+        </div>
       </div>
-      <div class="cmd-row">
-        <span class="cmd-name">/wiki-ingest</span>
-        <span class="cmd-desc">Processa artigo/paper/transcript em raw/ → gera páginas no wiki</span>
-        <span class="cmd-freq">por fonte</span>
-      </div>
-      <div class="cmd-row">
-        <span class="cmd-name">/wiki-query</span>
-        <span class="cmd-desc">Faz uma pergunta ao wiki — Claude sintetiza com wikilinks</span>
-        <span class="cmd-freq">quando precisar</span>
-      </div>
-      <div class="cmd-row">
-        <span class="cmd-name">/wiki-review</span>
-        <span class="cmd-desc">Triagem do inbox com Claude — cada item vira uma decisão</span>
-        <span class="cmd-freq">semanal</span>
-      </div>
-      <div class="cmd-row">
-        <span class="cmd-name">/wiki-lint</span>
-        <span class="cmd-desc">Checa saúde do wiki — links quebrados, órfãs, stale, idioma</span>
-        <span class="cmd-freq">mensal</span>
+      <div>
+        <div class="card-label mb-12">fb — vault &amp; projetos</div>
+        <div style="display:flex; flex-direction:column; gap:0.75rem;">
+          <div class="cmd-row"><span class="cmd-name">/fb-diario</span><span class="cmd-desc">Abre o diário de hoje</span><span class="cmd-freq">diário</span></div>
+          <div class="cmd-row"><span class="cmd-name">/fb-projeto</span><span class="cmd-desc">Cria novo projeto</span><span class="cmd-freq">por projeto</span></div>
+          <div class="cmd-row"><span class="cmd-name">/fb-area</span><span class="cmd-desc">Cria nova área</span><span class="cmd-freq">setup</span></div>
+          <div class="cmd-row"><span class="cmd-name">/fb-recurso</span><span class="cmd-desc">Adiciona referência</span><span class="cmd-freq">sempre</span></div>
+          <div class="cmd-row"><span class="cmd-name">/fb-arquivar</span><span class="cmd-desc">Arquiva nota/projeto</span><span class="cmd-freq">sempre</span></div>
+          <div class="cmd-row"><span class="cmd-name">/fb-raw</span><span class="cmd-desc">Lista fontes pendentes</span><span class="cmd-freq">sempre</span></div>
+          <div class="cmd-row"><span class="cmd-name">/fb-help</span><span class="cmd-desc">Guia completo</span><span class="cmd-freq">dúvidas</span></div>
+        </div>
       </div>
     </div>
-    <blockquote class="callout callout-info mt-32">
-      Os skills ficam em <code>~/.claude/commands/</code> e funcionam em qualquer projeto.
-    </blockquote>
   </div>
 </section>
 
