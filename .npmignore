@@ -1,9 +1,9 @@
-# Personal vault files
+# Projeto pessoal — vault local do autor
 00-inbox/
 01-diario/
 wiki/
 .obsidian/
-.claude/
+/.claude/
 
 # Docs internos
 docs/superpowers/

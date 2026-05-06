@@ -1,4 +1,5 @@
 ---
+name: wiki-ingest
 description: "Processa um arquivo de raw/ e gera resumo, entidades e conceitos no wiki. Use: /wiki-ingest raw/arquivo.md"
 ---
 

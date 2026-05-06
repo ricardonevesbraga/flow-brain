@@ -1,4 +1,5 @@
 ---
+name: wiki-review
 description: "Revisa captura.md e sugere destino para cada item capturado."
 ---
 

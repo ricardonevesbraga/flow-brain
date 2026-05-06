@@ -9,7 +9,7 @@ const { copyVault, today } = require('./generators');
 const { installSkills } = require('./skills');
 
 const VAULT_TEMPLATE = path.join(__dirname, '..', 'vault');
-const SKILLS_DIR = path.join(__dirname, '..', 'skills');
+const SKILLS_DIR = path.join(__dirname, '..', 'vault', '.claude', 'commands');
 
 async function main() {
   console.log('\n' + chalk.bold('  ┌─────────────────────────────────────┐'));

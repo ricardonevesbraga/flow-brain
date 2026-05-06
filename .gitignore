@@ -1,5 +1,5 @@
 node_modules/
-raw/
+/raw/
 02-projetos/
 03-areas/
 04-recursos/
@@ -12,7 +12,8 @@ vault/CLAUDE.pt-br.md
 vault/CLAUDE.en.md
 00-inbox/
 01-diario/
-.obsidian/
-wiki/
-templates/
+/.claude/
+/.obsidian/
+/wiki/
+/templates/
 docs/superpowers/

@@ -1,4 +1,5 @@
 ---
+name: wiki-query
 description: "Responde perguntas consultando o conhecimento acumulado no wiki. Use: /wiki-query <pergunta>"
 ---
 

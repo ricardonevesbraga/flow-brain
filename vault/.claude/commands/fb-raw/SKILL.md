@@ -1,4 +1,5 @@
 ---
+name: fb-raw
 description: "Lista arquivos em raw/ mostrando quais já foram processados e quais estão pendentes de ingest."
 ---
 
@@ -20,13 +21,13 @@ Lista os arquivos em `raw/` e mostra o status de ingest de cada um.
 
 **Pendentes de ingest** — ainda não processados:
 ```
-raw/artigos/nome-do-artigo.md  ← pronto para /wiki-ingest
+raw/artigos/nome-do-artigo.md    ← pronto para /wiki-ingest
 raw/videos/transcript.md       ← pronto para /wiki-ingest
 ```
 
 **Já processados** — têm página em wiki/fontes/:
 ```
-raw/papers/paper-x.md  →  wiki/fontes/paper-x.md ✓
+raw/livros/livro-x.md  →  wiki/fontes/livro-x.md ✓
 ```
 
 4. Sugere o próximo arquivo a processar (o mais recente entre os pendentes)

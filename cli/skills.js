@@ -15,13 +15,17 @@ async function installSkills(skillsSrc) {
   const dest = getSkillsDir();
   await fs.ensureDir(dest);
 
-  const files = await fs.readdir(skillsSrc);
+  const entries = await fs.readdir(skillsSrc, { withFileTypes: true });
   const installed = [];
 
-  for (const file of files) {
-    if (!file.endsWith('.md')) continue;
-    await fs.copy(path.join(skillsSrc, file), path.join(dest, file), { overwrite: true });
-    installed.push(file.replace('.md', ''));
+  for (const entry of entries) {
+    if (!entry.isDirectory()) continue;
+    const skillFile = path.join(skillsSrc, entry.name, 'SKILL.md');
+    if (!await fs.pathExists(skillFile)) continue;
+    const destDir = path.join(dest, entry.name);
+    await fs.ensureDir(destDir);
+    await fs.copy(skillFile, path.join(destDir, 'SKILL.md'), { overwrite: true });
+    installed.push(entry.name);
   }
 
   return { dest, installed };

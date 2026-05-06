@@ -1,4 +1,5 @@
 ---
+name: fb-diario
 description: "Abre ou cria o diário de hoje em diario/YYYY-MM-DD.md com template pronto."
 ---
 

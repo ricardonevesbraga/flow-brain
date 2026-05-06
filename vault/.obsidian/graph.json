@@ -1,0 +1,58 @@
+{
+  "collapse-filter": false,
+  "search": "",
+  "showTags": false,
+  "showAttachments": false,
+  "hideUnresolved": false,
+  "showOrphans": true,
+  "collapse-color-groups": false,
+  "colorGroups": [
+    {
+      "query": "tag:#tipo/fonte",
+      "color": {
+        "a": 1,
+        "rgb": 14737632
+      }
+    },
+    {
+      "query": "tag:#tipo/conceito",
+      "color": {
+        "a": 1,
+        "rgb": 15670834
+      }
+    },
+    {
+      "query": "tag:#tipo/entidade",
+      "color": {
+        "a": 1,
+        "rgb": 4369920
+      }
+    },
+    {
+      "query": "tag:#tipo/diario",
+      "color": {
+        "a": 1,
+        "rgb": 6737628
+      }
+    },
+    {
+      "query": "tag:#tipo/inbox",
+      "color": {
+        "a": 1,
+        "rgb": 16750950
+      }
+    }
+  ],
+  "collapse-display": false,
+  "showArrow": false,
+  "textFadeMultiplier": 0,
+  "nodeSizeMultiplier": 1.2,
+  "lineSizeMultiplier": 1,
+  "collapse-forces": false,
+  "centerStrength": 0.518713248970312,
+  "repelStrength": 10,
+  "linkStrength": 1,
+  "linkDistance": 30,
+  "scale": 1,
+  "close": false
+}
