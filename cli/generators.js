@@ -138,6 +138,7 @@ WHERE contains(tags, "domain/${slug}")
 
 async function createAreas(dest, areas, config) {
   const isptbr = config.language === 'PT-BR';
+  await fs.ensureDir(path.join(dest, 'wiki', 'sintese'));
   for (const area of areas) {
     const slug = slugify(area);
     await fs.ensureDir(path.join(dest, '03-areas', slug));

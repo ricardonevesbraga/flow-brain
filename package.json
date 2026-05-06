@@ -1,9 +1,9 @@
 {
   "name": "flowbrain",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Your second brain with Obsidian + Claude Code — setup in 60 seconds",
   "bin": {
-    "flow-brain": "cli/index.js"
+    "flowbrain": "cli/index.js"
   },
   "scripts": {
     "test": "jest",

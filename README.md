@@ -1,94 +1,74 @@
 # Flow Brain
 
-> Your second brain with Obsidian + Claude Code — set up in 60 seconds.
-
-Built on the **Karpathy LLM Wiki** pattern (append-and-review + 3-layer wiki), **PARA** by Tiago Forte, and **Zettelkasten** connections. Claude Code manages the wiki layer; you own your notes.
+> Seu segundo cérebro com Obsidian + Claude Code — configurado em 60 segundos.
 
 ---
 
-## What you get
+## O que você ganha
 
-- A fully structured Obsidian vault
-- 5 Claude Code slash commands (`/wiki-ingest`, `/wiki-query`, `/wiki-lint`, `/wiki-review`, `/wiki-capture`)
-- Bilingual support: PT-BR and EN
-- Works on Mac, Linux, and Windows
+- Um vault Obsidian completamente estruturado
+- 5 comandos do Claude Code (`/wiki-ingest`, `/wiki-query`, `/wiki-lint`, `/wiki-review`, `/wiki-capture`)
+- Suporte bilíngue: PT-BR e EN
+- Funciona no Mac, Linux e Windows
 
 ---
 
-## Quick start
+## Início rápido
 
-**Prerequisites:** [Obsidian](https://obsidian.md), [Claude Code](https://claude.ai/code), Node.js 18+
+**Pré-requisitos:** [Obsidian](https://obsidian.md), [Claude Code](https://claude.ai/code), Node.js 18+
 
 ```bash
 npx flowbrain
 ```
 
-That's it. Answer 4 questions, open the generated folder in Obsidian, and start capturing.
+Responda as perguntas, abra a pasta gerada no Obsidian e comece a capturar.
 
 ---
 
-## Commands
+## Comandos
 
-| Command | What it does |
+| Comando | O que faz |
 |---|---|
-| `/wiki-capture <text>` | Zero-friction capture to inbox |
-| `/wiki-ingest raw/path/file.md` | Process a raw source into the wiki |
-| `/wiki-query <question>` | Answer a question using wiki knowledge |
-| `/wiki-lint` | Check wiki health (broken links, orphans, stale) |
-| `/wiki-review` | Triage inbox items with Claude's help |
+| `/wiki-capture <texto>` | Captura zero-fricção no inbox |
+| `/wiki-ingest raw/caminho/arquivo.md` | Processa uma fonte raw no wiki |
+| `/wiki-query <pergunta>` | Responde usando o conhecimento do wiki |
+| `/wiki-lint` | Checa saúde do wiki (links, órfãs, stale) |
+| `/wiki-review` | Triagem do inbox com ajuda do Claude |
 
 ---
 
-## Architecture
+## Arquitetura
 
 ```
 vault/
-├── 00-inbox/captura.md   ← everything enters here (append-and-review)
+├── 00-inbox/captura.md   ← tudo entra aqui
 ├── 01-diario/            ← daily notes
-├── 02-projetos/          ← time-bound projects (PARA)
-├── 03-areas/             ← ongoing responsibilities (PARA)
-├── 04-recursos/          ← reference material (PARA)
-├── 05-arquivo/           ← completed/inactive (PARA)
-├── raw/                  ← immutable source material (you write)
-└── wiki/                 ← generated knowledge (Claude writes)
-    ├── conceitos/        ← concept pages
-    ├── entidades/        ← entity pages
-    ├── fontes/           ← source summaries
-    └── sintese/          ← MOCs and synthesis
+├── 02-projetos/          ← projetos com prazo
+├── 03-areas/             ← responsabilidades contínuas
+├── 04-recursos/          ← material de referência
+├── 05-arquivo/           ← concluído/inativo
+├── raw/                  ← fontes imutáveis (você escreve)
+└── wiki/                 ← conhecimento gerado (Claude escreve)
+    ├── conceitos/
+    ├── entidades/
+    ├── fontes/
+    └── sintese/
 ```
 
-The `CLAUDE.md` file is the **operating contract**: it tells Claude exactly what to do in this vault, which commands exist, and what rules to follow.
+O arquivo `CLAUDE.md` é o **contrato de operação**: diz ao Claude exatamente o que fazer no vault, quais comandos existem e quais regras seguir.
 
 ---
 
-## Customizing after setup
+## Como funciona
 
-- **Add an area:** create a folder in `03-areas/` and add a MOC in `wiki/sintese/moc-<area>.md`
-- **Change language:** update `CLAUDE.md` — section 0 controls the language rule
-- **Add a skill:** drop a `.md` file in `~/.claude/commands/`
-
----
-
-## How it works
-
-1. You capture in `00-inbox/captura.md` (or `bin/cap` from terminal)
-2. When you have raw material (article, transcript, notes), run `/wiki-ingest`
-3. Claude creates summaries, concept pages, and entity pages in `wiki/`
-4. Ask questions any time with `/wiki-query`
-5. Monthly: run `/wiki-lint` to check health
+1. Capture em `00-inbox/captura.md` (ou via `bin/cap` no terminal)
+2. Com material raw (artigo, transcript, notas), rode `/wiki-ingest`
+3. O Claude cria resumos, páginas de conceitos e entidades em `wiki/`
+4. Faça perguntas a qualquer hora com `/wiki-query`
+5. Mensalmente: rode `/wiki-lint` para checar a saúde
 
 ---
 
-## Contributing
+## Contribuindo
 
-PRs welcome. Please keep the bilingual support intact and test with both `PT-BR` and `EN` setups.
-
----
-
-## References
-
-- Karpathy, [The append-and-review note](https://karpathy.bearblog.dev/the-append-and-review-note/)
-- Karpathy, [LLM Wiki gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)
-- Tiago Forte, *Building a Second Brain* (PARA)
-- Niklas Luhmann, Zettelkasten
-- Nick Milo, *Linking Your Thinking* (MOCs)
+PRs bem-vindos. Mantenha o suporte bilíngue intacto e teste com setups PT-BR e EN.
