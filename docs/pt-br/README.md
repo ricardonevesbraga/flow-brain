@@ -2,14 +2,12 @@
 
 > Seu segundo cérebro com Obsidian + Claude Code — configurado em 60 segundos.
 
-Construído sobre o padrão **LLM Wiki do Karpathy** (append-and-review + wiki em 3 camadas), **PARA** de Tiago Forte, e conexões **Zettelkasten**. O Claude Code gerencia a camada wiki; você é dono das suas notas.
-
 ---
 
 ## O que você ganha
 
 - Um vault Obsidian completamente estruturado
-- 5 slash commands do Claude Code (`/wiki-ingest`, `/wiki-query`, `/wiki-lint`, `/wiki-review`, `/wiki-capture`)
+- 5 comandos do Claude Code (`/wiki-ingest`, `/wiki-query`, `/wiki-lint`, `/wiki-review`, `/wiki-capture`)
 - Suporte bilíngue: PT-BR e EN
 - Funciona no Mac, Linux e Windows
 
@@ -23,7 +21,7 @@ Construído sobre o padrão **LLM Wiki do Karpathy** (append-and-review + wiki e
 npx flowbrain
 ```
 
-Só isso. Responda 4 perguntas, abra a pasta gerada no Obsidian, e comece a capturar.
+Responda as perguntas, abra a pasta gerada no Obsidian e comece a capturar.
 
 ---
 
@@ -43,36 +41,28 @@ Só isso. Responda 4 perguntas, abra a pasta gerada no Obsidian, e comece a capt
 
 ```
 vault/
-├── 00-inbox/captura.md   ← tudo entra aqui (append-and-review)
+├── 00-inbox/captura.md   ← tudo entra aqui
 ├── 01-diario/            ← daily notes
-├── 02-projetos/          ← projetos com prazo (PARA)
-├── 03-areas/             ← responsabilidades contínuas (PARA)
-├── 04-recursos/          ← material de referência (PARA)
-├── 05-arquivo/           ← concluído/inativo (PARA)
+├── 02-projetos/          ← projetos com prazo
+├── 03-areas/             ← responsabilidades contínuas
+├── 04-recursos/          ← material de referência
+├── 05-arquivo/           ← concluído/inativo
 ├── raw/                  ← fontes imutáveis (você escreve)
 └── wiki/                 ← conhecimento gerado (Claude escreve)
-    ├── conceitos/        ← páginas de conceitos
-    ├── entidades/        ← páginas de entidades
-    ├── fontes/           ← resumos de fontes
-    └── sintese/          ← MOCs e sínteses
+    ├── conceitos/
+    ├── entidades/
+    ├── fontes/
+    └── sintese/
 ```
 
-O arquivo `CLAUDE.md` é o **contrato de operação**: diz ao Claude exatamente o que fazer no vault, quais comandos existem, e quais regras seguir.
-
----
-
-## Personalizando após o setup
-
-- **Adicionar área:** crie uma pasta em `03-areas/` e um MOC em `wiki/sintese/moc-<area>.md`
-- **Mudar idioma:** edite `CLAUDE.md` — a seção 0 controla a regra de idioma
-- **Adicionar skill:** coloque um arquivo `.md` em `~/.claude/commands/`
+O arquivo `CLAUDE.md` é o **contrato de operação**: diz ao Claude exatamente o que fazer no vault, quais comandos existem e quais regras seguir.
 
 ---
 
 ## Como funciona
 
-1. Você captura em `00-inbox/captura.md` (ou via `bin/cap` no terminal)
-2. Quando tiver material raw (artigo, transcript, notas), rode `/wiki-ingest`
+1. Capture em `00-inbox/captura.md` (ou via `bin/cap` no terminal)
+2. Com material raw (artigo, transcript, notas), rode `/wiki-ingest`
 3. O Claude cria resumos, páginas de conceitos e entidades em `wiki/`
 4. Faça perguntas a qualquer hora com `/wiki-query`
 5. Mensalmente: rode `/wiki-lint` para checar a saúde
@@ -82,13 +72,3 @@ O arquivo `CLAUDE.md` é o **contrato de operação**: diz ao Claude exatamente 
 ## Contribuindo
 
 PRs bem-vindos. Mantenha o suporte bilíngue intacto e teste com setups PT-BR e EN.
-
----
-
-## Referências
-
-- Karpathy, [The append-and-review note](https://karpathy.bearblog.dev/the-append-and-review-note/)
-- Karpathy, [LLM Wiki gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)
-- Tiago Forte, *Building a Second Brain* (PARA)
-- Niklas Luhmann, Zettelkasten
-- Nick Milo, *Linking Your Thinking* (MOCs)
