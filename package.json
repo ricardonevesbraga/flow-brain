@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Your second brain with Obsidian + Claude Code — setup in 60 seconds",
   "bin": {
-    "flow-brain": "./cli/index.js"
+    "flow-brain": "cli/index.js"
   },
   "scripts": {
     "test": "jest",
@@ -21,6 +21,12 @@
   "engines": {
     "node": ">=18"
   },
-  "keywords": ["obsidian", "second-brain", "claude", "zettelkasten", "para"],
+  "keywords": [
+    "obsidian",
+    "second-brain",
+    "claude",
+    "zettelkasten",
+    "para"
+  ],
   "license": "MIT"
 }

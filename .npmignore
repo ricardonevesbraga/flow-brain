@@ -1,0 +1,21 @@
+# Personal vault files
+00-inbox/
+01-diario/
+wiki/
+.obsidian/
+.claude/
+
+# Docs internos
+docs/superpowers/
+
+# Dev
+cli/__tests__/
+node_modules/
+raw/
+02-projetos/
+03-areas/
+04-recursos/
+05-arquivo/
+anexos/
+aulas/
+*.log
