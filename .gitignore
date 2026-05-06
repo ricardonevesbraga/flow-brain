@@ -10,6 +10,7 @@ anexos/
 CLAUDE.md
 vault/CLAUDE.pt-br.md
 vault/CLAUDE.en.md
+vault/diario/*.md
 00-inbox/
 01-diario/
 /.claude/
