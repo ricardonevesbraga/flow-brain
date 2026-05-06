@@ -1,9 +1,9 @@
 {
-  "name": "segundo-cerebro",
+  "name": "flow-brain",
   "version": "1.0.0",
   "description": "Your second brain with Obsidian + Claude Code — setup in 60 seconds",
   "bin": {
-    "segundo-cerebro": "./cli/index.js"
+    "flow-brain": "./cli/index.js"
   },
   "scripts": {
     "test": "jest",

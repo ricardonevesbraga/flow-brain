@@ -13,7 +13,7 @@ const SKILLS_DIR = path.join(__dirname, '..', 'skills');
 
 async function main() {
   console.log('\n' + chalk.bold('  ┌─────────────────────────────────────┐'));
-  console.log(chalk.bold('  │   ') + chalk.hex('#e8006a').bold('Segundo Cérebro') + chalk.bold(' — Setup v1.0   │'));
+  console.log(chalk.bold('  │   ') + chalk.hex('#e8006a').bold('Flow Brain') + chalk.bold(' — Setup v1.0   │'));
   console.log(chalk.bold('  └─────────────────────────────────────┘\n'));
 
   let answers;

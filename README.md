@@ -1,4 +1,4 @@
-# Segundo Cérebro
+# Flow Brain
 
 > Your second brain with Obsidian + Claude Code — set up in 60 seconds.
 
@@ -20,7 +20,7 @@ Built on the **Karpathy LLM Wiki** pattern (append-and-review + 3-layer wiki), *
 **Prerequisites:** [Obsidian](https://obsidian.md), [Claude Code](https://claude.ai/code), Node.js 18+
 
 ```bash
-npx segundo-cerebro
+npx flow-brain
 ```
 
 That's it. Answer 4 questions, open the generated folder in Obsidian, and start capturing.
