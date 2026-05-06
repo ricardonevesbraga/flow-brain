@@ -1,5 +1,5 @@
 {
-  "name": "flow-brain",
+  "name": "flowbrain",
   "version": "1.0.0",
   "description": "Your second brain with Obsidian + Claude Code — setup in 60 seconds",
   "bin": {

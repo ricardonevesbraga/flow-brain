@@ -20,7 +20,7 @@ Built on the **Karpathy LLM Wiki** pattern (append-and-review + 3-layer wiki), *
 **Prerequisites:** [Obsidian](https://obsidian.md), [Claude Code](https://claude.ai/code), Node.js 18+
 
 ```bash
-npx flow-brain
+npx flowbrain
 ```
 
 That's it. Answer 4 questions, open the generated folder in Obsidian, and start capturing.
