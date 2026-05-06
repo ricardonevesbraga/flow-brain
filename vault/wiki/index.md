@@ -3,19 +3,19 @@ titulo: Índice do Wiki
 data-criacao: {{DATA}}
 data-atualizacao: {{DATA}}
 tags:
-  - tipo/moc
+  - tipo/inbox
 status: ativo
 ---
 
-# Índice do Wiki de {{NOME}}
+# Wiki de {{NOME}}
 
-> [!info] Catálogo mestre
-> Este arquivo é o ponto de entrada para todo o conhecimento gerado neste vault.
+> [!info] Ponto de entrada
+> Todo o conhecimento gerado pelo Claude a partir dos arquivos em `raw/`.
 
 ## Fontes processadas
 
 ```dataview
-TABLE data-atualizacao AS "Atualizado", dominio AS "Domínio"
+TABLE data-atualizacao AS "Atualizado"
 FROM "wiki/fontes"
 SORT data-atualizacao DESC
 ```
@@ -23,7 +23,7 @@ SORT data-atualizacao DESC
 ## Conceitos
 
 ```dataview
-TABLE status, dominio
+TABLE status
 FROM "wiki/conceitos"
 SORT status DESC
 ```
@@ -34,30 +34,4 @@ SORT status DESC
 LIST
 FROM "wiki/entidades"
 SORT file.name ASC
-```
-
-## Sínteses e MOCs
-
-```dataview
-LIST
-FROM "wiki/sintese"
-SORT file.name ASC
-```
-
-## Adicionados recentemente
-
-```dataview
-LIST
-FROM "wiki"
-SORT file.ctime DESC
-LIMIT 10
-```
-
-## Stale (não atualizados há 90+ dias)
-
-```dataview
-LIST
-FROM "wiki"
-WHERE status = "ativo" OR status = "maduro"
-WHERE date(data-atualizacao) < date(today) - dur(90 days)
 ```

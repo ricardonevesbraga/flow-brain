@@ -681,7 +681,7 @@
   <div class="slide-inner" style="display:flex; flex-direction:column; justify-content:center; min-height:80vh;">
     <div class="eyebrow">AULA · 30 abr 2026 · Ric Neves</div>
     <h1 class="title">Construindo seu <span class="gradient">Segundo Cérebro</span><br />com Claude Code + Obsidian</h1>
-    <p class="lead">Um vault portátil em Markdown que cresce sozinho. Um agente que faz a manutenção. Tudo em PT-BR. Padrão Karpathy + PARA.</p>
+    <p class="lead">Um vault portátil em Markdown que cresce sozinho. Um agente que faz a manutenção. Tudo em PT-BR. Padrão Karpathy.</p>
     <div class="hero-meta">
       <div class="hero-meta-item"><span class="dot"></span>36 slides · ~30 min</div>
       <div class="hero-meta-item"><span class="dot"></span>Hands-on · zero teoria gratuita</div>
@@ -761,16 +761,7 @@
         <p><span class="chip ghost">KARPATHY</span></p>
         <p style="margin-top:10px;">3 camadas: fontes brutas, wiki gerado, schema. Agente mantém. RAG sai de cena.</p>
       </div>
-      <div class="glass accent">
-        <h4><span class="badge">C</span> PARA</h4>
-        <p><span class="chip ghost">TIAGO FORTE</span></p>
-        <p style="margin-top:10px;">Projects, Areas, Resources, Archive. Para coisas com prazo e responsabilidades contínuas.</p>
-      </div>
-      <div class="glass accent">
-        <h4><span class="badge">D</span> Zettelkasten + LYT</h4>
-        <p><span class="chip ghost">LUHMANN · NICK MILO</span></p>
-        <p style="margin-top:10px;">Notas atômicas. Wikilinks desde o dia 1. MOCs (Maps of Content) que <em>emergem</em>.</p>
-      </div>
+
     </div>
   </div>
 </section>
@@ -788,23 +779,14 @@
         <tr>
           <td><strong>Append-and-Review</strong></td>
           <td>Atrito de capturar ideias soltas</td>
-          <td><code>00-inbox/captura.md</code></td>
+          <td><code>captura.md</code></td>
         </tr>
         <tr>
           <td><strong>LLM Wiki</strong></td>
           <td>Manter conhecimento estruturado e conectado</td>
           <td><code>raw/</code> + <code>wiki/</code> + <code>CLAUDE.md</code></td>
         </tr>
-        <tr>
-          <td><strong>PARA</strong></td>
-          <td>Coisas acionáveis e responsabilidades</td>
-          <td><code>02-projetos/</code>, <code>03-areas/</code>, <code>04-recursos/</code>, <code>05-arquivo/</code></td>
-        </tr>
-        <tr>
-          <td><strong>Zettelkasten + LYT</strong></td>
-          <td>Pensamento em rede + navegação curada</td>
-          <td><code>wiki/conceitos/</code> + <code>wiki/sintese/moc-*.md</code></td>
-        </tr>
+
       </tbody>
     </table>
     <div class="callout mt-32">
@@ -963,7 +945,7 @@
       <div class="camada camada-wiki">
         <h5>Camada 2 — Agente escreve</h5>
         <div class="name">wiki/</div>
-        <p>Conceitos, entidades, fontes, MOCs. Markdown atômico com wikilinks. <em>Cresce com você.</em></p>
+        <p>Conceitos, entidades, fontes. Markdown simples com wikilinks. <em>Cresce com você.</em></p>
       </div>
       <div class="camada camada-schema">
         <h5>Camada 3 — Você define</h5>
@@ -995,11 +977,11 @@
       </div>
       <div class="glass">
         <h4><span class="badge">3</span> Nomes de pasta legíveis</h4>
-        <p><code>03-areas/saude/</code> &gt; <code>03-areas/health/</code>. Você lê o file explorer 50x por dia.</p>
+        <p><code>wiki/conceitos/saude/</code> &gt; <code>wiki/concepts/health/</code>. Você lê o file explorer 50x por dia.</p>
       </div>
       <div class="glass">
         <h4><span class="badge">4</span> Termos técnicos OK</h4>
-        <p><em>Wikilink, frontmatter, MOC, PARA, Zettelkasten</em> ficam em inglês — são "marcas". Mas conteúdo é PT-BR.</p>
+        <p><em>Wikilink, frontmatter</em> ficam em inglês — são termos técnicos. Mas conteúdo é PT-BR.</p>
       </div>
     </div>
     <div class="callout warn mt-24">
@@ -1148,16 +1130,16 @@
   bin</pre></div>
     <div class="grid-3 mt-24">
       <div class="glass">
-        <h4><span class="badge">PARA</span> Acionável</h4>
-        <p><code>02-projetos/</code> com prazo<br /><code>03-areas/</code> contínuo<br /><code>04-recursos/</code> referência<br /><code>05-arquivo/</code> inativo</p>
+        <h4><span class="badge">RAW</span> Fontes</h4>
+        <p><code>raw/</code> — você coloca<br />artigos, papers, transcripts<br /><em>Claude nunca toca aqui</em></p>
       </div>
       <div class="glass">
-        <h4><span class="badge">LLM</span> Conhecimento</h4>
-        <p><code>raw/</code> fontes (read-only)<br /><code>wiki/</code> agente escreve</p>
+        <h4><span class="badge">WIKI</span> Conhecimento</h4>
+        <p><code>wiki/fontes/</code> resumos<br /><code>wiki/conceitos/</code> ideias<br /><code>wiki/entidades/</code> pessoas</p>
       </div>
       <div class="glass">
-        <h4><span class="badge">DIA</span> Operação</h4>
-        <p><code>00-inbox/</code> captura<br /><code>01-diario/</code> daily notes<br /><code>templates/</code> scaffolds</p>
+        <h4><span class="badge">CAP</span> Captura</h4>
+        <p><code>captura.md</code> — append-and-review<br /><code>diario/</code> daily notes<br /><em>Karpathy-style</em></p>
       </div>
     </div>
   </div>
@@ -1177,7 +1159,7 @@
       </li>
       <li class="check-item" style="cursor:default;">
         <span class="check-box" style="background:var(--neon-soft); border-color:var(--neon);"><span style="color:var(--neon);">§1</span></span>
-        <span class="check-text">As 3 camadas do LLM Wiki + a camada PARA</span>
+        <span class="check-text">As 3 camadas do LLM Wiki do Karpathy</span>
       </li>
       <li class="check-item" style="cursor:default;">
         <span class="check-box" style="background:var(--neon-soft); border-color:var(--neon);"><span style="color:var(--neon);">§2</span></span>
@@ -1218,17 +1200,16 @@
         <h4>Pedir o setup completo</h4>
         <p>Cole esse prompt na sessão do Claude:</p>
         <div class="cmd-multi" data-copy><pre>Cria meu segundo cérebro nesta pasta seguindo o padrão LLM Wiki +
-append-and-review do Karpathy + PARA. Tudo em PT-BR. Sem sync agora.
+append-and-review do Karpathy. Tudo em PT-BR. Sem sync agora.
 
 Cria:
-1. CLAUDE.md com schema completo (3 camadas, workflows ingest/pergunta/lint/review-inbox, regras de PT-BR, frontmatter padrão)
-2. README.md em PT-BR explicando como usar
-3. 8 templates em templates/ (diario, projeto, area, recurso, fonte, conceito, entidade, moc)
-4. 00-inbox/captura.md com seção Backlog e tags funcionais
-5. wiki/index.md com queries Dataview e wiki/log.md com entrada de criação
-6. 4 MOCs seed em wiki/sintese/ (engenharia-ia, flowgrammers, aprendizado, vida-pessoal)
-7. 2 conceitos seed: append-and-review e llm-wiki-pattern
-8. .obsidian/ pré-configurado (daily-notes, plugins, hotkeys, locale PT-BR)</pre></div>
+1. CLAUDE.md com contrato Karpathy (3 camadas, workflows ingest/query/lint/review, regras de idioma)
+2. captura.md com seção Backlog e tags funcionais (append-and-review)
+3. wiki/ com index.md, log.md, fontes/, entidades/, conceitos/
+4. raw/ com pastas artigos/, papers/, transcripts/
+5. diario/ para daily notes
+6. 8 skills instalados em ~/.claude/commands/
+7. .obsidian/ pré-configurado</pre></div>
       </div>
     </div>
     <div class="step">
@@ -1280,7 +1261,7 @@ Cria:
       </summary>
       <div class="passo-box-body">
         <p><strong>Templater:</strong> variáveis dinâmicas em templates (data atual, prompts interativos).</p>
-        <p><strong>Dataview:</strong> tabelas vivas no <code>wiki/index.md</code> e MOCs (lista automática de páginas por filtro).</p>
+        <p><strong>Dataview:</strong> tabelas vivas no <code>wiki/index.md</code> (lista automática de páginas por filtro).</p>
         <p><strong>QuickAdd:</strong> atalho único pra empurrar texto pro topo de <code>captura.md</code> sem abrir o arquivo.</p>
         <p><strong>Calendar:</strong> sidebar com calendário visual pra navegar daily notes.</p>
       </div>
@@ -1848,7 +1829,7 @@ cada um é melhor?</pre></div>
         <ul class="list mt-16">
           <li><strong>§0 Idioma</strong> — PT-BR ou EN (regra absoluta)</li>
           <li><strong>§1 Arquitetura</strong> — raw/ (você) vs wiki/ (Claude)</li>
-          <li><strong>§2 Nomeação</strong> — slugs, daily notes, MOCs</li>
+          <li><strong>§2 Nomeação</strong> — slugs, daily notes</li>
           <li><strong>§3 Frontmatter</strong> — campos obrigatórios por tipo</li>
           <li><strong>§4 Wikilinks</strong> — quando e como linkar</li>
           <li><strong>§5 Workflows</strong> — os 5 comandos em detalhe</li>
@@ -1888,7 +1869,7 @@ cada um é melhor?</pre></div>
       </div>
       <div class="glass accent">
         <h4><span class="badge">90d</span> Trimestre</h4>
-        <p>Você começa a "puxar" do wiki em vez de "buscar". MOCs ganham densidade. Decisões importantes têm rastro.</p>
+        <p>Você começa a "puxar" do wiki em vez de "buscar". O conhecimento se conecta sozinho. Decisões têm rastro.</p>
       </div>
       <div class="glass accent">
         <h4><span class="badge">1y</span> Marco Karpathy</h4>
@@ -1899,9 +1880,9 @@ cada um é melhor?</pre></div>
     <ul style="list-style:none; padding:0; margin-top:12px;">
       <li class="muted small">📖 <a href="https://karpathy.bearblog.dev/the-append-and-review-note/" target="_blank">Karpathy — The append-and-review note</a></li>
       <li class="muted small">📖 <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank">Karpathy — LLM Wiki gist</a></li>
-      <li class="muted small">📖 Tiago Forte — <em>Building a Second Brain</em> (PARA)</li>
-      <li class="muted small">📖 Niklas Luhmann — Zettelkasten</li>
-      <li class="muted small">📖 Nick Milo — <em>Linking Your Thinking</em> (MOCs)</li>
+      
+      
+      
     </ul>
     <div class="hero-meta mt-32">
       <div class="hero-meta-item"><span class="dot"></span>Ric Neves</div>

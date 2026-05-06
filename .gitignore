@@ -7,3 +7,12 @@ raw/
 anexos/
 .DS_Store
 *.log
+CLAUDE.md
+vault/CLAUDE.pt-br.md
+vault/CLAUDE.en.md
+00-inbox/
+01-diario/
+.obsidian/
+wiki/
+templates/
+docs/superpowers/

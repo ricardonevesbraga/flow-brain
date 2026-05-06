@@ -1,10 +1,10 @@
 ---
-description: "Revisa o inbox (captura.md) e sugere destino para cada item capturado."
+description: "Revisa captura.md e sugere destino para cada item capturado."
 ---
 
 # wiki-review
 
-Revisa o inbox e sugere destino para cada item capturado.
+Revisa o backlog de `captura.md` e sugere o que fazer com cada item.
 
 ## Como usar
 
@@ -12,13 +12,11 @@ Revisa o inbox e sugere destino para cada item capturado.
 /wiki-review
 ```
 
-ou: `revisa minha captura`, `limpa minha caixa de entrada`
-
 ## O que faz
 
-1. Abre `00-inbox/captura.md`
+1. Abre `captura.md`
 2. Para cada bloco do `## Backlog`:
-   - Sugere destino: criar projeto/recurso/conceito/fonte? mover para área?
+   - Sugere destino: ingerir como fonte raw? virar conceito no wiki? descartar?
    - Apresenta uma ação por bloco
    - Aguarda `ok` antes de executar
 3. Itens não acionados ficam onde estão (sinking natural — princípio do Karpathy)
@@ -26,5 +24,5 @@ ou: `revisa minha captura`, `limpa minha caixa de entrada`
 ## Regras
 
 - Nunca move nada sem confirmação explícita
-- Nunca deleta — arquiva em `05-arquivo/` se necessário
-- Respeita o sinking natural: não forçar processar tudo
+- Nunca deleta — o "arquivo morto" de captura.md é o destino de items descartados
+- Respeita o sinking natural: não force processar tudo

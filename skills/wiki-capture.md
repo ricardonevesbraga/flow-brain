@@ -1,10 +1,10 @@
 ---
-description: "Captura rápida zero-fricção no inbox do vault. Use: /wiki-capture <texto ou ideia>"
+description: "Captura rápida zero-fricção no topo de captura.md. Use: /wiki-capture <texto ou ideia>"
 ---
 
 # wiki-capture
 
-Captura rápida zero-fricção no vault.
+Captura rápida no topo de `captura.md` (append-and-review do Karpathy).
 
 ## Como usar
 
@@ -14,17 +14,22 @@ Captura rápida zero-fricção no vault.
 
 ## O que faz
 
-1. Abre `00-inbox/captura.md`
-2. Insere a nova entrada no TOPO da seção `## Backlog` com timestamp
-3. Prefixa com tag funcional se não estiver presente (`ideia:`, `tarefa:`, `ler:`, etc.)
+1. Abre `captura.md` na raiz do vault
+2. Insere a entrada no TOPO da seção `## Backlog` com timestamp
+3. Prefixa com tag funcional se ausente (`ideia:`, `tarefa:`, `ler:`, etc.)
 
 ## Exemplo
 
 ```
-/wiki-capture ideia: criar um MOC de IA depois que tiver 5 conceitos
+/wiki-capture ideia: criar resumo do paper sobre LLMs depois
 ```
 
 Resultado em `captura.md`:
 ```
-- 2026-05-05 10:32 — ideia: criar um MOC de IA depois que tiver 5 conceitos
+- 2026-05-05 22:00 — ideia: criar resumo do paper sobre LLMs depois
 ```
+
+## Regras
+
+- Sempre insere no TOPO do Backlog — nunca no final
+- Não categoriza, não decide destino — só captura

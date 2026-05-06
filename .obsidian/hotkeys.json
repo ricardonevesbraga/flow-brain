@@ -1,7 +1,0 @@
-{
-  "daily-notes": [{ "modifiers": ["Mod", "Shift"], "key": "D" }],
-  "command-palette:open": [{ "modifiers": ["Mod"], "key": "P" }],
-  "graph:open": [{ "modifiers": ["Mod", "Shift"], "key": "G" }],
-  "global-search:open": [{ "modifiers": ["Mod", "Shift"], "key": "F" }],
-  "switcher:open": [{ "modifiers": ["Mod"], "key": "O" }]
-}

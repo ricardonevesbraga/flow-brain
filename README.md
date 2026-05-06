@@ -2,14 +2,7 @@
 
 > Seu segundo cérebro com Obsidian + Claude Code — configurado em 60 segundos.
 
----
-
-## O que você ganha
-
-- Um vault Obsidian completamente estruturado
-- 5 comandos do Claude Code (`/wiki-ingest`, `/wiki-query`, `/wiki-lint`, `/wiki-review`, `/wiki-capture`)
-- Suporte bilíngue: PT-BR e EN
-- Funciona no Mac, Linux e Windows
+Baseado no padrão **LLM Wiki do Karpathy**: você joga fontes em `raw/`, o Claude processa e gera conhecimento em `wiki/`. Simples assim.
 
 ---
 
@@ -21,7 +14,22 @@
 npx flowbrain
 ```
 
-Responda as perguntas, abra a pasta gerada no Obsidian e comece a capturar.
+Responda 3 perguntas, abra a pasta gerada no Obsidian e comece a capturar.
+
+---
+
+## Estrutura
+
+```
+vault/
+├── captura.md   ← tudo entra aqui (append-and-review)
+├── diario/      ← notas diárias YYYY-MM-DD.md
+├── raw/         ← fontes imutáveis (você escreve)
+└── wiki/        ← conhecimento gerado (Claude escreve)
+    ├── fontes/
+    ├── entidades/
+    └── conceitos/
+```
 
 ---
 
@@ -29,46 +37,27 @@ Responda as perguntas, abra a pasta gerada no Obsidian e comece a capturar.
 
 | Comando | O que faz |
 |---|---|
-| `/wiki-capture <texto>` | Captura zero-fricção no inbox |
-| `/wiki-ingest raw/caminho/arquivo.md` | Processa uma fonte raw no wiki |
+| `/wiki-capture <texto>` | Captura ideia no topo de captura.md |
+| `/wiki-ingest raw/arquivo.md` | Processa fonte → gera páginas no wiki |
 | `/wiki-query <pergunta>` | Responde usando o conhecimento do wiki |
-| `/wiki-lint` | Checa saúde do wiki (links, órfãs, stale) |
-| `/wiki-review` | Triagem do inbox com ajuda do Claude |
-
----
-
-## Arquitetura
-
-```
-vault/
-├── 00-inbox/captura.md   ← tudo entra aqui
-├── 01-diario/            ← daily notes
-├── 02-projetos/          ← projetos com prazo
-├── 03-areas/             ← responsabilidades contínuas
-├── 04-recursos/          ← material de referência
-├── 05-arquivo/           ← concluído/inativo
-├── raw/                  ← fontes imutáveis (você escreve)
-└── wiki/                 ← conhecimento gerado (Claude escreve)
-    ├── conceitos/
-    ├── entidades/
-    ├── fontes/
-    └── sintese/
-```
-
-O arquivo `CLAUDE.md` é o **contrato de operação**: diz ao Claude exatamente o que fazer no vault, quais comandos existem e quais regras seguir.
+| `/wiki-review` | Triagem de captura.md com Claude |
+| `/wiki-lint` | Verifica saúde do wiki |
+| `/fb-diario` | Abre ou cria o diário de hoje |
+| `/fb-raw` | Lista fontes pendentes de ingest |
+| `/fb-help` | Guia completo |
 
 ---
 
 ## Como funciona
 
-1. Capture em `00-inbox/captura.md` (ou via `bin/cap` no terminal)
-2. Com material raw (artigo, transcript, notas), rode `/wiki-ingest`
-3. O Claude cria resumos, páginas de conceitos e entidades em `wiki/`
-4. Faça perguntas a qualquer hora com `/wiki-query`
-5. Mensalmente: rode `/wiki-lint` para checar a saúde
+1. Capture qualquer ideia com `/wiki-capture`
+2. Adicione artigos/papers/transcripts em `raw/`
+3. Processe com `/wiki-ingest raw/arquivo.md`
+4. Consulte com `/wiki-query <pergunta>`
+5. Mensalmente: `/wiki-lint`
 
 ---
 
 ## Contribuindo
 
-PRs bem-vindos. Mantenha o suporte bilíngue intacto e teste com setups PT-BR e EN.
+PRs bem-vindos.
