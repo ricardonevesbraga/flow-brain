@@ -1,22 +1,7 @@
-# Projeto pessoal — vault local do autor
-00-inbox/
-01-diario/
-wiki/
-.obsidian/
-/.claude/
+# Excluído do pacote npm publicado.
+# Whitelist principal está no campo "files" do package.json.
+# Aqui só removemos o que escapa dele.
 
-# Docs internos
-docs/superpowers/
-
-# Dev
 cli/__tests__/
-node_modules/
-raw/
-02-projetos/
-03-areas/
-04-recursos/
-05-arquivo/
-anexos/
-aulas/
 *.log
-CLAUDE.md
+.DS_Store

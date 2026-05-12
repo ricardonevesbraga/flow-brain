@@ -51,4 +51,9 @@ async function main() {
   }
 }
 
-main();
+if (process.argv[2] === 'convert') {
+  process.argv.splice(2, 1);
+  require('./convert.js');
+} else {
+  main();
+}

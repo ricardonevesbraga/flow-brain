@@ -37,6 +37,25 @@ meu-cerebro/
 
 ---
 
+## Comando captura — Entrada
+
+### `/capturar <texto OU caminho-de-arquivo>`
+Append zero-fricção no `captura.md` com timestamp e tag funcional sugerida automaticamente.
+
+**Modo texto:**
+- Aceita qualquer texto (URL, ideia, tarefa, link, pergunta).
+- Detecta a tag (`ler:`, `ideia:`, `tarefa:`, `link:`, `assistir:`, `ouvir:`, `pergunta:`).
+- Prepend no topo do `## Backlog` — sem decidir pasta, sem fricção.
+
+**Modo arquivo (PDF, DOCX, HTML, TXT, MD):**
+- Converte o arquivo para markdown via conversor embutido do `flowbrain` (sem precisar instalar `pdftotext` ou `pandoc`).
+- Salva em `raw/arquivos/<slug>.md` com frontmatter pronto.
+- Enfileira no `captura.md` como `ingerir: [[slug]]`.
+
+**Quando usar:** sempre que tiver uma ideia, link, pendência ou um arquivo (paper, ebook, página salva) pra ler depois. É a porta de entrada.
+
+---
+
 ## Comandos wiki — Conhecimento
 
 ### `/wiki-ingest raw/caminho/arquivo.md`
