@@ -1,0 +1,792 @@
+{
+  "course": "Flow Brain — Curso completo",
+  "subtitle": "Seu segundo cérebro com Obsidian + Claude Code",
+  "modules": [
+    {
+      "id": 1,
+      "title": "Fundação",
+      "subtitle": "Por que segundo cérebro e como instalar",
+      "classes": [
+        {
+          "id": 1,
+          "slug": "por-que-segundo-cerebro",
+          "title": "Por que segundo cérebro?",
+          "eyebrow": "Fundação · Aula 1 de 5",
+          "lead": "Sua memória não escala. Cada livro lido, cada paper, cada vídeo do Karpathy — somem em semanas. O segundo cérebro resolve isso virando memória externa pesquisável.",
+          "skip_gen": true,
+          "objetivos": [
+            "Entender por que anotações tradicionais falham na era da IA",
+            "Conhecer o problema que Karpathy descreve no LLM Wiki",
+            "Ver o composto: cada fonte ingerida melhora todas as respostas futuras"
+          ],
+          "topicos": [
+            {
+              "titulo": "O problema da curva do esquecimento",
+              "texto": "Ebbinghaus mostrou em 1885: 50% do que você lê some em 24h. Hoje você lê mais que nunca."
+            },
+            {
+              "titulo": "Anotações isoladas não conectam",
+              "texto": "Notion, Evernote, Apple Notes — todos te dão pastas. Nenhum te dá uma rede que cresce com você."
+            },
+            {
+              "titulo": "A revolução do LLM mudou o jogo",
+              "texto": "Com janela de 200k tokens, dá pra carregar um vault inteiro no contexto. O segundo cérebro virou viável."
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "slug": "karpathy-llm-wiki",
+          "title": "Karpathy e o padrão LLM Wiki",
+          "eyebrow": "Fundação · Aula 2 de 5",
+          "lead": "Andrej Karpathy (ex-OpenAI, ex-Tesla) publicou em 2025 o padrão LLM Wiki — três pastas, regras simples, append-and-review. É a base do Flow Brain.",
+          "objetivos": [
+            "Conhecer a origem do padrão LLM Wiki",
+            "Entender as 3 pastas: raw, wiki, schema",
+            "Diferenciar LLM Wiki de Notion/Evernote/Roam"
+          ],
+          "topicos": [
+            {
+              "titulo": "Quem é Karpathy",
+              "texto": "Co-fundador da OpenAI, head de IA da Tesla, hoje educador (Eureka Labs, vídeos no YouTube com 1M+ views).",
+              "bullets": [
+                "PhD em Stanford com Fei-Fei Li (visão computacional)",
+                "Liderou o time de Autopilot na Tesla por 5 anos",
+                "Voltou pra OpenAI brevemente em 2023, saiu pra fundar Eureka Labs (educação em IA)",
+                "Série 'Neural Networks: Zero to Hero' no YouTube virou referência mundial"
+              ]
+            },
+            {
+              "titulo": "A regra de ouro",
+              "texto": "Tudo o que você quer lembrar tem que virar texto. Markdown puro. Sem app proprietário. Sem nuvem obrigatória.",
+              "bullets": [
+                "Texto = legível por humano E por LLM, hoje e em 10 anos",
+                "Markdown = formato vivo, escapa de qualquer lock-in",
+                "Git = histórico completo, sem 'salvar versão'",
+                "Local-first = funciona offline, dados são seus"
+              ]
+            },
+            {
+              "titulo": "Append-and-review",
+              "texto": "Capture tudo no topo de um arquivo. Não decida pasta. Revise depois. O ato de adiar a decisão é a feature.",
+              "exemplo": "Você vê um tweet interessante às 14h. Em vez de pensar 'isso é projeto, área ou recurso?', faz /capturar e segue a vida. Sábado de manhã, /wiki-review percorre o backlog com calma. 80% afunda (esquece), 20% vira nota — e essa é a curadoria natural."
+            }
+          ],
+          "recap": [
+            "Karpathy é uma fonte confiável: décadas em IA, hoje 100% focado em pedagogia",
+            "A regra de ouro é texto puro — markdown, Git, local",
+            "Append-and-review elimina o atrito de captura adiando a decisão de categorização"
+          ]
+        },
+        {
+          "id": 3,
+          "slug": "anatomia-do-vault",
+          "title": "Anatomia do vault: as 3 camadas",
+          "eyebrow": "Fundação · Aula 3 de 5",
+          "lead": "Cada arquivo tem um lugar pré-definido. Você não decide onde guardar — segue a estrutura. Isso é o que mantém o vault navegável depois de 200 fontes.",
+          "objetivos": [
+            "Mapear as 3 camadas (raw, wiki, schema)",
+            "Entender a sobreposição com PARA (Tiago Forte)",
+            "Saber o que vai em cada pasta"
+          ],
+          "topicos": [
+            {
+              "titulo": "raw/ — fontes imutáveis",
+              "texto": "PDFs, transcrições, papers. Você só lê. NUNCA edita. Subpastas: arquivos/, artigos/, livros/, transcricoes/.",
+              "bullets": [
+                "raw/artigos/ — posts de blog, papers em PDF, newsletters",
+                "raw/livros/ — capítulos de livros que você converteu pra markdown",
+                "raw/transcricoes/ — vídeos, podcasts, palestras transcritas",
+                "raw/arquivos/ — destino default do /capturar quando converte arquivo"
+              ]
+            },
+            {
+              "titulo": "wiki/ — conhecimento gerado",
+              "texto": "Entidades, conceitos, fontes (resumos), sínteses. Escrito pelo Claude via /wiki-ingest. É a camada destilada.",
+              "bullets": [
+                "wiki/entidades/ — pessoas, empresas, ferramentas (uma página cada)",
+                "wiki/conceitos/ — ideias, frameworks, técnicas",
+                "wiki/fontes/ — resumo de cada arquivo de raw/ ingerido",
+                "wiki/sintese/ — narrativas que cruzam N páginas (nascem de /wiki-query)"
+              ]
+            },
+            {
+              "titulo": "captura.md, diario/",
+              "texto": "PARA por cima do LLM Wiki: captura zero-fricção (inbox) e diário diário. Coisas acionáveis vivem aqui.",
+              "exemplo": "Manhã: você abre /fb-diario e escreve em primeira pessoa. Durante o dia, /capturar joga ideias no inbox. Sábado: /wiki-review revisa o inbox, decide o que ingere — só promoveu pra wiki o que sobreviver à revisão."
+            }
+          ],
+          "recap": [
+            "raw/ é imutável — você só lê, nunca edita",
+            "wiki/ é o conhecimento destilado, todo gerado por slash commands",
+            "captura.md e diario/ vivem ao lado, mas seguem regras diferentes (zero-fricção vs estruturado)"
+          ]
+        },
+        {
+          "id": 4,
+          "slug": "append-and-review",
+          "title": "Append-and-review: a captura zero-fricção",
+          "eyebrow": "Fundação · Aula 4 de 5",
+          "lead": "A força da captura é a ausência de decisão. Você não escolhe pasta, não cria nota, não categoriza. Só joga no topo. A curadoria vem depois.",
+          "objetivos": [
+            "Praticar o ritmo append-and-review",
+            "Conhecer as 9 tags funcionais (ler:, ideia:, tarefa:...)",
+            "Entender por que adiar a decisão é a feature"
+          ],
+          "topicos": [
+            {
+              "titulo": "Captura sem fricção",
+              "texto": "/capturar <texto> — append no topo de captura.md com timestamp e tag funcional inferida automaticamente. 5 segundos de esforço.",
+              "stat": {
+                "valor": "5s",
+                "rotulo": "tempo médio por captura",
+                "obs": "Notion exige 4 cliques + decisão de pasta. /capturar exige só digitar."
+              }
+            },
+            {
+              "titulo": "As 9 tags",
+              "texto": "ler: · ideia: · tarefa: · pergunta: · link: · assistir: · ouvir: · ingerir: · conceito:. Cobrem 99% das capturas. Não invente novas.",
+              "bullets": [
+                "ler: — paper, artigo, post pra ler depois",
+                "ideia: — reflexão, hipótese, observação",
+                "tarefa: — algo pra fazer (renovar domínio, ligar pro fulano)",
+                "pergunta: — algo que você quer pesquisar",
+                "link: — URL solto (a tag é inferida automaticamente quando vê 'http')",
+                "assistir: / ouvir: — vídeo/podcast pra consumir",
+                "ingerir: — arquivo pra processar via /wiki-ingest",
+                "conceito: — termo novo que você quer estudar a fundo"
+              ]
+            },
+            {
+              "titulo": "Sinking natural",
+              "texto": "Itens importantes você revisita. Itens não-importantes afundam no histórico. O próprio uso filtra o que vale a pena promover pra wiki.",
+              "exemplo": "Você captura 30 itens numa semana. Sábado /wiki-review mostra: 3 viraram páginas no wiki, 5 viraram tarefas no calendário, 22 ficaram no histórico (e tá tudo bem). Em 6 meses, esses 22 ou ressurgem (e aí você ingere) ou afundam pra sempre — e a perda é zero, porque se não voltou, não era importante."
+            }
+          ],
+          "recap": [
+            "Captura ≠ organização — a decisão é adiada de propósito",
+            "9 tags consagradas cobrem 99% dos casos; não invente novas",
+            "Sinking natural é a curadoria emergente — o que ressurge, ingere; o resto, esquece"
+          ]
+        },
+        {
+          "id": 5,
+          "slug": "obsidian-claude-code-setup",
+          "title": "Obsidian + Claude Code: setup completo",
+          "eyebrow": "Fundação · Aula 5 de 5",
+          "lead": "10 minutos. Um comando. No fim você tem Obsidian aberto no vault, 8 slash commands instalados no Claude Code, tudo pronto pra usar.",
+          "objetivos": [
+            "Instalar Node.js (pré-requisito)",
+            "Rodar npx flowbrain@latest e entender o que ele faz",
+            "Abrir o vault no Obsidian"
+          ],
+          "topicos": [
+            {
+              "titulo": "Pré-requisito: Node.js v18+",
+              "texto": "Mac: brew install node · Win: nodejs.org · Linux: apt install nodejs. Confere com node --version.",
+              "bullets": [
+                "macOS: brew install node (ou baixa em nodejs.org)",
+                "Windows: baixa o instalador LTS em nodejs.org",
+                "Linux (Debian/Ubuntu): sudo apt install nodejs npm",
+                "Verifica: node --version → precisa começar com v18 ou superior"
+              ]
+            },
+            {
+              "titulo": "npx flowbrain@latest",
+              "texto": "Baixa o instalador, cria o vault, gera CLAUDE.md personalizado, instala os 8 slash commands em ~/.claude/commands. Tudo local.",
+              "bullets": [
+                "Pergunta o nome (vai no título do CLAUDE.md)",
+                "Pergunta o idioma (PT-BR ou EN — gera o CLAUDE.md correspondente)",
+                "Pergunta o destino (pasta onde criar o vault)",
+                "Copia 8 SKILLs pra ~/.claude/commands → ficam globais no Claude Code"
+              ]
+            },
+            {
+              "titulo": "Open folder as vault",
+              "texto": "No Obsidian: 'Open folder as vault' → aponta pra pasta criada. Trust author. Pronto — Obsidian e Claude Code compartilham a mesma pasta.",
+              "exemplo": "Abre Obsidian → 'Open folder as vault' → seleciona ~/meu-cerebro → Trust author → habilita plugins. Em outro terminal: cd ~/meu-cerebro && claude. Os dois ambientes leem a mesma pasta — quando o Claude escreve, o Obsidian atualiza na hora."
+            }
+          ],
+          "recap": [
+            "Node.js v18+ é o único pré-requisito",
+            "npx flowbrain@latest faz todo o setup em ~60s",
+            "Obsidian e Claude Code compartilham a mesma pasta — leitura/escrita ao vivo"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Operação",
+      "subtitle": "Dominar os 8 comandos no dia a dia",
+      "classes": [
+        {
+          "id": 1,
+          "slug": "capturar-porta-de-entrada",
+          "title": "/capturar — a porta de entrada",
+          "eyebrow": "Operação · Aula 1 de 5",
+          "lead": "O comando que você vai mais usar. Aceita texto livre OU arquivo físico (PDF, DOCX, HTML). Converte e enfileira pra revisão depois.",
+          "objetivos": [
+            "Usar /capturar com texto livre",
+            "Capturar arquivos: PDF, DOCX, HTML, TXT, MD",
+            "Entender a diferença entre captura e ingest"
+          ],
+          "topicos": [
+            {
+              "titulo": "Modo texto",
+              "texto": "/capturar <qualquer coisa> — vai pro captura.md com timestamp e tag inferida. URL vira link:, 'lembrar de X' vira tarefa:.",
+              "bullets": [
+                "/capturar ler: paper sobre Mixture of Experts",
+                "/capturar https://karpathy.bearblog.dev/the-append-and-review-note/",
+                "/capturar lembrar de renovar o domínio dia 15",
+                "/capturar ideia: usar wiki-query pra preparar entrevistas",
+                "/capturar como funciona LoRA? (vira tag pergunta:)"
+              ]
+            },
+            {
+              "titulo": "Modo arquivo",
+              "texto": "/capturar paper.pdf — converte pra markdown via conversor embutido (sem precisar instalar pdftotext/pandoc). Salva em raw/arquivos/.",
+              "bullets": [
+                ".pdf → pdf-parse extrai texto + frontmatter",
+                ".docx → mammoth converte preservando estrutura",
+                ".html → turndown vira markdown limpo",
+                ".txt e .md → cópia direta com frontmatter",
+                "Nome do arquivo vira slug; enfileirado como 'ingerir: [[slug]]'"
+              ]
+            },
+            {
+              "titulo": "Captura ≠ Ingest",
+              "texto": "Capturar é zero-fricção (5s). Ingest é trabalhoso (5min). A separação é proposital — primeiro acumula, depois decide o que vale ingerir.",
+              "comparacao": {
+                "esquerda": {
+                  "titulo": "Capturar (porta de entrada)",
+                  "bullets": [
+                    "5 segundos de esforço",
+                    "Vai pro inbox (captura.md)",
+                    "Sem categorização",
+                    "Pode descartar sem culpa"
+                  ]
+                },
+                "direita": {
+                  "titulo": "Ingerir (processamento)",
+                  "bullets": [
+                    "5+ minutos de esforço",
+                    "Vira página em wiki/",
+                    "Linka entidades/conceitos",
+                    "Investimento real"
+                  ]
+                }
+              }
+            }
+          ],
+          "recap": [
+            "/capturar é diário, milhares de vezes ao ano",
+            "Aceita texto OU arquivo — não precisa decidir qual modo",
+            "Captura ≠ Ingest — o filtro entre os dois é o /wiki-review"
+          ]
+        },
+        {
+          "id": 2,
+          "slug": "fb-raw-wiki-ingest-pipeline",
+          "title": "/fb-raw + /wiki-ingest — do arquivo ao conhecimento",
+          "eyebrow": "Operação · Aula 2 de 5",
+          "lead": "raw/ é o coração imutável do vault — tudo que vale guardar entra aqui antes de virar wiki. /fb-raw gerencia a entrada. /wiki-ingest transforma. Juntos formam o pipeline que faz seu segundo cérebro crescer.",
+          "objetivos": [
+            "Entender o papel de raw/ como camada de fontes imutáveis",
+            "Usar /fb-raw para adicionar arquivos (PDF, DOCX, HTML, texto) ao vault",
+            "Rodar /wiki-ingest para transformar uma fonte raw em páginas wiki linkadas",
+            "Ver o pipeline completo: arquivo → raw/ → wiki/"
+          ],
+          "topicos": [
+            {
+              "titulo": "Por que raw/ existe",
+              "texto": "raw/ é a camada imutável do padrão Karpathy. Você nunca edita o que está lá — só lê e processa. Isso garante que a fonte original fica intacta, e qualquer re-ingest produz o mesmo resultado.",
+              "bullets": [
+                "raw/artigos/ — artigos, posts, papers",
+                "raw/livros/ — capítulos, highlights exportados",
+                "raw/videos/ — transcrições de aulas e palestras",
+                "raw/transcricoes/ — calls, podcasts, entrevistas",
+                "raw/arquivos/ — PDFs e outros convertidos automaticamente"
+              ]
+            },
+            {
+              "titulo": "/fb-raw — gerenciar o que entra",
+              "texto": "Dois modos num só comando: sem argumento lista o status de ingest de cada arquivo; com argumento salva novo conteúdo no lugar certo.",
+              "bullets": [
+                "/fb-raw → lista pendentes e já processados, sugere o próximo",
+                "/fb-raw ~/paper.pdf → converte PDF e salva em raw/arquivos/ via flowbrain convert",
+                "/fb-raw arquivo.html → converte HTML para markdown",
+                "/fb-raw texto livre → pergunta título e categoria, cria .md em raw/<categoria>/"
+              ],
+              "comparacao": {
+                "esquerda": {
+                  "titulo": "Sem /fb-raw",
+                  "lead": "Processo manual e lento",
+                  "bullets": [
+                    "Criar pasta em raw/ manualmente",
+                    "Nomear o arquivo em kebab-case",
+                    "Adicionar frontmatter na mão",
+                    "Lembrar em qual categoria vai"
+                  ]
+                },
+                "direita": {
+                  "titulo": "Com /fb-raw",
+                  "lead": "Um comando, pronto",
+                  "bullets": [
+                    "/fb-raw ~/Downloads/paper.pdf",
+                    "Converte e salva em raw/arquivos/paper.md",
+                    "Frontmatter gerado automaticamente",
+                    "Pronto para /wiki-ingest"
+                  ]
+                }
+              }
+            },
+            {
+              "titulo": "/wiki-ingest — transformar fonte em conhecimento",
+              "texto": "Recebe um caminho em raw/ e produz 4 saídas em wiki/: página de fonte, entidades, conceitos e log. É onde o composto começa — cada fonte ingerida enriquece todas as respostas futuras.",
+              "bullets": [
+                "wiki/fontes/<slug>.md — TL;DR, resumo estruturado, citações-chave, conexões",
+                "wiki/entidades/<pessoa>.md — criada ou atualizada com 1-3 frases novas",
+                "wiki/conceitos/<conceito>.md — idem, ganha wikilinks para conceitos relacionados",
+                "wiki/log.md — registro append-only de cada operação (auditoria)"
+              ],
+              "exemplo": "Após /wiki-ingest raw/artigos/llm-wiki.md: wiki/fontes/llm-wiki.md + wiki/entidades/andrej-karpathy.md + wiki/conceitos/llm-wiki.md + linha no log."
+            },
+            {
+              "titulo": "O pipeline na prática",
+              "texto": "O fluxo completo tem 3 passos opcionais dependendo de onde você está.",
+              "bullets": [
+                "1. /capturar paper.pdf → converte + entra no inbox (captura.md)",
+                "2. /fb-raw paper.pdf → converte + vai direto pra raw/ (pula inbox)",
+                "3. /wiki-ingest raw/arquivos/paper.md → processa pra wiki/",
+                "Quando usar inbox: você não quer decidir agora — Karpathy's append-and-review",
+                "Quando ir direto pra raw: você já sabe que quer ingerir — salva um passo"
+              ]
+            }
+          ],
+          "recap": [
+            "raw/ é imutável — só entra, nunca edita",
+            "/fb-raw sem args lista; com args salva o arquivo no lugar certo",
+            "/wiki-ingest transforma raw/ em 4 saídas: fonte + entidades + conceitos + log",
+            "Pipeline curto: /fb-raw arquivo → /wiki-ingest raw/arquivo.md"
+          ]
+        },
+        {
+          "id": 3,
+          "slug": "wiki-query-perguntar-ao-cerebro",
+          "title": "/wiki-query — perguntar ao seu cérebro",
+          "eyebrow": "Operação · Aula 3 de 5",
+          "lead": "Pergunte qualquer coisa. O Claude lê o wiki/index.md, navega o grafo, monta a resposta citando as fontes. É a colheita do composto.",
+          "objetivos": [
+            "Usar /wiki-query para perguntas conceituais",
+            "Entender como o Claude navega o grafo",
+            "Saber quando arquivar a resposta como síntese"
+          ],
+          "topicos": [
+            {
+              "titulo": "Como funciona",
+              "texto": "O Claude lê wiki/index.md → identifica páginas relevantes → carrega o subgrafo no contexto → responde citando via [[wikilink]].",
+              "bullets": [
+                "Lê o index.md primeiro (mapa de páginas existentes)",
+                "Identifica 3-8 páginas relevantes pela pergunta",
+                "Abre cada página completa (não chunks) e carrega no contexto",
+                "Sintetiza a resposta em PT-BR, citando fontes via wikilink"
+              ]
+            },
+            {
+              "titulo": "Síntese cruzada",
+              "texto": "Como o LLM vê os arquivos inteiros (não chunks), ele cruza papers diferentes naturalmente. Resultado: respostas com narrativa, não pedaços soltos.",
+              "exemplo": "Pergunta: 'como o roteamento em MoE evoluiu de Switch Transformers a DeepSeek-V3?' Resposta: narrativa cronológica citando [[switch-transformers]], [[mixture-of-experts]], [[deepseek-v3]] — papers que você ingeriu em momentos diferentes, sintetizados numa linha do tempo coerente."
+            },
+            {
+              "titulo": "Quando arquivar",
+              "texto": "Se a resposta foi valiosa e não-óbvia, salve em wiki/sintese/<slug>.md. Vira ponto de partida pra futuras perguntas.",
+              "bullets": [
+                "Resposta cruzou ≥ 3 páginas? Provavelmente vale arquivar",
+                "Você vai precisar disso de novo em < 6 meses? Arquive",
+                "Resposta é pra preparar talk/post/aula? Sempre arquive",
+                "Arquivo síntese = combustível pra próximas /wiki-query (composto recursivo)"
+              ]
+            }
+          ],
+          "recap": [
+            "Match semântico vira navegação no grafo, sem vector DB",
+            "Síntese cruzada = LLM lê páginas inteiras simultaneamente",
+            "Síntese arquivada vira fonte pra próxima query — composto recursivo"
+          ]
+        },
+        {
+          "id": 4,
+          "slug": "wiki-review-wiki-lint",
+          "title": "/wiki-review e /wiki-lint — manutenção",
+          "eyebrow": "Operação · Aula 4 de 5",
+          "lead": "O vault precisa de higiene. /wiki-review processa o backlog do captura.md. /wiki-lint checa links quebrados, páginas órfãs, frontmatter inválido.",
+          "objetivos": [
+            "Rodar /wiki-review semanalmente",
+            "Rodar /wiki-lint mensalmente",
+            "Saber o que cada um detecta"
+          ],
+          "topicos": [
+            {
+              "titulo": "/wiki-review",
+              "texto": "Lê captura.md, sugere destino pra cada item: ingerir agora? virar projeto? descartar? Itens não-decididos ficam — sinking natural.",
+              "bullets": [
+                "Para cada item do backlog, propõe uma ação (mover, ingerir, descartar)",
+                "Você aprova item a item — nada move sem confirmação",
+                "Itens não-tocados continuam no backlog (sem culpa)",
+                "Logado em wiki/log.md pra auditoria"
+              ]
+            },
+            {
+              "titulo": "/wiki-lint",
+              "texto": "Detecta: links quebrados, páginas órfãs (sem inbound), frontmatter inválido, páginas em inglês (violação da regra PT-BR), stale (>90 dias).",
+              "bullets": [
+                "Links quebrados — [[wikilinks]] apontando pra arquivo inexistente",
+                "Páginas órfãs — nenhuma outra página linka pra ela (sinal pra revisar ou arquivar)",
+                "Frontmatter inválido — campos obrigatórios ausentes (titulo, data-criacao, tags)",
+                "Violação de idioma — parágrafos em inglês quando deveria ser PT-BR",
+                "Stale — status: ativo/maduro mas data-atualizacao > 90 dias"
+              ]
+            },
+            {
+              "titulo": "Cadência sugerida",
+              "texto": "Review: 1x por semana, ~10 min. Lint: 1x por mês, ~5 min. Resto do tempo é puro ingest + query.",
+              "stat": {
+                "valor": "~15min",
+                "rotulo": "manutenção mensal total",
+                "obs": "4 reviews semanais (10min cada) + 1 lint (5min). 95% do seu tempo no vault é uso, não manutenção."
+              }
+            }
+          ],
+          "recap": [
+            "Review é semanal, processa o inbox com sua aprovação item a item",
+            "Lint é mensal, detecta 5 tipos de problema estrutural",
+            "~15min/mês de manutenção mantém um vault de 200+ páginas saudável"
+          ]
+        },
+        {
+          "id": 5,
+          "slug": "fb-diario-fb-raw-fb-help",
+          "title": "/fb-diario, /fb-raw, /fb-help — utilitários",
+          "eyebrow": "Operação · Aula 5 de 5",
+          "lead": "Os 3 comandos auxiliares que cobrem o resto do workflow: diário pessoal, listagem de raw/, e ajuda do vault.",
+          "objetivos": [
+            "Usar /fb-diario pra abrir/criar diário do dia",
+            "Usar /fb-raw pra ver o que tá em raw/ pendente",
+            "Usar /fb-help quando esquecer um comando"
+          ],
+          "topicos": [
+            {
+              "titulo": "/fb-diario",
+              "texto": "Abre ou cria diario/YYYY-MM-DD.md com template pronto. Primeira pessoa, livre, sem regras. É onde mora a sua voz.",
+              "exemplo": "Manhã: /fb-diario abre 2026-05-13.md com template (frontmatter + seções 'Como acordei', 'O que importa hoje', 'Notas do dia'). Você escreve em primeira pessoa — diferente do resto do vault (que é terceira pessoa neutra). É seu canal íntimo."
+            },
+            {
+              "titulo": "/fb-raw",
+              "texto": "Lista arquivos em raw/ mostrando quais já foram processados (têm página correspondente em wiki/fontes/) e quais estão pendentes de ingest.",
+              "bullets": [
+                "Marca verde ✓ — fonte já ingerida (existe em wiki/fontes/<slug>.md)",
+                "Marca laranja ⏳ — pendente (raw/ tem mas wiki/fontes/ não)",
+                "Útil pra saber o backlog de ingest acumulado",
+                "Dobradinha: /fb-raw → escolhe um pendente → /wiki-ingest"
+              ]
+            },
+            {
+              "titulo": "/fb-help",
+              "texto": "Guia completo: o que vai em cada pasta, o que faz cada comando, quando usar cada um. Bom marcar de favorito.",
+              "bullets": [
+                "Lista os 8 comandos com 1 frase cada",
+                "Mostra a árvore do vault explicada",
+                "Tem exemplos de workflows comuns (captura→review→ingest)",
+                "Sua primeira parada quando esquecer um comando"
+              ]
+            }
+          ],
+          "recap": [
+            "/fb-diario é seu canal pessoal — primeira pessoa, livre",
+            "/fb-raw mostra o backlog de ingests pendentes",
+            "/fb-help é o manual rápido — favorite ele"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Composto",
+      "subtitle": "Onde a curadoria vira sistema vivo",
+      "classes": [
+        {
+          "id": 1,
+          "slug": "camada-de-sintese",
+          "title": "A camada de síntese — o composto",
+          "eyebrow": "Composto · Aula 1 de 5",
+          "lead": "Síntese é o terceiro nível do vault: notas que combinam N páginas atômicas. Nascem das perguntas — não dos ingests. É onde o composto explode.",
+          "objetivos": [
+            "Entender os 3 níveis: raw, atômico, síntese",
+            "Ver exemplos reais de síntese cruzada",
+            "Saber quando promover uma /wiki-query a síntese"
+          ],
+          "topicos": [
+            {
+              "titulo": "Nível 1 · Raw",
+              "texto": "PDFs, transcrições, dumps. Imutável. Você só lê.",
+              "bullets": [
+                "Texto integral da fonte original",
+                "Sem edição — manter fidelidade absoluta",
+                "Base pro /wiki-ingest extrair entidades e conceitos",
+                "Pode ser deletado depois do ingest se ocupar muito espaço"
+              ]
+            },
+            {
+              "titulo": "Nível 2 · Páginas atômicas",
+              "texto": "Uma entidade ou conceito por arquivo. Curto, focado, com wikilinks. O Zettelkasten do vault.",
+              "bullets": [
+                "Tamanho ideal: 1-3 parágrafos por página",
+                "Cada página linka pelo menos 2 outras (cria a rede)",
+                "Atualizado a cada novo ingest que menciona o termo",
+                "Frase em terceira pessoa neutra — sem 'eu' ou 'nós'"
+              ]
+            },
+            {
+              "titulo": "Nível 3 · Síntese",
+              "texto": "Narrativa que cruza N páginas atômicas. Exemplo: 'evolução do roteamento em MoE' citando 4 papers diferentes que você ingeriu em meses diferentes.",
+              "exemplo": "Você fez /wiki-query 'como atenção evoluiu de RNN a Transformer a Mamba?'. A resposta cruzou [[rnn]], [[lstm]], [[attention]], [[transformer]], [[mamba]] — 5 páginas atômicas + 3 fontes. Arquivou em wiki/sintese/evolucao-atencao.md. 6 meses depois, /wiki-query 'modelos de sequência atual?' usa essa síntese como ponto de partida — composto recursivo."
+            }
+          ],
+          "recap": [
+            "3 níveis: raw (bruto) → atômico (destilado) → síntese (cruzado)",
+            "Síntese nasce da pergunta, não do ingest",
+            "Síntese arquivada alimenta sínteses futuras — efeito composto"
+          ]
+        },
+        {
+          "id": 2,
+          "slug": "match-semantico-sem-vector-db",
+          "title": "Match semântico sem vector DB",
+          "eyebrow": "Composto · Aula 2 de 5",
+          "lead": "O RAG depende de embeddings + similaridade de vetor. A LLM Wiki não. Ela faz match simbólico + contextual em 3 mecanismos sobrepostos.",
+          "objetivos": [
+            "Entender wikilinks como grafo de alcançabilidade",
+            "Usar aliases pra match exato",
+            "Ver a janela de contexto fazendo o trabalho do vector DB"
+          ],
+          "topicos": [
+            {
+              "titulo": "Wikilinks = grafo",
+              "texto": "O Claude lê wiki/index.md, segue [[links]] recursivamente, monta o subgrafo relevante. Match = alcançabilidade, não similaridade de cosseno.",
+              "bullets": [
+                "Início: lê wiki/index.md (mapa de páginas)",
+                "Identifica nós relevantes pela pergunta",
+                "Segue wikilinks de cada nó, profundidade 1-2",
+                "Carrega o subgrafo inteiro no contexto (não chunks)"
+              ]
+            },
+            {
+              "titulo": "Aliases no frontmatter",
+              "texto": "aliases: [Karpathy, AK, Andrej] → 'o que o AK falou?' → match exato → puxa andrej-karpathy.md. Não precisa de embedding.",
+              "exemplo": "Página andrej-karpathy.md declara aliases: [Karpathy, AK, Andrej]. Pergunta '/wiki-query o que o AK falou sobre tokenização?' → o Claude resolve 'AK' → andrej-karpathy.md → segue wikilinks → puxa também [[tokenizacao-bpe]] e [[gpt-4-tokenizer]]. Match preciso, zero ambiguidade."
+            },
+            {
+              "titulo": "Janela como vetor",
+              "texto": "Com 200k tokens, o LLM carrega o subgrafo inteiro. A 'busca semântica' acontece dentro da atenção do modelo. Sem pré-cálculo, sem top-K, sem perda de contexto.",
+              "comparacao": {
+                "esquerda": {
+                  "titulo": "RAG",
+                  "bullets": [
+                    "Pré-calcula embeddings",
+                    "Vector DB com chunks",
+                    "Retorna top-K (3-5 chunks)",
+                    "LLM vê só pedaços soltos"
+                  ]
+                },
+                "direita": {
+                  "titulo": "LLM Wiki",
+                  "bullets": [
+                    "Nada pré-calculado",
+                    "Navega o grafo na hora",
+                    "Carrega páginas inteiras",
+                    "LLM vê o contexto completo"
+                  ]
+                }
+              }
+            }
+          ],
+          "recap": [
+            "Match na LLM Wiki = alcançabilidade no grafo, não cosseno",
+            "Aliases dão match exato sem embedding",
+            "A janela de 200k tokens substitui o vector DB"
+          ]
+        },
+        {
+          "id": 3,
+          "slug": "rag-vs-llm-wiki",
+          "title": "RAG vs LLM Wiki — quando usar cada um",
+          "eyebrow": "Composto · Aula 3 de 5",
+          "lead": "As duas técnicas resolvem o mesmo problema (memória externa pro LLM) em escalas diferentes. Saber qual escolher economiza meses de engenharia.",
+          "objetivos": [
+            "Mapear força/fraqueza de cada abordagem",
+            "Decidir baseado em escala e número de usuários",
+            "Ver 2 cenários reais (mestrado em IA vs jurídico empresarial)"
+          ],
+          "topicos": [
+            {
+              "titulo": "LLM Wiki — escala pessoal",
+              "texto": "Dezenas a centenas de fontes curadas. Uma pessoa. Zero infra. Força: síntese cruzada, contexto completo. Fraqueza: não escala pra milhões.",
+              "bullets": [
+                "Escala: 10-300 fontes curadas (cabe em 200k tokens)",
+                "Quem mantém: uma pessoa (você)",
+                "Infra: arquivos .md no disco + LLM. Zero servidores.",
+                "Cenário ideal: aprendizado contínuo, pesquisa pessoal, escrita"
+              ]
+            },
+            {
+              "titulo": "RAG — escala empresarial",
+              "texto": "Milhares a milhões de docs. Múltiplos usuários simultâneos. Stack: embeddings + vector DB + retrieval. Força: escala, busca semântica em corpus enorme.",
+              "bullets": [
+                "Escala: 10k - 10M+ documentos",
+                "Quem mantém: equipe com infra dedicada",
+                "Stack: embeddings + Pinecone/Weaviate/pgvector + pipeline ETL",
+                "Cenário ideal: produto multi-tenant, suporte, busca jurídica"
+              ]
+            },
+            {
+              "titulo": "Regra prática",
+              "texto": "Cabe em 200k tokens de contexto curado (~300 páginas)? LLM Wiki. Não cabe ou tem múltiplos usuários simultâneos? RAG. Muitas empresas usam os dois — RAG na base, LLM Wiki como síntese.",
+              "comparacao": {
+                "esquerda": {
+                  "titulo": "Cenário · Mestrado em IA",
+                  "bullets": [
+                    "50 papers/semestre",
+                    "1 usuário (o aluno)",
+                    "Síntese cruzada essencial",
+                    "→ LLM Wiki vence"
+                  ]
+                },
+                "direita": {
+                  "titulo": "Cenário · Time jurídico",
+                  "bullets": [
+                    "50.000 contratos",
+                    "20 advogados simultâneos",
+                    "Citação rastreável obrigatória",
+                    "→ RAG vence"
+                  ]
+                }
+              }
+            }
+          ],
+          "recap": [
+            "LLM Wiki = escala pessoal, zero infra, síntese poderosa",
+            "RAG = escala empresarial, infra real, busca em massa",
+            "Híbrido funciona: RAG na base, LLM Wiki na síntese — top empresas fazem"
+          ]
+        },
+        {
+          "id": 4,
+          "slug": "grafo-visualizacao",
+          "title": "Grafo: vendo seu próprio pensamento",
+          "eyebrow": "Composto · Aula 4 de 5",
+          "lead": "Cada nota é um nó. Cada wikilink é uma aresta. Abre o Graph View no Obsidian (Cmd+G) e você vê seu cérebro inteiro como uma rede viva.",
+          "objetivos": [
+            "Abrir o Graph View no Obsidian",
+            "Entender hubs, clusters, pontes, órfãos",
+            "Usar o grafo pra detectar lacunas no seu conhecimento"
+          ],
+          "topicos": [
+            {
+              "titulo": "Hubs",
+              "texto": "Nós grandes e centrais. São seus temas dominantes — o que você mais estudou e mais conectou. Revelam suas obsessões.",
+              "exemplo": "Depois de 3 meses, abre o grafo. Vê 3 hubs: [[transformers]] com 28 conexões, [[claude]] com 22, [[karpathy]] com 19. Esses são seus eixos. Tudo que você ingere gravita pra um desses três — e a clareza disso vale ouro pra direcionar próximos estudos."
+            },
+            {
+              "titulo": "Clusters",
+              "texto": "Grupos densos viram suas áreas de expertise. A 'rede de Zettelkasten' emerge sozinha, sem você planejar.",
+              "bullets": [
+                "Cluster denso = você tem expertise real ali",
+                "Cluster pequeno e conectado = área em formação",
+                "Sem clusters = vault ainda imaturo, capture mais",
+                "Cluster isolado = nicho que você precisa decidir se quer aprofundar"
+              ]
+            },
+            {
+              "titulo": "Pontes e órfãos",
+              "texto": "Pontes (nós que conectam clusters distantes) = suas ideias mais valiosas. Órfãos (nós isolados) = notas sem conexão, sinal pra revisar ou arquivar.",
+              "comparacao": {
+                "esquerda": {
+                  "titulo": "Pontes — manter e cultivar",
+                  "bullets": [
+                    "Nó com 1 link pra cluster A e 1 pra cluster B",
+                    "Geralmente conceitos transversais",
+                    "Fonte de insights cross-domain",
+                    "Vale fazer /wiki-query a partir delas"
+                  ]
+                },
+                "direita": {
+                  "titulo": "Órfãos — revisar ou arquivar",
+                  "bullets": [
+                    "0 inbound, 0 outbound",
+                    "Indício de tema sem profundidade ainda",
+                    "Captura solta que não rendeu",
+                    "/wiki-lint detecta e lista"
+                  ]
+                }
+              }
+            }
+          ],
+          "recap": [
+            "Grafo é o autodiagnóstico do seu cérebro",
+            "Hubs = obsessões; clusters = expertise; pontes = insights",
+            "Órfãos sinalizam onde aprofundar ou arquivar"
+          ]
+        },
+        {
+          "id": 5,
+          "slug": "workflows-avancados-30-dias",
+          "title": "Workflows avançados — 30 dias e além",
+          "eyebrow": "Composto · Aula 5 de 5",
+          "lead": "Você instalou, capturou, ingeriu, perguntou. Agora: como manter por 30 dias, 6 meses, 2 anos. Cadência, dobradinhas, automações.",
+          "objetivos": [
+            "Definir cadência mínima sustentável",
+            "Combinar comandos em workflows produtivos",
+            "Saber quando expandir e quando podar"
+          ],
+          "topicos": [
+            {
+              "titulo": "Cadência mínima",
+              "texto": "Captura: diária (5s por item). Ingest: 1-2x por semana. Query: sempre que tiver dúvida. Review: semanal. Lint: mensal.",
+              "stat": {
+                "valor": "~30min",
+                "rotulo": "investimento semanal médio",
+                "obs": "5min capturando ao longo da semana + 15min ingest (1-2 fontes) + 10min review. Query é tempo ganho, não gasto."
+              }
+            },
+            {
+              "titulo": "Dobradinhas úteis",
+              "texto": "/capturar paper.pdf → /wiki-ingest raw/arquivos/<slug>.md. Capture-then-ingest em 2 comandos. Workflow padrão pra papers e ebooks.",
+              "bullets": [
+                "Captura→Ingest — pra fontes que você sabe que vai ingerir",
+                "Query→Síntese — depois de uma /wiki-query boa, arquive em wiki/sintese/",
+                "Review→Ingest — sábado: /wiki-review apaga o backlog, decide o que ingerir",
+                "Lint→Arquivar — mensalmente, /wiki-lint detecta stale, você move pra 05-arquivo/"
+              ]
+            },
+            {
+              "titulo": "Quando podar",
+              "texto": "Após 6 meses, rode /wiki-lint e arquive (não delete) páginas stale com status: arquivado. Move pra 05-arquivo/. O grafo limpa, a velocidade volta.",
+              "bullets": [
+                "Stale (data-atualizacao > 90d) + status ativo → considere arquivar",
+                "Órfão sem inbound nem outbound → arquivar ou refazer",
+                "Tema que você abandonou → mover bloco inteiro pra 05-arquivo/",
+                "Nunca delete — arquivamento é reversível, deleção não"
+              ]
+            }
+          ],
+          "recap": [
+            "~30min/semana sustentam um vault saudável",
+            "Dobradinhas (captura→ingest, query→síntese) automatizam o fluxo",
+            "Podar = arquivar, nunca deletar — reversibilidade é parte do design"
+          ]
+        }
+      ]
+    }
+  ]
+}
